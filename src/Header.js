@@ -174,7 +174,7 @@ const styles = {
   headerWrapper: { position: 'relative', zIndex: 10 },
   hoverZone: { position: 'relative', zIndex: 10 },
   header: {
-    backgroundColor: '#002244', height: '80px', display: 'flex',
+    backgroundColor: '#002244', height: '10vh', display: 'flex',
     justifyContent: 'space-between', alignItems: 'center', padding: '0 20px'
   },
   navSection: { flex: '2', display: 'flex', justifyContent: 'center' },
@@ -189,13 +189,14 @@ const styles = {
     fontWeight: 'bold', cursor: 'pointer', transition: 'text-shadow 0.3s ease'
   },
   dropdownContainer: {
-    position: 'absolute', top: '80px', left: '0', width: '100%',
+    position: 'absolute', top: '10vh', left: 0, right: 0,
     backgroundColor: 'rgba(255,255,255,0.92)', color: '#000', display: 'flex',
-    justifyContent: 'flex-start', padding: '20px 0', paddingLeft: '835px',
-    borderTop: '2px solid #aaa', zIndex: 100
+    justifyContent: 'center', padding: '20px 0',
+    borderTop: '2px solid #aaa', zIndex: 100,
+    width: '100%', maxWidth: '100vw', overflowX: 'auto', height: '20vh'
   },
   dropdownColumn: {
-    display: 'flex', flexDirection: 'column', gap: '10px', width: '120px',
+    display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '120px',
     alignItems: 'flex-start', boxSizing: 'border-box', padding: '0 20px',
     borderRight: '1px solid #ddd'
   },

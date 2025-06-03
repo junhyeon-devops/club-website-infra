@@ -63,7 +63,7 @@ const ImageSlider = () => {
               textShadow: '0 2px 6px rgba(0,0,0,0.8)',
             }}
           >
-            SCHOOL OF COMPUTER SCIENCE<br />ACADEMIC CLUB <span style={styles.pdaText}><span style={styles.redDot}>.</span></span>
+            SCHOOL OF COMPUTER SCIENCE<br />ACADEMIC CLUB <span style={styles.pdaText}><span style={styles.yelloDot}>.</span></span>
           </div>
         </div>
         <div
@@ -117,9 +117,10 @@ const styles = {
   pdaText: {
     fontWeight: 'bold',
   },
-  Dot: {
-    color: 'blue',
-    fontSize: '40px',
+  yelloDot: {
+    fontFamily: `'Pretendard', 'Noto Sans KR', sans-serif`,
+    color: '#F9DC5C',
+    fontSize: '75px',
   },
   subText: {
     marginTop: '10px',

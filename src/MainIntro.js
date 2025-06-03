@@ -37,7 +37,7 @@ const MainIntro = () => {
           ...(introVisible && styles.fadeTextVisible),
         }}
       >
-        <h2 style={styles.heading}>동아리 소개</h2>
+        <h2 style={styles.heading}>&nbsp;&nbsp;동아리 소개 <span style={styles.yelloDot}>.</span></h2>
         <div style={styles.line} />
         <p style={styles.description}>
           PDA는 충북대학교 소프트웨어학부 소속 학술 동아리로, 개발과 디자인, 기획에 관심 있는 학생들이 모여
@@ -97,7 +97,7 @@ const MainIntro = () => {
           ...(activityVisible && styles.fadeTextVisible),
         }}
       >
-        <h2 style={styles.heading}>동아리 활동</h2>
+        <h2 style={styles.heading}>&nbsp;&nbsp;동아리 활동 <span style={styles.yelloDot}>.</span></h2>
         <div style={styles.line} />
         <div style={styles.activitiesGrid}>
           {[
@@ -209,6 +209,11 @@ const styles = {
   fadeTextVisible: {
     opacity: 1,
     transform: 'translateY(0)',
+  },
+  yelloDot: {
+    fontFamily: `'Pretendard', 'Noto Sans KR', sans-serif`,
+    color: '#F9DC5C',
+    fontSize: '40px',
   },
 };
 

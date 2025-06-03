@@ -181,7 +181,7 @@ const styles = {
   },
   navSection: { paddingRight: '17vw', display: 'flex', justifyContent: 'center' },
   invisibleBox: {
-    height: '80px', width: '120px', display: 'flex', alignItems: 'center',
+    height: '10vh', width: '120px', display: 'flex', alignItems: 'center',
     justifyContent: 'center', backgroundColor: 'transparent', boxSizing: 'border-box', cursor: 'pointer',
      borderBottom: '3px solid transparent', // ✅ 기본 투명 border
     transition: 'border-bottom 0.3s ease', // ✅ 부드러운 전환
@@ -197,12 +197,12 @@ const styles = {
     backgroundColor: 'rgba(255,255,255,0.92)', color: '#000', display: 'flex',
     justifyContent: 'center', padding: '20px 0',
     borderTop: '2px solid #aaa', zIndex: 100,
-    width: '100%', maxWidth: '100vw', overflowX: 'auto', height: '10vh'
+    width: '100%', maxWidth: '100vw', overflowX: 'auto', height: '13vh'
   },
   dropdownColumn: {
     display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '120px',
     alignItems: 'flex-start', boxSizing: 'border-box', padding: '0 20px',
-    borderRight: '1px solid #ddd'
+    borderRight: '1px solid #ddd',
   },
   dropdownText: {
     color: '#000', textDecoration: 'none', fontSize: '14px', transition: 'text-shadow 0.3s ease'
@@ -214,20 +214,20 @@ const styles = {
     textShadow: '0 0 3px #bbb, 0 0 6px #bbb'
   },
   mobileDrawer: {
-    position: 'fixed', top: '80px', left: 0, width: '250px', height: '100vh',
+    position: 'fixed', top: '10vh', right: 0, width: '250px', height: '100vh',
     backgroundColor: 'rgba(255,255,255,0.95)', display: 'flex', flexDirection: 'column',
     padding: '20px', boxShadow: '2px 0 5px rgba(0,0,0,0.2)', zIndex: 100
   },
   logoSection: { minWidth: '200px' },
   logoLink: { textDecoration: 'none', color: 'inherit' },
   logoContainer: { display: 'flex', alignItems: 'center', gap: '12px' },
-  logoImage: { height: '60px' },
+  logoImage: { height: '7.5vh' },
   logoTextGroup: {
     display: 'flex', flexDirection: 'column', justifyContent: 'center',
     lineHeight: '1.2', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)'
   },
-  clubNameKo: { fontSize: '20px', fontWeight: 'bold', color: '#FFFFFF' },
-  clubNameEn: { fontSize: '11px', color: '#FFFFFF', fontWeight: 'normal', marginTop: '4px' },
+  clubNameKo: { fontSize: '2.5vh', fontWeight: 'bold', color: '#FFFFFF' },
+  clubNameEn: { fontSize: '1.3vh', color: '#FFFFFF', fontWeight: 'normal', marginTop: '4px' },
   loginLink: { textDecoration: 'none', color: '#FFFFFF', fontSize: '14px' },
   loginSection: { display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '20px' },
   hamburger: {

@@ -171,13 +171,13 @@ const Header = () => {
 };
 
 const styles = {
-  headerWrapper: { position: 'relative', zIndex: 10 },
+  headerWrapper: { position: 'relative', zIndex: 10, height:'10vh' },
   hoverZone: { position: 'relative', zIndex: 10 },
   header: {
     backgroundColor: '#002244', height: '10vh', display: 'flex',
     justifyContent: 'space-between', alignItems: 'center', padding: '0 20px'
   },
-  navSection: { flex: '2', display: 'flex', justifyContent: 'center' },
+  navSection: { paddingRight: '17vw', display: 'flex', justifyContent: 'center' },
   invisibleBox: {
     height: '80px', width: '120px', display: 'flex', alignItems: 'center',
     justifyContent: 'center', backgroundColor: 'transparent', boxSizing: 'border-box', cursor: 'pointer',
@@ -193,7 +193,7 @@ const styles = {
     backgroundColor: 'rgba(255,255,255,0.92)', color: '#000', display: 'flex',
     justifyContent: 'center', padding: '20px 0',
     borderTop: '2px solid #aaa', zIndex: 100,
-    width: '100%', maxWidth: '100vw', overflowX: 'auto', height: '20vh'
+    width: '100%', maxWidth: '100vw', overflowX: 'auto', height: '10vh'
   },
   dropdownColumn: {
     display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '120px',
@@ -231,5 +231,6 @@ const styles = {
     cursor: 'pointer', marginLeft: '10px'
   },
 };
+
 
 export default Header;

@@ -84,7 +84,7 @@ const styles = {
   wrapper: {
     position: 'relative',
     width: '100%',
-    height: '92vh',
+    height: '90vh',
     overflow: 'hidden',
   },
   swiper: {

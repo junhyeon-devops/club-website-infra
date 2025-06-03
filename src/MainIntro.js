@@ -150,7 +150,7 @@ const styles = {
   cardsRow: {
     display: 'flex',
     justifyContent: 'space-between',
-    gap: '20px',
+    gap: '5vw',
     flexWrap: 'nowrap',
   },
   card: {

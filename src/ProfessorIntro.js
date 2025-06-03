@@ -10,9 +10,9 @@ function ProfessorIntro() {
           maxWidth: '1000px',
           margin: '0 auto',
           padding: '2rem',
-          backgroundColor: 'white',   // ✅ 배경 하얗게
-          color: '#111111',           // ✅ 글자 어둡게
-          minHeight: '100vh',         // 꽉 차게
+          backgroundColor: 'white',
+          color: '#111111',
+          minHeight: '100vh',
         }}
       >
         <h4

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaSignInAlt } from 'react-icons/fa'; // 로그인 아이콘
+import { FaSignInAlt } from 'react-icons/fa';
 
 const navItems = [
   {
@@ -118,7 +118,7 @@ const Header = () => {
   style={{
     ...styles.loginLink,
     textDecoration: isLoginHover ? 'underline' : 'none',
-    textUnderlineOffset: '4px', // ⬅ 밑줄 약간 띄우기
+    textUnderlineOffset: '4px',
   }}
   onMouseEnter={() => setIsLoginHover(true)}
   onMouseLeave={() => setIsLoginHover(false)}
@@ -173,7 +173,6 @@ const Header = () => {
           </div>
         )}
 
-        {/* ✅ 햄버거 메뉴 오픈 시 화면 어두워지는 오버레이 */}
         {isMobile && (
   <>
     {isMenuOpen && <div style={styles.overlay} onClick={handleNavToggle} />}
@@ -188,7 +187,6 @@ const Header = () => {
         <img src="/loginlogo.png" alt="로고" style={styles.mobileLogoImage} />
       </div>
 
-      {/* ✅ 상위 메뉴 및 드롭다운 */}
       {navItems.map((item, index) => {
         const isActive = activeDropdownIndex === index;
         return (
@@ -303,8 +301,8 @@ const styles = {
     position: 'fixed', top: 0, right: 0, width: '50vw', height: '100vh',
     backgroundColor: '#e9ecef', display: 'flex', flexDirection: 'column',
     padding: '0px', zIndex: 1000, boxShadow: '-2px 0 5px rgba(0,0,0,0.2)',
-    transition: 'transform 0.2s ease-in-out', // ✅ 부드러운 전환
-    transform: 'translateX(100%)',            // ✅ 기본은 오른쪽 밖에 있음
+    transition: 'transform 0.2s ease-in-out',
+    transform: 'translateX(100%)',
   },
   mobileHeader: {
     display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px', padding:'10px'

@@ -1,5 +1,3 @@
-/* Login.css */
-
 body {
     margin: 0;
     background-color: #0a0a0a;
@@ -45,9 +43,7 @@ body {
 .login-box input:focus {
     outline: none;
     border: 1px solid #127eea;
-    /* 원하는 색상 */
     box-shadow: 0 0 0 3px rgba(18, 126, 234, 0.3);
-    /* glow 효과 optional */
 }
 
 .login-box input::placeholder {

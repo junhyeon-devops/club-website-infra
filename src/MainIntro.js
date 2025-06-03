@@ -28,7 +28,6 @@ const MainIntro = () => {
 
   return (
     <section style={styles.wrapper}>
-      {/* 동아리 소개 */}
       <div
         ref={introRef}
         style={{
@@ -45,7 +44,6 @@ const MainIntro = () => {
         </p>
       </div>
 
-      {/* "Passion, Development, Aspiration" */}
       <div
         ref={sloganRef}
         style={{
@@ -60,7 +58,6 @@ const MainIntro = () => {
         <div style={styles.line} />
       </div>
 
-      {/* PDA 의미 */}
       <div
         ref={meaningRef}
         style={{
@@ -88,7 +85,6 @@ const MainIntro = () => {
         </div>
       </div>
 
-      {/* 동아리 활동 */}
       <div
         ref={activityRef}
         style={{

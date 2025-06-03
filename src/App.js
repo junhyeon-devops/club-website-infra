@@ -15,7 +15,6 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        {/* 메인 화면 */}
         <Route
           path="/"
           element={
@@ -24,20 +23,15 @@ function App() {
               <MainIntro />
             </>
           }
-        />
-
-        {/* 로그인 */}
+        />        
         <Route path="/login" element={<Login />} />
 
-        {/* 소개 - 교수님 */}
         <Route path="/intro/professors" element={<ProfessorIntro />} />
-
-        {/* 소개 - 동아리 연혁 */}
+        
         <Route path="/intro/clubintro" element={<ClubIntro />} />
 
         <Route path="/intro/staff" element={<Staff />} />
-        {/* <Route path="/schedule/club" element={<ClubSchedule />} /> */}
-        {/* <Route path="/community/recruit" element={<RecruitBoard />} /> */}
+
       </Routes>
       <Footer />
     </Router>

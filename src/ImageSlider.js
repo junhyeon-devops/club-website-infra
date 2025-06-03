@@ -44,7 +44,6 @@ const ImageSlider = () => {
         ))}
       </Swiper>
 
-      {/* 텍스트 오버레이 */}
       <div style={styles.overlay}>
         <div style={{ fontSize: '60px', fontWeight: 'bold', lineHeight: '1.3', textAlign: 'center' }}>
           <div

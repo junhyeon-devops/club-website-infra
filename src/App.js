@@ -7,7 +7,7 @@ import MainIntro from './MainIntro';
 import Footer from './Footer';
 import Login from './Login';
 import ProfessorIntro from './ProfessorIntro';
-import ClubIntro from './ClubIntro'; // 동아리 연혁 페이지
+import ClubIntro from './ClubIntro';
 import Staff from './Staff';
 
 function App() {

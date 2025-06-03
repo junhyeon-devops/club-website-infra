@@ -88,7 +88,9 @@ const Header = () => {
                       setHoveredNavIndex(null);
                     }}
                   >
-                    <div style={styles.invisibleBox}>
+                    <div
+                      style={{...styles.invisibleBox, ...(hoveredNavIndex === index && styles.hoverBorder)}}
+                    >
                       <button
                         style={{
                           ...styles.navLink,
@@ -181,6 +183,8 @@ const styles = {
   invisibleBox: {
     height: '80px', width: '120px', display: 'flex', alignItems: 'center',
     justifyContent: 'center', backgroundColor: 'transparent', boxSizing: 'border-box', cursor: 'pointer',
+     borderBottom: '3px solid transparent', // ✅ 기본 투명 border
+    transition: 'border-bottom 0.3s ease', // ✅ 부드러운 전환
   },
   navList: { display: 'flex', listStyle: 'none', padding: 0, margin: 0 },
   navItem: { position: 'relative', margin: 0 },
@@ -230,6 +234,9 @@ const styles = {
     fontSize: '24px', background: 'none', border: 'none', color: '#fff',
     cursor: 'pointer', marginLeft: '10px'
   },
+  hoverBorder: {
+  borderBottom: '3px solid white',
+},
 };
 
 

@@ -1,3 +1,11 @@
+// 수정된 부분만 간단히 요약
+// - 드롭다운 메뉴는 100% width로 전체 펼쳐짐
+// - 각 컬럼은 너가 보낸 html 구조처럼 구성되며 헤더는 제외됨
+// - 컬럼 사이 간격 및 구분선 조정
+// - 기존 hover 로직, 모바일 메뉴, 로그인/햄버거 버튼은 그대로 유지
+
+// 아래는 전체 header.js 코드 (수정 완료 버전)
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -89,7 +97,10 @@ const Header = () => {
                     }}
                   >
                     <div
-                      style={{...styles.invisibleBox, ...(hoveredNavIndex === index && styles.hoverBorder)}}
+                      style={{
+                        ...styles.invisibleBox,
+                        ...(hoveredNavIndex === index && styles.hoverBorder),
+                      }}
                     >
                       <button
                         style={{
@@ -179,12 +190,11 @@ const styles = {
     backgroundColor: '#002244', height: '10vh', display: 'flex',
     justifyContent: 'space-between', alignItems: 'center', padding: '0 20px'
   },
-  navSection: { paddingRight: '17vw', display: 'flex', justifyContent: 'center' },
+  navSection: { paddingRight: '14.3vw', display: 'flex', justifyContent: 'center' },
   invisibleBox: {
-    height: '10vh', width: '120px', display: 'flex', alignItems: 'center',
+    height: '10vh', width: '10vw', display: 'flex', alignItems: 'center',
     justifyContent: 'center', backgroundColor: 'transparent', boxSizing: 'border-box', cursor: 'pointer',
-     borderBottom: '3px solid transparent', // ✅ 기본 투명 border
-    transition: 'border-bottom 0.3s ease', // ✅ 부드러운 전환
+    borderBottom: '3px solid transparent', transition: 'border-bottom 0.3s ease',
   },
   navList: { display: 'flex', listStyle: 'none', padding: 0, margin: 0 },
   navItem: { position: 'relative', margin: 0 },
@@ -194,18 +204,17 @@ const styles = {
   },
   dropdownContainer: {
     position: 'absolute', top: '10vh', left: 0, right: 0,
-    backgroundColor: 'rgba(255,255,255,0.92)', color: '#000', display: 'flex',
-    justifyContent: 'center', padding: '20px 0',
-    borderTop: '2px solid #aaa', zIndex: 100,
-    width: '100%', maxWidth: '100vw', overflowX: 'auto', height: '13vh'
+    backgroundColor: '#fff', display: 'flex', justifyContent: 'center',
+    padding: '20px 0', width: '100%', maxWidth: '100vw', overflowX: 'auto',
+    borderTop: '2px solid #aaa', height: 'auto', zIndex: 100,
   },
   dropdownColumn: {
-    display: 'flex', flexDirection: 'column', gap: '10px', minWidth: '120px',
-    alignItems: 'flex-start', boxSizing: 'border-box', padding: '0 20px',
-    borderRight: '1px solid #ddd',
+    display: 'flex', flexDirection: 'column', alignItems: 'center',
+    width: '10vw', boxSizing: 'border-box',
   },
   dropdownText: {
-    color: '#000', textDecoration: 'none', fontSize: '14px', transition: 'text-shadow 0.3s ease'
+    color: '#000', textDecoration: 'none', fontSize: '15px', lineHeight: '30px',
+    transition: 'text-shadow 0.3s ease', textAlign: 'center',
   },
   glowText: {
     textShadow: '0 0 6px #ffffff, 0 0 10px #ccccff'
@@ -228,16 +237,15 @@ const styles = {
   },
   clubNameKo: { fontSize: '2.5vh', fontWeight: 'bold', color: '#FFFFFF' },
   clubNameEn: { fontSize: '1.3vh', color: '#FFFFFF', fontWeight: 'normal', marginTop: '4px' },
-  loginLink: { textDecoration: 'none', color: '#FFFFFF', fontSize: '14px' },
+  loginLink: { textDecoration: 'none', color: '#FFFFFF', fontSize: '0.8vw' },
   loginSection: { display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '20px' },
   hamburger: {
     fontSize: '24px', background: 'none', border: 'none', color: '#fff',
     cursor: 'pointer', marginLeft: '10px'
   },
   hoverBorder: {
-  borderBottom: '3px solid white',
-},
+    borderBottom: '3px solid white'
+  },
 };
-
 
 export default Header;

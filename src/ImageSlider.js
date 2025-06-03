@@ -97,6 +97,7 @@ const styles = {
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     position: 'relative',
+    filter: 'brightness(0.6) blur(2px)',
   },
   overlay: {
     position: 'absolute',

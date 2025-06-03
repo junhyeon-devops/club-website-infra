@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom'; // 🔹 useLocation 추가
+import { Link, useLocation } from 'react-router-dom';
 
 const navItems = [
     {
@@ -34,103 +34,173 @@ const navItems = [
 ];
 
 const Header = () => {
-    const [openMenu, setOpenMenu] = useState(null);
+    const [isHovering, setIsHovering] = useState(false);
+    const [hoveredItem, setHoveredItem] = useState(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navRef = useRef();
-    const location = useLocation(); // 🔹 현재 경로 감지
+    const location = useLocation();
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-    const handleClick = (label) => {
-        setOpenMenu((prev) => (prev === label ? null : label));
-    };
-
-    // 🔸 바깥 클릭 시 드롭다운 닫기
     useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (navRef.current && !navRef.current.contains(e.target)) {
-                setOpenMenu(null);
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
+        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // 🔸 경로 변경 시 드롭다운 닫기
     useEffect(() => {
-        setOpenMenu(null);
+        setIsHovering(false);
+        setIsMenuOpen(false);
     }, [location]);
 
+    const handleNavToggle = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
-        <header style={styles.header}>
-            <div style={styles.logoSection}>
-                <Link to="/" style={styles.logoLink}>
-                    <div style={styles.logoContainer}>
-                        <img src="/logo.png" alt="로고" style={styles.logoImage} />
-                        <div style={styles.logoTextGroup}>
-                            <div style={styles.clubNameKo}>PDA</div>
-                            <div style={styles.clubNameEn}>Chungbuk National University SW Dept.</div>
-                        </div>
-                    </div>
-                </Link>
-            </div>
-
-            <nav style={styles.navSection} ref={navRef}>
-                <ul style={styles.navList}>
-                    {navItems.map((item) => (
-                        <li key={item.label} style={styles.navItem}>
-                            <div style={{ position: 'relative' }}>
-                                <a
-                                    href="#"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        handleClick(item.label);
-                                    }}
-                                    style={{
-                                        ...styles.navLink,
-                                        color: openMenu === item.label ? '#004477' : '#ffffff',
-                                    }}
-                                >
-                                    {item.label}
-                                </a>
-                                {openMenu === item.label && (
-                                    <ul style={styles.dropdownMenu}>
-                                        {item.submenu.map((subItem) => (
-                                            <li key={subItem.text} style={styles.dropdownItem}>
-                                                <Link to={subItem.link} style={styles.dropdownText}>
-                                                    {subItem.text}
-                                                </Link>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                )}
+        <header style={styles.headerWrapper}>
+            <div
+                style={styles.hoverZone}
+                onMouseEnter={() => !isMobile && setIsHovering(true)}
+                onMouseLeave={() => !isMobile && setIsHovering(false)}
+            >
+                <div style={styles.header}>
+                    <div style={styles.logoSection}>
+                        <Link to="/" style={styles.logoLink}>
+                            <div style={styles.logoContainer}>
+                                <img src="/logo.png" alt="로고" style={styles.logoImage} />
+                                <div style={styles.logoTextGroup}>
+                                    <div style={styles.clubNameKo}>PDA</div>
+                                    <div style={styles.clubNameEn}>Chungbuk National University SW Dept.</div>
+                                </div>
                             </div>
-                        </li>
-                    ))}
-                </ul>
-            </nav>
+                        </Link>
+                    </div>
 
-            <div style={styles.loginSection}>
-                <Link to="/login" style={styles.loginLink}>로그인</Link>
+                    {!isMobile && (
+                        <nav style={styles.navSection}>
+                            <ul style={styles.navList}>
+                                {navItems.map((item) => (
+                                    <li key={item.label} style={styles.navItem}>
+                                        <button
+                                            style={styles.navLink}
+                                            onMouseEnter={() => setHoveredItem(item.label)}
+                                            onMouseLeave={() => setHoveredItem(null)}
+                                        >
+                                            {item.label}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    )}
+
+                    <div style={styles.loginSection}>
+                        <Link
+                            to="/login"
+                            onMouseEnter={() => setHoveredItem('로그인')}
+                            onMouseLeave={() => setHoveredItem(null)}
+                            style={{
+                                ...styles.loginLink,
+                                borderBottom:
+                                    hoveredItem === '로그인' ? '2px solid white' : '2px solid transparent',
+                            }}
+                        >
+                            로그인
+                        </Link>
+                        <button
+                            style={{ ...styles.hamburger, display: isMobile ? 'block' : 'none' }}
+                            onClick={handleNavToggle}
+                        >
+                            ☰
+                        </button>
+                    </div>
+                </div>
+
+                {!isMobile && isHovering && (
+                    <div style={styles.dropdownContainer}>
+                        {navItems.map((item) => (
+                            <div key={item.label} style={styles.dropdownColumn}>
+                                <div style={styles.dropdownTitle}>{item.label}</div>
+                                {item.submenu.map((subItem) => (
+                                    <Link key={subItem.text} to={subItem.link} style={styles.dropdownText}>
+                                        {subItem.text}
+                                    </Link>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                )}
+
+                {isMobile && isMenuOpen && (
+                    <div style={styles.mobileDrawer}>
+                        {navItems.map((item) => (
+                            <div key={item.label} style={styles.dropdownColumn}>
+                                <div style={styles.dropdownTitle}>{item.label}</div>
+                                {item.submenu.map((subItem) => (
+                                    <Link key={subItem.text} to={subItem.link} style={styles.dropdownText}>
+                                        {subItem.text}
+                                    </Link>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </header>
     );
 };
 
 const styles = {
+    headerWrapper: {
+        position: 'relative',
+        zIndex: 10,
+    },
+    hoverZone: {
+        position: 'relative',
+        zIndex: 10,
+    },
     header: {
         backgroundColor: '#002244',
         height: '80px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '0 40px',
-        borderBottom: '1px solid #ddd',
+        padding: '0 20px',
+    },
+    navSection: {
+        flex: '2',
+        display: 'flex',
+        justifyContent: 'center',
+    },
+    navList: {
+        display: 'flex',
+        listStyle: 'none',
+        gap: '30px',
+        padding: 0,
+        margin: 0,
+    },
+    navItem: {
         position: 'relative',
-        zIndex: 10,
+    },
+    navLink: {
+        background: 'none',
+        border: 'none',
+        color: '#FFFFFF',
+        fontSize: '16px',
+        fontWeight: 'bold',
+        cursor: 'pointer',
+        padding: '10px 5px',
+    },
+    hamburger: {
+        fontSize: '24px',
+        background: 'none',
+        border: 'none',
+        color: '#fff',
+        cursor: 'pointer',
+        marginLeft: '10px',
     },
     logoSection: {
-        flex: '1',
-        minWidth: '280px',
+        minWidth: '200px',
     },
     logoLink: {
         textDecoration: 'none',
@@ -162,64 +232,59 @@ const styles = {
         fontWeight: 'normal',
         marginTop: '4px',
     },
-    navSection: {
-        flex: '2.5',
-        display: 'flex',
-        justifyContent: 'center',
-    },
-    navList: {
-        display: 'flex',
-        listStyle: 'none',
-        gap: '30px',
-        padding: 0,
-        margin: 0,
-        position: 'relative',
-    },
-    navItem: {
-        position: 'relative',
-    },
-    navLink: {
-        textDecoration: 'none',
-        color: '#FFFFFF',
-        fontSize: '16px',
-        fontWeight: 'bold',
-        transition: 'color 0.3s',
-    },
-    dropdownMenu: {
-        position: 'absolute',
-        top: '100%',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        backgroundColor: 'white',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        borderRadius: '4px',
-        padding: 0,
-        marginTop: '8px',
-        zIndex: 100,
-        listStyle: 'none',
-        display: 'flex',
-        flexDirection: 'column',
-    },
-    dropdownItem: {
-        padding: '10px 20px',
-        fontSize: '14px',
-        textAlign: 'center',
-    },
-    dropdownText: {
-        display: 'block',
-        whiteSpace: 'nowrap',
-        color: '#333',
-        textDecoration: 'none',
-    },
-    loginSection: {
-        flex: '1',
-        display: 'flex',
-        justifyContent: 'flex-end',
-    },
     loginLink: {
         textDecoration: 'none',
         color: '#FFFFFF',
         fontSize: '14px',
+    },
+    loginSection: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        gap: '20px'
+    },
+    dropdownContainer: {
+        position: 'absolute',
+        top: '80px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '100vw',
+        backgroundColor: 'rgba(255,255,255,0.75)',
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '80px',
+        padding: '30px 80px',
+        borderTop: '1px solid #ccc',
+    },
+    dropdownColumn: {
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '10px',
+        minWidth: '150px',
+    },
+    dropdownTitle: {
+        fontWeight: 'bold',
+        marginBottom: '6px',
+        fontSize: '15px',
+        color: '#333',
+    },
+    dropdownText: {
+        color: '#333',
+        textDecoration: 'none',
+        fontSize: '14px',
+    },
+    mobileDrawer: {
+        position: 'fixed',
+        top: '80px',
+        left: 0,
+        width: '250px',
+        height: '100vh',
+        backgroundColor: 'rgba(255,255,255,0.95)',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '20px',
+        boxShadow: '2px 0 5px rgba(0,0,0,0.2)',
+        zIndex: 100,
     },
 };
 

@@ -35,7 +35,8 @@ const navItems = [
 
 const Header = () => {
   const [isHovering, setIsHovering] = useState(false);
-  const [hoveredItem, setHoveredItem] = useState(null);
+  const [hoveredNavIndex, setHoveredNavIndex] = useState(null);
+  const [hoveredDropdownIndex, setHoveredDropdownIndex] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   const location = useLocation();
@@ -73,14 +74,30 @@ const Header = () => {
 
           {!isMobile && (
             <nav style={styles.navSection}>
-              <ul
-                style={styles.navList}
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
-              >
-                {navItems.map((item) => (
-                  <li key={item.label} style={styles.navItem}>
-                    <button style={styles.navLink}>{item.label}</button>
+              <ul style={styles.navList}>
+                {navItems.map((item, index) => (
+                  <li
+                    key={item.label}
+                    style={styles.navItem}
+                    onMouseEnter={() => {
+                      setIsHovering(true);
+                      setHoveredNavIndex(index);
+                    }}
+                    onMouseLeave={() => {
+                      setIsHovering(false);
+                      setHoveredNavIndex(null);
+                    }}
+                  >
+                    <div style={styles.invisibleBox}>
+                      <button
+                        style={{
+                          ...styles.navLink,
+                          ...(hoveredNavIndex === index && styles.glowText),
+                        }}
+                      >
+                        {item.label}
+                      </button>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -88,18 +105,7 @@ const Header = () => {
           )}
 
           <div style={styles.loginSection}>
-            <Link
-              to="/login"
-              onMouseEnter={() => setHoveredItem('로그인')}
-              onMouseLeave={() => setHoveredItem(null)}
-              style={{
-                ...styles.loginLink,
-                borderBottom:
-                  hoveredItem === '로그인' ? '2px solid white' : '2px solid transparent',
-              }}
-            >
-              로그인
-            </Link>
+            <Link to="/login" style={styles.loginLink}>로그인</Link>
             <button
               style={{ ...styles.hamburger, display: isMobile ? 'block' : 'none' }}
               onClick={handleNavToggle}
@@ -110,12 +116,33 @@ const Header = () => {
         </div>
 
         {!isMobile && isHovering && (
-          <div style={styles.dropdownContainer}>
-            {navItems.map((item) => (
-              <div key={item.label} style={styles.dropdownColumn}>
-                <div style={styles.dropdownTitle}>{item.label}</div>
-                {item.submenu.map((subItem) => (
-                  <Link key={subItem.text} to={subItem.link} style={styles.dropdownText}>
+          <div
+            style={styles.dropdownContainer}
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => {
+              setIsHovering(false);
+              setHoveredDropdownIndex(null);
+            }}
+          >
+            {navItems.map((item, index) => (
+              <div
+                key={item.label}
+                style={{
+                  ...styles.dropdownColumn,
+                  borderRight: index === navItems.length - 1 ? 'none' : '1px solid #ccc',
+                }}
+              >
+                {item.submenu.map((subItem, subIndex) => (
+                  <Link
+                    key={subItem.text}
+                    to={subItem.link}
+                    style={{
+                      ...styles.dropdownText,
+                      ...(hoveredDropdownIndex === `${index}-${subIndex}` && styles.glowTextDark),
+                    }}
+                    onMouseEnter={() => setHoveredDropdownIndex(`${index}-${subIndex}`)}
+                    onMouseLeave={() => setHoveredDropdownIndex(null)}
+                  >
                     {subItem.text}
                   </Link>
                 ))}
@@ -144,141 +171,63 @@ const Header = () => {
 };
 
 const styles = {
-  headerWrapper: {
-    position: 'relative',
-    zIndex: 10,
-  },
-  hoverZone: {
-    position: 'relative',
-    zIndex: 10,
-  },
+  headerWrapper: { position: 'relative', zIndex: 10 },
+  hoverZone: { position: 'relative', zIndex: 10 },
   header: {
-    backgroundColor: '#002244',
-    height: '80px',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: '0 20px',
+    backgroundColor: '#002244', height: '80px', display: 'flex',
+    justifyContent: 'space-between', alignItems: 'center', padding: '0 20px'
   },
-  navSection: {
-    flex: '2',
-    display: 'flex',
-    justifyContent: 'center',
+  navSection: { flex: '2', display: 'flex', justifyContent: 'center' },
+  invisibleBox: {
+    height: '80px', width: '120px', display: 'flex', alignItems: 'center',
+    justifyContent: 'center', backgroundColor: 'transparent', boxSizing: 'border-box', cursor: 'pointer',
   },
-  navList: {
-    display: 'flex',
-    listStyle: 'none',
-    gap: '50px',
-    padding: 0,
-    margin: 0,
-  },
-  navItem: {
-    position: 'relative',
-  },
+  navList: { display: 'flex', listStyle: 'none', padding: 0, margin: 0 },
+  navItem: { position: 'relative', margin: 0 },
   navLink: {
-    background: 'none',
-    border: 'none',
-    color: '#FFFFFF',
-    fontSize: '16px',
-    fontWeight: 'bold',
-    cursor: 'pointer',
-    padding: '10px 5px',
+    background: 'none', border: 'none', color: '#FFFFFF', fontSize: '16px',
+    fontWeight: 'bold', cursor: 'pointer', transition: 'text-shadow 0.3s ease'
   },
   dropdownContainer: {
-    position: 'absolute',
-    top: '80px',
-    left: '50%',
-    transform: 'translateX(-50%)',
-    width: '100%',
-    backgroundColor: 'rgba(255,255,255,0.75)',
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '80px',
-    padding: '30px 80px',
-    borderTop: '1px solid #ccc',
-    zIndex: 100,
+    position: 'absolute', top: '80px', left: '0', width: '100%',
+    backgroundColor: 'rgba(255,255,255,0.92)', color: '#000', display: 'flex',
+    justifyContent: 'flex-start', padding: '20px 0', paddingLeft: '835px',
+    borderTop: '2px solid #aaa', zIndex: 100
   },
   dropdownColumn: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-    minWidth: '150px',
-  },
-  dropdownTitle: {
-    fontWeight: 'bold',
-    marginBottom: '6px',
-    fontSize: '15px',
-    color: '#333',
+    display: 'flex', flexDirection: 'column', gap: '10px', width: '120px',
+    alignItems: 'flex-start', boxSizing: 'border-box', padding: '0 20px',
+    borderRight: '1px solid #ddd'
   },
   dropdownText: {
-    color: '#333',
-    textDecoration: 'none',
-    fontSize: '14px',
+    color: '#000', textDecoration: 'none', fontSize: '14px', transition: 'text-shadow 0.3s ease'
+  },
+  glowText: {
+    textShadow: '0 0 6px #ffffff, 0 0 10px #ccccff'
+  },
+  glowTextDark: {
+    textShadow: '0 0 3px #bbb, 0 0 6px #bbb'
   },
   mobileDrawer: {
-    position: 'fixed',
-    top: '80px',
-    left: 0,
-    width: '250px',
-    height: '100vh',
-    backgroundColor: 'rgba(255,255,255,0.95)',
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '20px',
-    boxShadow: '2px 0 5px rgba(0,0,0,0.2)',
-    zIndex: 100,
+    position: 'fixed', top: '80px', left: 0, width: '250px', height: '100vh',
+    backgroundColor: 'rgba(255,255,255,0.95)', display: 'flex', flexDirection: 'column',
+    padding: '20px', boxShadow: '2px 0 5px rgba(0,0,0,0.2)', zIndex: 100
   },
-  logoSection: {
-    minWidth: '200px',
-  },
-  logoLink: {
-    textDecoration: 'none',
-    color: 'inherit',
-  },
-  logoContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-  },
-  logoImage: {
-    height: '60px',
-  },
+  logoSection: { minWidth: '200px' },
+  logoLink: { textDecoration: 'none', color: 'inherit' },
+  logoContainer: { display: 'flex', alignItems: 'center', gap: '12px' },
+  logoImage: { height: '60px' },
   logoTextGroup: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    lineHeight: '1.2',
-    textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)',
+    display: 'flex', flexDirection: 'column', justifyContent: 'center',
+    lineHeight: '1.2', textShadow: '1px 1px 2px rgba(0, 0, 0, 0.3)'
   },
-  clubNameKo: {
-    fontSize: '20px',
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-  },
-  clubNameEn: {
-    fontSize: '11px',
-    color: '#FFFFFF',
-    fontWeight: 'normal',
-    marginTop: '4px',
-  },
-  loginLink: {
-    textDecoration: 'none',
-    color: '#FFFFFF',
-    fontSize: '14px',
-  },
-  loginSection: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    gap: '20px',
-  },
+  clubNameKo: { fontSize: '20px', fontWeight: 'bold', color: '#FFFFFF' },
+  clubNameEn: { fontSize: '11px', color: '#FFFFFF', fontWeight: 'normal', marginTop: '4px' },
+  loginLink: { textDecoration: 'none', color: '#FFFFFF', fontSize: '14px' },
+  loginSection: { display: 'flex', justifyContent: 'flex-end', alignItems: 'center', gap: '20px' },
   hamburger: {
-    fontSize: '24px',
-    background: 'none',
-    border: 'none',
-    color: '#fff',
-    cursor: 'pointer',
-    marginLeft: '10px',
+    fontSize: '24px', background: 'none', border: 'none', color: '#fff',
+    cursor: 'pointer', marginLeft: '10px'
   },
 };
 

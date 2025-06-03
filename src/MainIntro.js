@@ -1,10 +1,42 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+const useFadeInOnScroll = () => {
+  const ref = useRef();
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return [ref, visible];
+};
 
 const MainIntro = () => {
+  const [introRef, introVisible] = useFadeInOnScroll();
+  const [sloganRef, sloganVisible] = useFadeInOnScroll();
+  const [meaningRef, meaningVisible] = useFadeInOnScroll();
+  const [activityRef, activityVisible] = useFadeInOnScroll();
+
   return (
     <section style={styles.wrapper}>
       {/* 동아리 소개 */}
-      <div style={styles.section}>
+      <div
+        ref={introRef}
+        style={{
+          ...styles.section,
+          ...styles.fadeText,
+          ...(introVisible && styles.fadeTextVisible),
+        }}
+      >
         <h2 style={styles.heading}>동아리 소개</h2>
         <div style={styles.line} />
         <p style={styles.description}>
@@ -13,60 +45,74 @@ const MainIntro = () => {
         </p>
       </div>
 
-      {/* PDA 의미 */}
-      <div style={styles.section}>
+      {/* "Passion, Development, Aspiration" */}
+      <div
+        ref={sloganRef}
+        style={{
+          ...styles.section,
+          ...styles.fadeText,
+          ...(sloganVisible && styles.fadeTextVisible),
+        }}
+      >
         <h2 style={styles.heading}>
           "Passion, Development, Aspiration"
         </h2>
         <div style={styles.line} />
+      </div>
+
+      {/* PDA 의미 */}
+      <div
+        ref={meaningRef}
+        style={{
+          ...styles.section,
+          ...styles.fadeText,
+          ...(meaningVisible && styles.fadeTextVisible),
+        }}
+      >
         <div style={styles.cardsRow}>
-          <div style={styles.card}>
-            <div style={styles.letter}>P</div>
-            <div style={styles.word}>Passion</div>
-            <div style={styles.desc}>열정을 가진 구성원들과 함께 성장해 나가는 공동체</div>
-          </div>
-          <div style={styles.card}>
-            <div style={styles.letter}>D</div>
-            <div style={styles.word}>Development</div>
-            <div style={styles.desc}>다양한 프로젝트와 활동을 통한 실전 개발 능력 향상</div>
-          </div>
-          <div style={styles.card}>
-            <div style={styles.letter}>A</div>
-            <div style={styles.word}>Aspiration</div>
-            <div style={styles.desc}>미래를 향한 꿈과 목표를 함께 실현해 나가는 동아리</div>
-          </div>
+          {['P', 'D', 'A'].map((letter, i) => (
+            <div key={i} style={styles.card}>
+              <div style={styles.letter}>{letter}</div>
+              <div style={styles.word}>
+                {letter === 'P' ? 'Passion' : letter === 'D' ? 'Development' : 'Aspiration'}
+              </div>
+              <div style={styles.desc}>
+                {letter === 'P'
+                  ? '열정을 가진 구성원들과 함께 성장해 나가는 공동체'
+                  : letter === 'D'
+                  ? '다양한 프로젝트와 활동을 통한 실전 개발 능력 향상'
+                  : '미래를 향한 꿈과 목표를 함께 실현해 나가는 동아리'}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
       {/* 동아리 활동 */}
-      <div style={styles.section}>
+      <div
+        ref={activityRef}
+        style={{
+          ...styles.section,
+          ...styles.fadeText,
+          ...(activityVisible && styles.fadeTextVisible),
+        }}
+      >
         <h2 style={styles.heading}>동아리 활동</h2>
         <div style={styles.line} />
         <div style={styles.activitiesGrid}>
-          <div style={styles.activityBox}>
-            <div style={styles.activityTitle}>정규 세션</div>
-            <div style={styles.activityText}>매주 개발/디자인 관련 주제로 진행되는 세미나</div>
-          </div>
-          <div style={styles.activityBox}>
-            <div style={styles.activityTitle}>스터디</div>
-            <div style={styles.activityText}>알고리즘, 포트폴리오, 프론트/백엔드 등 자율 스터디</div>
-          </div>
-          <div style={styles.activityBox}>
-            <div style={styles.activityTitle}>프로젝트</div>
-            <div style={styles.activityText}>팀을 꾸려 웹/앱 개발 프로젝트 수행 및 전시</div>
-          </div>
-          <div style={styles.activityBox}>
-            <div style={styles.activityTitle}>해커톤 & 대외활동</div>
-            <div style={styles.activityText}>교내외 해커톤 및 공모전 참여를 통한 실무 경험</div>
-          </div>
-          <div style={styles.activityBox}>
-            <div style={styles.activityTitle}>MT & 행사</div>
-            <div style={styles.activityText}>신입생 환영회, OT, MT 등 다양한 오프라인 활동</div>
-          </div>
-          <div style={styles.activityBox}>
-            <div style={styles.activityTitle}>특강</div>
-            <div style={styles.activityText}>졸업생 및 현직자 특강, 연구 분야 특강</div>
-          </div>
+          {[
+            ['정규 세션', '매주 개발/디자인 관련 주제로 진행되는 세미나'],
+            ['스터디', '알고리즘, 포트폴리오, 프론트/백엔드 등 자율 스터디'],
+            ['프로젝트', '팀을 꾸려 웹/앱 개발 프로젝트 수행 및 전시'],
+            ['해커톤 & 대외활동', '교내외 해커톤 및 공모전 참여를 통한 실무 경험'],
+            ['MT & 행사', '신입생 환영회, OT, MT 등 다양한 오프라인 활동'],
+            ['특강', '졸업생 및 현직자 특강, 연구 분야 특강'],
+          ].map(([title, text], i) => (
+            <div key={i} style={styles.activityBox}>
+              <div style={styles.activityTitle}>{title}</div>
+              <div style={styles.activityText}>{text}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -154,6 +200,15 @@ const styles = {
     fontSize: '14px',
     color: '#555',
     lineHeight: '1.6',
+  },
+  fadeText: {
+    opacity: 0,
+    transform: 'translateY(100px)',
+    transition: 'opacity 0.5s ease, transform 0.5s ease',
+  },
+  fadeTextVisible: {
+    opacity: 1,
+    transform: 'translateY(0)',
   },
 };
 

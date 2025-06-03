@@ -1,0 +1,78 @@
+/* Login.css */
+
+body {
+    margin: 0;
+    background-color: #0a0a0a;
+    font-family: 'Arial', sans-serif;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #FFFFFF;
+    color: #111111;
+}
+
+.login-box {
+    background-color: #FFFFFF;
+    padding: 40px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.login-box img {
+    height: 100px;
+    margin-bottom: 5px;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border: none;
+    border-radius: 30px;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    color: black;
+    font-size: 14px;
+}
+
+.login-box input:focus {
+    outline: none;
+    border: 1px solid #127eea;
+    /* 원하는 색상 */
+    box-shadow: 0 0 0 3px rgba(18, 126, 234, 0.3);
+    /* glow 효과 optional */
+}
+
+.login-box input::placeholder {
+    color: #888;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 12px;
+    background-color: #127eea;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.login-box button:hover {
+    background-color: #003366;
+}
+
+.login-box .developed {
+    font-size: 12px;
+    color: #777;
+    margin-top: 30px;
+    line-height: 1.6;
+}

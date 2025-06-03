@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom'; // 추가
+import { Link, useLocation } from 'react-router-dom'; // 🔹 useLocation 추가
 
 const navItems = [
     {
@@ -36,11 +36,13 @@ const navItems = [
 const Header = () => {
     const [openMenu, setOpenMenu] = useState(null);
     const navRef = useRef();
+    const location = useLocation(); // 🔹 현재 경로 감지
 
     const handleClick = (label) => {
         setOpenMenu((prev) => (prev === label ? null : label));
     };
 
+    // 🔸 바깥 클릭 시 드롭다운 닫기
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (navRef.current && !navRef.current.contains(e.target)) {
@@ -52,6 +54,11 @@ const Header = () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
+    // 🔸 경로 변경 시 드롭다운 닫기
+    useEffect(() => {
+        setOpenMenu(null);
+    }, [location]);
 
     return (
         <header style={styles.header}>

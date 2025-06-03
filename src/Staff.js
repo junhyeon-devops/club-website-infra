@@ -13,7 +13,7 @@ const executives = {
       { name: '정유나', major: '산업경영 23', image: '/img/staff4.jpg' },
     ],
   },
-  총무무부: {
+  총무부: {
     desc: '동아리 행사 기획 및 운영',
     head: { name: '현지수', major: '디지털정보 20', image: '/img/staff5.jpg' },
     staff: [

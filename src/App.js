@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Header from './Header';
-import ImageSlider from './ImageSlider';
-import MainIntro from './MainIntro';
-import Footer from './Footer';
-import Login from './Login';
-import ProfessorIntro from './ProfessorIntro';
-import ClubIntro from './ClubIntro';
-import Staff from './Staff';
+import Header from './components/Header';
+import ImageSlider from './components/ImageSlider';
+import MainIntro from './pages/MainIntro';
+import Footer from './components/Footer';
+import Login from './pages/Login';
+import ProfessorIntro from './pages/ProfessorIntro';
+import ClubIntro from './pages/ClubIntro';
+import Staff from './pages/Staff';
 
 function App() {
   return (

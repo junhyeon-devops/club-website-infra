@@ -1,7 +1,10 @@
 import React from 'react';
+import Intro_top from '../components/Intro_top';
 
 function ClubIntro() {
   return (
+    <>
+      <Intro_top /> {/* ✅ 상단 배경 이미지 + 소개 문구 컴포넌트 */}
     <div
       style={{
         maxWidth: '1000px',
@@ -57,6 +60,7 @@ function ClubIntro() {
         </ul>
       </div>
     </div>
+    </>
   );
 }
 

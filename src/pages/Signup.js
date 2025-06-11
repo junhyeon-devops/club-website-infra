@@ -29,6 +29,11 @@ const Signup = () => {
     }
 
     try {
+      // 생년월일을 YYYY-MM-DD 형식으로 변환 (예: 980301 → 1998-03-01)
+      const birthFormatted = form.birth.includes("-")
+        ? form.birth
+        : `19${form.birth.slice(0, 2)}-${form.birth.slice(2, 4)}-${form.birth.slice(4, 6)}`;
+
       const res = await axios.post(
         "/api/signup",
         {
@@ -37,10 +42,10 @@ const Signup = () => {
           name: form.name,
           studentId: form.studentId,
           grade: form.grade,
-          birth: form.birth,
+          birth: birthFormatted,
           email: form.email,
         },
-        { withCredentials: true } // 쿠키 전달
+        { withCredentials: true }
       );
 
       setSuccessMsg("회원가입 성공! 이제 로그인하세요.");
@@ -63,7 +68,7 @@ const Signup = () => {
         <input name="name" placeholder="이름" value={form.name} onChange={handleChange} />
         <input name="studentId" placeholder="학번" value={form.studentId} onChange={handleChange} />
         <input name="grade" placeholder="학년" value={form.grade} onChange={handleChange} />
-        <input name="birth" placeholder="생년월일" value={form.birth} onChange={handleChange} />
+        <input name="birth" placeholder="생년월일 (예: 980301)" value={form.birth} onChange={handleChange} />
         <input name="email" placeholder="이메일" value={form.email} onChange={handleChange} />
 
         {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}

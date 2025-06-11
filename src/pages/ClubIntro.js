@@ -4,10 +4,11 @@ import Intro_top from '../components/Intro_top';
 function ClubIntro() {
   return (
     <>
-<Intro_top
-  title="소개"
-  subtitle="동아리에 대해 소개합니다."
-/>
+    <Intro_top
+      title="소개"
+      subtitle="동아리에 대해 소개합니다."
+      backgroundImage="/cbnu_img.jpg"
+    />
 
       <section
         style={{

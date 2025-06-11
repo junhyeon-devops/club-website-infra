@@ -1,9 +1,12 @@
 import React from 'react';
 import './Intro_top.css';
 
-const Intro_top = ({ title = "소개", subtitle = "우리 동아리에 대해 소개합니다." }) => {
+const Intro_top = ({ title = "대체 타이틀", subtitle = "대체 서브 타이틀입니다.", backgroundImage }) => {
   return (
-    <div className="intro-top-wrapper">
+    <div
+      className="intro-top-wrapper"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
       <div className="intro-overlay" />
       <div className="intro-text-container">
         <h1 className="intro-title">

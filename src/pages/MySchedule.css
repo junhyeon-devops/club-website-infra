@@ -1,0 +1,111 @@
+.schedule-wrapper {
+  background-color: #f7f9fb;
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: 'Pretendard', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 일정 추가 버튼 */
+.add-button {
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.add-button:hover {
+  background-color: #f2f2f2;
+}
+
+/* 탭 스타일 */
+.tab-container {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 8px 16px;
+  background-color: #e9eef2;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.tab.active {
+  background-color: #ffffff;
+  color: #111;
+  border: 1px solid #ccc;
+}
+
+/* 테이블 카드 스타일 */
+.schedule-table {
+  width: 95%;
+  max-width: 960px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  border-collapse: collapse;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+}
+
+.schedule-table th,
+.schedule-table td {
+  padding: 14px 18px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.schedule-table th {
+  background-color: #f0f4f8;
+  color: #333;
+  font-weight: 600;
+}
+
+.schedule-table td {
+  color: #444;
+  border-top: 1px solid #eee;
+}
+
+.schedule-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* 완료 버튼 */
+.check-btn {
+  background-color: #e0f0ff;
+  color: #0077cc;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.check-btn:hover {
+  background-color: #cce4ff;
+}
+
+/* 집중 모드 버튼 */
+.focus-btn {
+  background-color: #dfffe2;
+  color: #2c7a4b;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.focus-btn:hover {
+  background-color: #c6f5cb;
+}

@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const db = require("../db");
 
 const router = express.Router();
-const JWT_SECRET = "pda-secret-key"; // 나중에 .env로 분리
+const JWT_SECRET = "secretpda_sejujun0401"; // 나중에 .env로 분리
 
 router.post("/", async (req, res) => {
   const { username, password } = req.body;

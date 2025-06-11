@@ -4,7 +4,7 @@ const bcrypt = require("bcrypt");
 const db = require("../db");
 
 const router = express.Router();
-const JWT_SECRET = "pda-secret-key";
+const JWT_SECRET = "secretpda_sejujun0401";
 
 router.post("/", async (req, res) => {
   const { username, password, name, studentId, grade, birth, email } = req.body;

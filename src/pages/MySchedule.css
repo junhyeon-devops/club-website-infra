@@ -79,7 +79,14 @@
 .schedule-table tr:hover {
   background-color: #f9f9f9;
 }
-
+/* 버튼 묶는 wrapper */
+.button-wrapper {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
 /* 완료 버튼 */
 .check-btn {
   background-color: #e0f0ff;

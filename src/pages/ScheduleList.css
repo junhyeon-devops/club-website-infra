@@ -1,0 +1,85 @@
+/* src/pages/ScheduleList.css */
+
+.schedule-table {
+  width: 100%;
+  max-width: 960px;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  font-family: 'Pretendard', sans-serif;
+}
+
+.schedule-table th,
+.schedule-table td {
+  padding: 14px 18px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.schedule-table th {
+  background-color: #f0f4f8;
+  color: #333;
+  font-weight: 600;
+}
+
+.schedule-table td {
+  color: #444;
+  border-top: 1px solid #eee;
+}
+
+.schedule-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.check-btn {
+  background-color: #e0f0ff;
+  color: #0077cc;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.check-btn:hover {
+  background-color: #cce4ff;
+}
+
+.focus-btn {
+  background-color: #dfffe2;
+  color: #2c7a4b;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.focus-btn:hover {
+  background-color: #c6f5cb;
+}
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* 수평 가운데 정렬 */
+  justify-content: center; /* 수직 가운데 정렬 */
+  height: 300px;           /* 또는 100vh, 상황에 따라 조정 */
+  text-align: center;
+  color: #555;
+  font-family: 'Pretendard', sans-serif;
+}
+
+.empty-state h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.empty-state p {
+  font-size: 14px;
+  color: #888;
+}

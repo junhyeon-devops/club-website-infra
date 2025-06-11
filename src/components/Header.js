@@ -15,7 +15,7 @@ const navItems = [
     label: '일정',
     submenu: [
       { text: '캘린더', link: '/schedule/calendar' },
-      { text: '내 일정', link: '/schedule/myschedule' },
+      { text: '내 일정', link: '/schedule/schedulelist' },
     ],
   },
   {

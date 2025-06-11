@@ -27,34 +27,46 @@
   background: transparent !important;
 }
 
-/* ✅ 날짜 셀 레이아웃 */
-.fc-daygrid-day {
-  display: inline-block !important;
-  width: 14%;
-  text-align: center;
+/* 요일 셀 스타일 */
+.fc-col-header-cell {
   vertical-align: top;
-  padding: 12px 0;
-  box-sizing: border-box;
-  transition: background-color 0.2s ease; /* ✅ 부드러운 전환 */
+  padding: 4px 0;
 }
 
-/* ✅ 날짜 hover 시 배경색 변화 */
-.fc-daygrid-day:hover {
-  background-color: rgba(0, 0, 0, 0.05); /* 연한 회색 */
-  cursor: pointer;
-}
-
-/* ✅ 날짜 숫자 스타일 */
-.fc-daygrid-day-number {
+/* 요일 텍스트 스타일 */
+.fc-col-header-cell-cushion {
+  display: block;
+  text-align: center;
   font-size: 15px;
+  font-weight: 600;
   color: #000000;
-  font-weight: normal;
-  padding: 10px;
+  padding: 0;
+  margin: 0;
 }
 
-/* ✅ 요일 헤더 간격 */
-.fc-col-header {
-  padding-bottom: 10px;
+/* 날짜 셀 구조 */
+.fc-daygrid-day-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 2px;
+}
+
+/* 날짜 숫자 스타일 */
+.fc-daygrid-day-number {
+  display: block;
+  font-size: 15px;
+  text-align: center;
+  font-weight: 600;
+  color: #242424;
+  padding-top: 2px;
+  margin: 0;
+}
+
+/* 다음/이전 달 날짜 흐리게 */
+.fc-day-other .fc-daygrid-day-number {
+  color: #555555;
 }
 
 /* ✅ 커스텀 헤더 (‹ 제목 › 구조) */

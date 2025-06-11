@@ -6,6 +6,7 @@ import ImageSlider from './components/ImageSlider';
 import MainIntro from './pages/MainIntro';
 import Footer from './components/Footer';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 import ProfessorIntro from './pages/ProfessorIntro';
 import ClubIntro from './pages/ClubIntro';
 import Staff from './pages/Staff';
@@ -25,6 +26,8 @@ function App() {
           }
         />        
         <Route path="/login" element={<Login />} />
+
+        <Route path="/signup" element={<Signup />} />
 
         <Route path="/intro/professors" element={<ProfessorIntro />} />
         

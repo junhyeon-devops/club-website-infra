@@ -59,7 +59,10 @@ function Member() {
 
   return (
     <>
-      <Intro_top title="소개" subtitle="동아리 현 임원들을 소개합니다." />
+      <Intro_top title="소개" 
+      subtitle="동아리 현 임원들을 소개합니다." 
+      backgroundImage="/cbnu_img.jpg"
+    />
 
       <section style={{ width: '100%', backgroundColor: '#fff', padding: '60px 0' }}>
         <div className="member-container" style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 2rem' }}>

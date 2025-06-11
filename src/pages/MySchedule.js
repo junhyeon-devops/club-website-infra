@@ -1,6 +1,7 @@
 // src/pages/MySchedule.jsx
 import React, { useState } from 'react';
 import './MySchedule.css';
+import Intro_top from '../components/Intro_top';
 
 const MySchedule = () => {
   const [filter, setFilter] = useState('in-progress');
@@ -25,6 +26,11 @@ const MySchedule = () => {
   ];
 
   return (
+    <>
+      <Intro_top title="내 일정" 
+      subtitle="내 일정을 관리할 수 있는 페이지입니다" 
+      backgroundImage="/calendar.jpg"
+    />
     <div className="schedule-wrapper">
       <button className="add-button">+ 일정 추가</button>
 
@@ -68,6 +74,7 @@ const MySchedule = () => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Calendar.css';
+import Intro_top from '../components/Intro_top';
 
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -31,11 +32,13 @@ function Calendar({ isAdmin }) {
   };
 
   return (
+    
+    <>
+      <Intro_top title="캘린더" 
+      subtitle="학사 일정과 동아리 일정을 확인할 수 있는 캘린더입니다" 
+      backgroundImage="/calendar.jpg"
+    />
     <div className="calendar-wrapper">
-      <div className="calendar-header">
-        <h2>캘린더<span className="dot">.</span></h2>
-        <p>학사 일정과 동아리 일정을 확인할 수 있는 캘린더입니다.</p>
-      </div>
 
       <div className="custom-toolbar">
         <button className="nav-btn" onClick={handlePrev}>‹</button>
@@ -47,12 +50,12 @@ function Calendar({ isAdmin }) {
         ref={calendarRef}
         plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
-        locale="ko"
+        locale="en"
         events={events}
-        height="auto"
-        headerToolbar={false} // ✅ 기본 헤더 제거
+        headerToolbar={false}
       />
     </div>
+  </>
   );
 }
 

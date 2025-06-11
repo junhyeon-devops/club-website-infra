@@ -8,6 +8,7 @@ function ProfessorIntro() {
       <Intro_top
         title="소개"
         subtitle="동아리 교수님을 소개합니다."
+        backgroundImage="/cbnu_img.jpg"
       />
 
       {/* 전체 section은 꽉 차게 */}

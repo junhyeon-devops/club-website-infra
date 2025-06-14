@@ -39,7 +39,7 @@ function App() {
         <Route path="/intro/professors" element={<ProfessorIntro />} />
         <Route path="/intro/clubintro" element={<ClubIntro />} />
         <Route path="/intro/staff" element={<Staff />} />
-        <Route path="/schedule/myschedule" element={<MySchedule />} />
+        <Route path="/schedule/schedulelist" element={<MySchedule />} />
         {/* ✅ 역할 기반으로 isAdmin props 전달 */}
         <Route
           path="/schedule/calendar"

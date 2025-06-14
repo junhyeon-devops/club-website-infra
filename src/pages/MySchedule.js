@@ -1,79 +1,82 @@
 // src/pages/MySchedule.jsx
 import React, { useState } from 'react';
-import './MySchedule.css';
 import Intro_top from '../components/Intro_top';
+import ScheduleList from './ScheduleList';
+import Scheadd from './Scheadd';
+import './MySchedule.css';
 
 const MySchedule = () => {
-  const [filter, setFilter] = useState('in-progress');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [schedules, setSchedules] = useState([]);
+  const [filter, setFilter] = useState('전체');
 
-  const schedules = [
-    {
-      id: 1,
-      name: '웹소 과제',
-      deadline: '25.05.26 16:00',
-      dday: 'D-2',
-      timeSpent: '01:30',
-      completed: true,
-    },
-    {
-      id: 2,
-      name: '객설 발표',
-      deadline: '25.06.17 16:00',
-      dday: 'D-24',
-      timeSpent: '00:30',
-      completed: true,
-    }
-  ];
+  const handleToggleComplete = (id) => {
+    setSchedules(prev =>
+      prev.map(schedule =>
+        schedule.id === id ? { ...schedule, completed: !schedule.completed } : schedule
+      )
+    );
+  };
+
+  const filteredSchedules = schedules.filter(schedule => {
+    if (filter === '완료한 일') return schedule.completed;
+    if (filter === '중요한 일') return schedule.important;
+    return true; // 전체 or 할 일
+  });
 
   return (
     <>
-      <Intro_top title="내 일정" 
-      subtitle="내 일정을 관리할 수 있는 페이지입니다" 
-      backgroundImage="/calendar.jpg"
-    />
-    <div className="schedule-wrapper">
-      <button className="add-button">+ 일정 추가</button>
+      <Intro_top
+        title="내 일정"
+        subtitle="내 일정을 관리할 수 있는 페이지입니다"
+        backgroundImage="/calendar.jpg"
+      />
 
-      <div className="tab-container">
-        <button
-          className={`tab ${filter === 'in-progress' ? 'active' : ''}`}
-          onClick={() => setFilter('in-progress')}
-        >
-          진행 중
-        </button>
-        <button
-          className={`tab ${filter === 'done' ? 'active' : ''}`}
-          onClick={() => setFilter('done')}
-        >
-          완료
-        </button>
+      <div className="schedule-layout">
+        {/* ✅ 왼쪽 사이드바 */}
+        <div className="sidebar">
+
+          <ul className="filter-list">
+            <li onClick={() => setFilter('전체')} className={filter === '전체' ? 'active' : ''}>
+              전체 <span className="count">{schedules.length}</span>
+            </li>
+            <li onClick={() => setFilter('완료한 일')} className={filter === '완료한 일' ? 'active' : ''}>
+              완료한 일 <span className="count">{schedules.filter(s => s.completed).length}</span>
+            </li>
+            <li onClick={() => setFilter('중요한 일')} className={filter === '중요한 일' ? 'active' : ''}>
+              중요한 일 <span className="count">{schedules.filter(s => s.important).length}</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* ✅ 오른쪽 메인 컨텐츠 */}
+        <div className="main-content">
+          {filteredSchedules.length === 0 ? (
+            <div className="empty-state" style={{ minHeight: '60vh' }}>
+              <h3>할 일이 없습니다.</h3>
+              <p>새로운 할 일을 등록해보세요.</p>
+              <button className="add-button" onClick={() => setIsModalOpen(true)}>
+                + 일정 추가
+              </button>
+            </div>
+          ) : (
+            <>
+              <ScheduleList
+                schedules={filteredSchedules}
+                onToggleComplete={handleToggleComplete}
+              />
+              <div className="button-wrapper">
+                <button className="main-add-button" onClick={() => setIsModalOpen(true)}>
+                  + 일정 추가
+                </button>
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
-      <table className="schedule-table">
-        <thead>
-          <tr>
-            <th>일정 이름</th>
-            <th>기한</th>
-            <th>D-Day</th>
-            <th>누적 시간</th>
-            <th>체크</th>
-            <th>집중</th>
-          </tr>
-        </thead>
-        <tbody>
-          {schedules.map(item => (
-            <tr key={item.id}>
-              <td>{item.name}</td>
-              <td>{item.deadline}</td>
-              <td>{item.dday}</td>
-              <td>{item.timeSpent}</td>
-              <td><button className="check-btn">완료</button></td>
-              <td><button className="focus-btn">집중모드</button></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+      {/* ✅ 일정 추가 모달 */}
+      {isModalOpen && <Scheadd onClose={() => setIsModalOpen(false)} />}
     </>
   );
 };

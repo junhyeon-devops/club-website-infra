@@ -7,7 +7,24 @@ import './MySchedule.css';
 
 const MySchedule = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [schedules, setSchedules] = useState([]);
+  const [schedules, setSchedules] = useState([
+    {
+      id: 1,
+      name: '알고리즘 과제',
+      deadline: '2025-06-17 23:59',
+      timeSpent: '2시간',
+      completed: false,
+      important: true,
+    },
+    {
+      id: 2,
+      name: '운동하기',
+      deadline: '2025-06-15 18:00',
+      timeSpent: '1시간',
+      completed: true,
+      important: false,
+    },
+  ]);
   const [filter, setFilter] = useState('전체');
 
   const handleToggleComplete = (id) => {
@@ -19,8 +36,8 @@ const MySchedule = () => {
   };
 
   const filteredSchedules = schedules.filter(schedule => {
-    if (filter === '완료한 일') return schedule.completed;
-    if (filter === '중요한 일') return schedule.important;
+    if (filter === '완료') return schedule.completed;
+    if (filter === '진행중') return schedule.important;
     return true; // 전체 or 할 일
   });
 
@@ -35,16 +52,21 @@ const MySchedule = () => {
       <div className="schedule-layout">
         {/* ✅ 왼쪽 사이드바 */}
         <div className="sidebar">
-
+          <button
+            className="add-button sidebar-add-button"
+            onClick={() => setIsModalOpen(true)}
+          >
+            + 일정 추가
+          </button>
           <ul className="filter-list">
             <li onClick={() => setFilter('전체')} className={filter === '전체' ? 'active' : ''}>
               전체 <span className="count">{schedules.length}</span>
             </li>
-            <li onClick={() => setFilter('완료한 일')} className={filter === '완료한 일' ? 'active' : ''}>
-              완료한 일 <span className="count">{schedules.filter(s => s.completed).length}</span>
+            <li onClick={() => setFilter('완료')} className={filter === '완료' ? 'active' : ''}>
+              완료 <span className="count">{schedules.filter(s => s.completed).length}</span>
             </li>
-            <li onClick={() => setFilter('중요한 일')} className={filter === '중요한 일' ? 'active' : ''}>
-              중요한 일 <span className="count">{schedules.filter(s => s.important).length}</span>
+            <li onClick={() => setFilter('진행중')} className={filter === '진행중' ? 'active' : ''}>
+              진행중 <span className="count">{schedules.filter(s => s.important).length}</span>
             </li>
           </ul>
         </div>
@@ -66,7 +88,7 @@ const MySchedule = () => {
                 onToggleComplete={handleToggleComplete}
               />
               <div className="button-wrapper">
-                <button className="main-add-button" onClick={() => setIsModalOpen(true)}>
+                <button className="add-button" onClick={() => setIsModalOpen(true)}>
                   + 일정 추가
                 </button>
               </div>

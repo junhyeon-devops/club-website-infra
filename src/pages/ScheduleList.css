@@ -1,8 +1,6 @@
-/* 일정 테이블 전체 레이아웃 */
+/* 일정 테이블 */
 .schedule-table {
-  width: 100%;
-  max-width: 960px;
-  margin: 0 auto;
+  width: 70vw;
   border-collapse: collapse;
   background-color: #ffffff;
   border-radius: 12px;
@@ -11,7 +9,6 @@
   font-family: 'Pretendard', sans-serif;
 }
 
-/* 헤더 & 셀 기본 설정 */
 .schedule-table th,
 .schedule-table td {
   padding: 14px 18px;
@@ -19,36 +16,19 @@
   font-size: 14px;
 }
 
-/* 헤더 배경 */
 .schedule-table th {
   background-color: #f0f4f8;
   color: #333;
   font-weight: 600;
 }
 
-/* 셀 구분선 */
 .schedule-table td {
   color: #444;
   border-top: 1px solid #eee;
 }
 
-/* 마우스 hover 시 */
 .schedule-table tr:hover {
   background-color: #f9f9f9;
-}
-
-/* ✅ D-Day 텍스트 스타일 */
-.schedule-table td:nth-child(3) {
-  font-weight: bold;
-}
-.schedule-table td:nth-child(3):has(span.d-day-today) {
-  color: #e53935; /* 빨강 */
-}
-.schedule-table td:nth-child(3):has(span.d-day-future) {
-  color: #0077cc; /* 파랑 */
-}
-.schedule-table td:nth-child(3):has(span.d-day-past) {
-  color: #999; /* 회색 */
 }
 
 /* 체크 버튼 */
@@ -66,7 +46,7 @@
   background-color: #cce4ff;
 }
 
-/* 집중 버튼 */
+/* 집중 모드 버튼 */
 .focus-btn {
   background-color: #dfffe2;
   color: #2c7a4b;
@@ -79,25 +59,4 @@
 }
 .focus-btn:hover {
   background-color: #c6f5cb;
-}
-
-/* 빈 상태 안내 */
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 300px;
-  text-align: center;
-  color: #555;
-  font-family: 'Pretendard', sans-serif;
-}
-.empty-state h3 {
-  font-size: 20px;
-  margin-bottom: 8px;
-  font-weight: bold;
-}
-.empty-state p {
-  font-size: 14px;
-  color: #888;
 }

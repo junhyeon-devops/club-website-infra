@@ -4,91 +4,219 @@
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-.post-detail .detail-meta {
-  display: flex;
-  gap: 12px;
-  color: #555;
+/* 🔹 게시글 박스 */
+.content-box {
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #ffffff;
   margin-bottom: 24px;
 }
 
-.post-detail .category {
+/* 🔹 content-box 안쪽: 제목 + 작성자/조회수/좋아요 */
+.post-header-inside {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+/* 🔹 왼쪽: 카테고리 + 제목 */
+.post-title-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.post-title-left h2 {
+  margin: 0;
+  font-size: 1.2rem; /* ✅ 본문 박스 내부이므로 조금 작게 */
+  font-weight: bold;
+}
+
+/* 🔹 카테고리 배지 */
+.post-detail .category,
+.category {
   background: #fef4d4;
   color: #9a7b00;
   padding: 4px 8px;
   border-radius: 4px;
+  font-size: 0.85rem;
+  white-space: nowrap;
 }
 
-.post-detail .content {
-  line-height: 1.6;
-}
-.stats {
+/* 🔹 오른쪽: 작성자 + 메타 정보 */
+.post-meta-right {
   display: flex;
   align-items: center;
-  margin-bottom: 16px;
+  gap: 12px;
+  font-size: 14px;
+  color: #555;
 }
 
+/* 🔹 아이콘 스타일 */
+.eye-icon,
 .heart-icon {
-  cursor: pointer;
-  font-size: 1.2rem;
   color: #777;
-  margin-right: 6px;
+  margin-right: 4px;
+  font-size: 0.9rem;
 }
 
 .heart-icon.liked {
   color: #e74c3c;
 }
-.eye-icon {
-  margin-left: 16px;
-  margin-right: 6px;
-  color: #777;
-}
 
-.comments-section {
-  margin-top: 32px;
-}
-
-.comment-input {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  min-height: 80px;
-  resize: vertical;
-  margin-bottom: 8px;
-}
-
-.add-comment {
-  background-color: #3066ec;
-  color: white;
-  padding: 8px 16px;
+/* 🔹 구분선 */
+.post-divider {
   border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  margin-bottom: 24px;
+  border-top: 1px solid #ccc;
+  margin: 12px 0;
+}
+
+/* 🔹 본문 내용 */
+.content-box .content {
+  line-height: 1.6;
+  font-size: 15px;
+  color: #333;
+}
+.post-image {
+  margin-top: 12px;
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* 🔹 목록 버튼 */
+.back-button {
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.back-button:hover {
+    background-color: #dce3ff;
+    color: #1c3d8c;
+}
+
+/* 🔹 댓글 wrapper (입력 + 리스트 포함) */
+.comments-wrapper {
+    margin-top: 20px;
+}
+
+/* ✅ 댓글 입력 박스 */
+.comment-input-wrapper {
+    width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fdfdfd;
+  padding: 12px;
+  box-sizing: border-box;
+  margin-bottom: 24px;  /* ✅ 두 박스 간 간격 생성 */
+}
+
+.comment-display-wrapper {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fafafa;
+  padding: 12px;
+}
+/* 🔹 댓글 입력 영역 */
+.comments-section {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* 🔹 입력창 */
+.comment-input {
+    width: 80vw;
+    position: relative;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    min-height: 10px;
+    resize: none;
+    margin-bottom: 8px;
+    transition: all 0s ease-in-out;
+    font-size: 14px;
+}
+
+/* 🔹 클릭 시 확장 */
+.comment-input.active {
+    position: relative;
+    min-height: 90px;
+    border-color: #3066ec;
+}
+
+.comment-input::placeholder {
+    padding: 7px;
+    color: #888;
+    font-size: 12px;
+    font-style: normal;
+    line-height: 1.5;
+}
+.comment-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+  padding: 0 2px;
+}
+.char-counter {
+    text-align: right;
+    margin : 0px 4px 8px 0;
+    color: #888;
+    font-size: 15px;
+    font-style: normal;
+    line-height: 1.5;
+}
+
+
+
+/* 🔹 댓글 목록 */
+.comment-list-section {
+    margin-top: 20px;
 }
 
 .comments-list {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
+    margin-top: 16px;
 }
 
 .comment {
-  margin-bottom: 16px;
+    margin-bottom: 16px;
+    padding: 10px 14px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    background-color: #f9f9f9;
 }
 
 .comment-header {
-  font-size: 0.9rem;
-  color: #555;
-  margin-bottom: 4px;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 4px;
 }
 
 .comment-text {
-  margin: 0;
-  font-size: 1rem;
+    margin: 0;
+    font-size: 1rem;
 }
 
-.no-comments {
-  color: #777;
-  font-style: italic;
-  margin-bottom: 16px;
+/* 🔹 댓글 없음 안내 */
+.no-comments-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    text-align: center;
+    font-size: 15px;
+    color: #777;
 }

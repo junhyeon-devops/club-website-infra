@@ -7,34 +7,26 @@ import { Link, useSearchParams } from 'react-router-dom';
 export const initialPosts = [
   {
     id: 1,
-    category: '대회/공모전',
     title: '배리어프리 앱 개발 콘테스트 (~5/21)',
+    category: '대회/공모전',
     writer: 'admin',
-    createdAt: '2025-06-13T15:23:00',
-    likes: 14,
-    comments: 1,
     views: 122,
+    likes: 14,
+    body: '이 행사는 Qualcomm과 Microsoft가 함께 개최하는 Edge AI 기반 해커톤입니다.',
+    image: '/1stpost.png',
+    comments: []
   },
   {
     id: 2,
-    category: '대회/공모전',
-    title: '2025 환경 데이터 활용 및 분석 공모전 (~5/19)',
-    writer: 'admin',
-    createdAt: '2025-06-14T15:23:00',
-    likes: 14,
-    comments: 1,
-    views: 85,
-  },
-  {
-    id: 3,
-    category: '대회/공모전',
-    title: '2025년 직무 잡아드림 동아리 모집 (~5/2)',
-    writer: '정선미',
-    createdAt: '2025-06-12T09:00:00',
-    likes: 8,
-    comments: 4,
-    views: 74,
-  },
+    title: '캡스톤 발표 일정 안내',
+    category: '공지사항',
+    writer: '교수님',
+    views: 55,
+    likes: 3,
+    body: '2학기 캡스톤 디자인 중간 발표는 6월 초에 진행될 예정입니다.',
+    image: '/2ndpost.png',
+    comments: []
+  }
 ];
 
 const categories = ['전체', '대회/공모전', '프로젝트', '스터디', '자유게시판'];

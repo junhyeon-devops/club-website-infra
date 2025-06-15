@@ -12,6 +12,7 @@
 }
 
 .pomodoro-box {
+  position: relative;
   background: white;
   padding: 40px 50px;
   border-radius: 20px;
@@ -58,27 +59,18 @@
   background-color: #001f4a;
 }
 
-.clock-container {
-  margin: 30px 0;
-}
-
-.controls button,
-.close-btn {
-  margin: 8px;
-  padding: 10px 24px;
-  font-size: 1em;
-  border: none;
-  border-radius: 6px;
-  background-color: #002f6c;
-  color: white;
+.close-icon {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: color 0.2s ease;
+  z-index: 1000;
 }
 
-.close-btn {
-  background-color: crimson;
-}
-
-.close-btn:hover {
-  background-color: darkred;
+.close-icon:hover {
+  color: crimson;
 }

@@ -48,8 +48,6 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
   const [activeDropdownIndex, setActiveDropdownIndex] = useState(null);
-  const [isLoginHover, setIsLoginHover] = useState(false);
-  const [isLogoutHover, setIsLogoutHover] = useState(false);
   const location = useLocation();
   const { isLogged, logout } = useAuth();
   const navigate = useNavigate();
@@ -60,7 +58,8 @@ const Header = () => {
     navigate("/", { replace: true})
   };
 
-  const handleLoginClick = () => {
+  const handleLoginClick = (e) => {
+    e.preventDefault();
     navigate("/login");
   };
 
@@ -85,15 +84,7 @@ const Header = () => {
       <Link
         to="#"
         onClick={handleLogout}
-        style={{
-          ...styles.loginLink,
-          textDecoration: isLogoutHover ? "underline" : "none",
-          textUnderlineOffset: "4px",
-          display: "flex",
-          alignItems: "center"
-        }}
-        onMouseEnter={() => setIsLogoutHover(true)}
-        onMouseLeave={() => setIsLogoutHover(false)}
+        className="login-link"
       >
         <FaSignOutAlt style={{ marginRight: 4 }} />
         로그아웃
@@ -103,15 +94,8 @@ const Header = () => {
     logInOut = (
       <Link
         to="/login"
-        style={{
-          ...styles.loginLink,
-          textDecoration: isLoginHover ? "underline" : "none",
-          textUnderlineOffset: "4px",
-          display: "flex",
-          alignItems: "center",
-        }}
-        onMouseEnter={() => setIsLoginHover(true)}
-        onMouseLeave={() => setIsLoginHover(false)}
+        onClick={handleLoginClick}
+        className="login-link"
       >
         <FaSignInAlt style={{ marginRight: 4 }} />
         로그인
@@ -162,25 +146,11 @@ const Header = () => {
             </nav>
           )}
 
-    <div style={styles.loginSection}>
+    <div>
       {logInOut}
-      {/* <Link
-      to="/login"
-      style={{
-        ...styles.loginLink,
-        textDecoration: isLoginHover ? 'underline' : 'none',
-        textUnderlineOffset: '4px',
-      }}
-      onMouseEnter={() => setIsLoginHover(true)}
-      onMouseLeave={() => setIsLoginHover(false)}
-    >
-      <span style={styles.loginContent}>
-        <FaSignInAlt />
-        &nbsp;로그인
-      </span>
-    </Link> */}
     <button
-      style={{ ...styles.hamburger, display: isMobile ? 'block' : 'none' }}
+      className="hamburger"
+      style={{ display: isMobile ? 'block' : 'none' }}
       onClick={handleNavToggle}
     >
               ☰

@@ -163,6 +163,12 @@
   font-size: 2vh;
   display: inline-block;
   transition: text-decoration 0.3s ease;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .login-content {

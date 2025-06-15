@@ -32,6 +32,9 @@ function PrivateRoute({ children }) {
 
 import Recuit from './pages/Recuit';
 import PostDetail from './pages/PostDetail';
+import PostWrite from './pages/PostWrite';
+import LearningResources from './pages/LearningResources';
+import GraduationRequirements from './pages/GraduationRequirement';
 
 function App() {
   return (
@@ -56,6 +59,9 @@ function App() {
           <Route path="/intro/staff" element={<Staff />} />
           <Route path="/community/recuit" element={<Recuit />} />
           <Route path="/post/:id" element={<PostDetail />} />
+          <Route path="/resources/learning" element={<LearningResources />} />
+          <Route path="/resources/graduation" element={<GraduationRequirements />} />
+          <Route path="/post/:id" element={<PostDetail />} />
 
           {/* 인증 필요 페이지 */}
           <Route
@@ -74,12 +80,21 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route 
+            path="/community/recuit/write" 
+            element={
+              <PrivateRoute>
+                <PostWrite />
+              </PrivateRoute>
+            }
+          />
 
           {/* 그 외 모든 경로는 홈으로 */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
         <Footer />
       </AuthProvider>
+
 
     </Router>
   );

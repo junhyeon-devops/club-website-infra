@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Recuit.css';
 import { FaHeart, FaComment, FaSearch, FaUser, FaClock, FaEye } from 'react-icons/fa';
 import Intro_top from '../components/Intro_top';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 export const initialPosts = [
   {
@@ -37,11 +37,18 @@ export const initialPosts = [
   },
 ];
 
-const categories = ['전체', '대회/공모전', '프로젝트', '스터디'];
+const categories = ['전체', '대회/공모전', '프로젝트', '스터디', '자유게시판'];
 
 function Recuit() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('전체');
+  
+ const [searchParams, setSearchParams] = useSearchParams();
+ const categoryFromQuery = searchParams.get('category');
+ const [searchTerm, setSearchTerm] = useState('');
+ const [selectedCategory, setSelectedCategory] = useState(categoryFromQuery || '전체');
+    useEffect(() => {
+    const category = searchParams.get('category') || '전체';
+    setSelectedCategory(category);
+  }, [searchParams]);
 
   const filteredPosts = initialPosts.filter(
     post =>
@@ -66,15 +73,20 @@ function Recuit() {
         subtitle="프로젝트 및 공모전 팀원을 모집합니다."
         backgroundImage="/community.jpg"
       />
-
       <div className="community-wrapper">
+        <Link to="/community/recuit/write" className="write-button">
+            글쓰기
+          </Link>
         <div className="top-bar">
           <div className="category-tabs">
             {categories.map(category => (
               <button
                 key={category}
                 className={`tab-button ${selectedCategory === category ? 'active' : ''}`}
-                onClick={() => setSelectedCategory(category)}
+                onClick={() => {
+  setSelectedCategory(category);
+  setSearchParams({ category });
+}}
               >
                 {category}
               </button>

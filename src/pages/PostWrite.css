@@ -1,0 +1,33 @@
+.post-write {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.post-write h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.post-write label {
+  display: block;
+  margin: 12px 0 4px;
+}
+
+.post-write input,
+.post-write select,
+.post-write textarea {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.post-write textarea {
+  min-height: 200px;
+  resize: vertical;
+}
+
+.post-write button {
+  margin-top: 16px;
+  padding: 10px 20px;
+}

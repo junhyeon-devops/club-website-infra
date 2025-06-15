@@ -57,6 +57,15 @@ const MySchedule = () => {
     if (filter === '진행중') {
       return <h3>진행중인 일정이 없습니다.</h3>;
     }
+    return (
+      <>
+        <h3>할 일이 없습니다.</h3>
+        <p>새로운 할 일을 등록해보세요.</p>
+        <button className="add-button" onClick={() => setIsModalOpen(true)}>
+          + 일정 추가
+        </button>
+      </>
+    );
   };
 
   return (

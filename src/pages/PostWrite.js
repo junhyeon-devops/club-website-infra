@@ -1,35 +1,33 @@
+// src/pages/PostWrite.jsx
 import React, { useState, useMemo, useRef, useCallback } from 'react';
+import axios from 'axios';
 import ReactQuill from 'react-quill-new';
-import Quill from 'quill';                         // ← 전체 버전으로 import
-import 'quill/dist/quill.snow.css';               // ← 스노우 테마 CSS 포함
+import Quill from 'quill';
+import 'quill/dist/quill.snow.css';
 import ImageFormat from 'quill/formats/image';
+import ImageBlot from 'quill/formats/image';
 import ImageUploader from 'quill2-image-uploader';
 import { useNavigate } from 'react-router-dom';
-import 'quill2-image-uploader/dist/quill.imageUploader.min.css';
 import './PostWrite.css';
 
 // 🧩 Quill 전역 등록
-const Parchment = Quill.import('parchment');
 Quill.register({ 'formats/image': ImageFormat });
 Quill.register('modules/imageUploader', ImageUploader);
+
+const CATEGORIES = ['대회/공모전', '프로젝트', '스터디', '자유게시판'];
 
 function PostWrite() {
   const navigate = useNavigate();
   const quillRef = useRef();
 
-  const [category, setCategory] = useState('대회/공모전');
+  const [category, setCategory] = useState(CATEGORIES[0]);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [files, setFiles] = useState([]);
   const [dragOver, setDragOver] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log({ category, title, content, files });
-    navigate(-1);
-  };
-
-  // Drag & Drop 핸들러들
+  // 📌 드래그앤드롭 핸들러들
   const onDrop = useCallback(e => {
     e.preventDefault();
     const dropped = Array.from(e.dataTransfer.files);
@@ -46,108 +44,132 @@ function PostWrite() {
     setDragOver(false);
   }, []);
 
-  // 이미지 업로드 함수 (Cloudinary 예시 사용)
-  const uploadImage = file => {
+  // 🧰 Cloudinary REST 업로드 함수
+  async function uploadToCloudinary(file) {
     const form = new FormData();
     form.append('file', file);
-    form.append('upload_preset', '<your_upload_preset>'); // Cloudinary 프리셋
-    return fetch('https://api.cloudinary.com/v1_1/<your_cloud_name>/upload', {
-      method: 'POST',
-      body: form
-    })
-      .then(res => res.json())
-      .then(data => data.secure_url);
+    form.append('upload_preset', 'post_app_unsigned'); // ← 수정
+    const resp = await fetch(
+      'https://api.cloudinary.com/v1_1/dpal8wysp/upload', // ← 수정
+      { method: 'POST', body: form }
+    );
+    const data = await resp.json();
+    return data.secure_url;
+  }
+
+  // 📤 제출 시 업로드 + API 호출
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!title.trim() || !content.trim()) {
+      alert('제목과 본문을 입력해주세요.');
+      return;
+    }
+
+
+    setSubmitting(true);
+    try {
+      // 이미지 업로드
+      const imageUrls = await Promise.all(files.map(uploadToCloudinary));
+
+      // 서버 API 호출
+      await axios.post(
+        '/api/posts',
+        { title, category, body: content, images: imageUrls }, // 변경된 필드명
+        { withCredentials: true }
+      );
+
+      alert('게시글이 등록되었습니다.');
+      navigate('/community/recuit');
+    } catch (err) {
+      console.error(err);
+      alert('등록 중 오류가 발생했습니다.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
+  // 🪶 Quill 에디터 이미지 업로더 설정 (선택적)
   const modules = useMemo(() => ({
-    toolbar: [
-      [{ size: ['small', false, 'large', 'huge'] }],
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ list: 'ordered' }, { list: 'bullet' }],
-      [{ align: [] }],
-      ['image', 'clean']
-    ],
-    imageUploader: {
-      upload: uploadImage
-    }
+    toolbar: [['bold', 'italic'], ['image']],
+    imageUploader: { upload: uploadToCloudinary } // 에디터 내 이미지 업로드도 가능
   }), []);
 
-  const formats = [
-  'size','bold','italic','underline','strike',
-  'list','bullet','align','image','imageBlot'
-];
-
+  const formats = ['bold', 'italic', 'image', 'imageBlot'];
 
   return (
     <div className="post-write" style={{ minHeight: '100vh' }}>
       <h1>글 작성</h1>
       <form onSubmit={handleSubmit}>
+        {/* 카테고리 */}
         <label>카테고리</label>
-        <select value={category} onChange={e => setCategory(e.target.value)}>
-          {['대회/공모전', '프로젝트', '스터디', '자유게시판'].map(c => (
-            <option key={c}>{c}</option>
-          ))}
+        <select disabled={submitting} value={category} onChange={e => setCategory(e.target.value)}>
+          {CATEGORIES.map(c => <option key={c}>{c}</option>)}
         </select>
 
+        {/* 제목 */}
         <label>제목</label>
         <input
-          type="text"
+          disabled={submitting}
+          maxLength={40}
+          placeholder="제목 (최대 40자)"
+          required type="text"
           value={title}
           onChange={e => setTitle(e.target.value)}
-          placeholder="제목 (최대 40자)"
-          maxLength={40}
-          required
         />
 
+        {/* 본문 */}
         <label>본문</label>
         <ReactQuill
+          readOnly={submitting}
           ref={quillRef}
           theme="snow"
           value={content}
           onChange={setContent}
           modules={modules}
           formats={formats}
-          placeholder="게시글 내용을 입력해주세요."
         />
 
-        <label>파일 첨부</label>
+        {/* 파일 업로드 UI */}
+        <label>이미지 업로드</label>
         <div
           className={`file-upload-box ${dragOver ? 'drag-over' : ''}`}
           onDrop={onDrop}
           onDragOver={onDragOver}
           onDragLeave={onDragLeave}
         >
-          <p>파일을 이 영역에 드롭하거나</p>
+          <p>파일을 끌어다 놓거나</p>
           <input
-            id="file-upload"
-            type="file"
+            disabled={submitting}
             hidden
+            id="file-upload"
             multiple
+            type="file"
             onChange={e => setFiles(prev => [...prev, ...Array.from(e.target.files)])}
           />
-          <label htmlFor="file-upload" className="file-btn">파일 탐색</label>
+          <label className="file-btn" htmlFor="file-upload">파일 탐색</label>
         </div>
 
+        {/* 업로드 선택된 파일 목록 */}
         {files.length > 0 && (
           <ul className="file-list">
-            {files.map((file, i) => (
-              <li key={i}>
+            {files.map((file, idx) => (
+              <li key={idx}>
                 <span>{file.name}</span>
                 <button
+                  disabled={submitting}
                   type="button"
-                  className="remove-btn"
-                  onClick={() =>
-                    setFiles(prev => prev.filter((_, idx) => idx !== i))
-                  }
-                >
-                  ✕
-                </button>
+                  onClick={() => setFiles(prev => prev.filter((_, i) => i !== idx))}
+                >✕</button>
               </li>
             ))}
           </ul>
         )}
 
-        <button type="submit" className="submit-btn">게시하기</button>
+        {/* 제출 */}
+        <button disabled={submitting} className="submit-btn" type="submit">
+          {submitting ? '등록 중...' : '게시하기'}
+        </button>
       </form>
     </div>
   );

@@ -61,7 +61,6 @@ function App() {
           <Route path="/post/:id" element={<PostDetail />} />
           <Route path="/resources/learning" element={<LearningResources />} />
           <Route path="/resources/graduation" element={<GraduationRequirements />} />
-          <Route path="/post/:id" element={<PostDetail />} />
 
           {/* 인증 필요 페이지 */}
           <Route

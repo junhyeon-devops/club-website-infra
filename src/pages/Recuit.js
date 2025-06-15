@@ -1,33 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './Recuit.css';
 import { FaSearch, FaUser, FaClock, FaEye } from 'react-icons/fa';
 import IntroTop from '../components/IntroTop';
 import { Link, useSearchParams } from 'react-router-dom';
-
-export const initialPosts = [
-  {
-    id: 1,
-    title: '배리어프리 앱 개발 콘테스트',
-    category: '대회/공모전',
-    writer: 'admin',
-    views: 122,
-    likes: 14,
-    body: '이 행사는 Qualcomm과 Microsoft가 함께 개최하는 Edge AI 기반 해커톤입니다.',
-    image: '/1stpost.png',
-    comments: []
-  },
-  {
-    id: 2,
-    title: 'KISIA 정보보호 개발자 해커톤',
-    category: '대회/공모전',
-    writer: 'ADMIN',
-    views: 55,
-    likes: 3,
-    body: '제3회 KISIA 정보보호 개발자 해커톤이 8월 20일, 8월 21일 양일간 개최됩니다. 대회는 스페이스쉐어 서울중부센터에서 진행되오니, 신청에 참고하시길 바랍니다.',
-    image: '/2ndpost.png',
-    comments: []
-  }
-];
+import { useAuth } from '../context/AuthContext';
 
 const categories = ['전체', '대회/공모전', '프로젝트', '스터디', '자유게시판'];
 const categoryColorMap = {
@@ -37,23 +14,29 @@ const categoryColorMap = {
   '자유게시판': '#f4cccc'
 };
 
-
-
 function Recuit() {
-
+  const { loading, isLogged } = useAuth();
+  const [posts, setPosts] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryFromQuery = searchParams.get('category');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(categoryFromQuery || '전체');
-  useEffect(() => {
-    const category = searchParams.get('category') || '전체';
-    setSelectedCategory(category);
-  }, [searchParams]);
 
-  const filteredPosts = initialPosts.filter(
-    post =>
-      (selectedCategory === '전체' || post.category === selectedCategory) &&
-      post.title.toLowerCase().includes(searchTerm.toLowerCase())
+  useEffect(() => {
+    async function loadPosts() {
+      try {
+        const res = await axios.get('/api/posts', { withCredentials: true });
+        setPosts(res.data);
+      } catch (err) {
+        console.error('Failed to fetch posts', err);
+      }
+    }
+    loadPosts();
+  }, []);
+
+  const filteredPosts = posts.filter(post =>
+    (selectedCategory === '전체' || post.category === selectedCategory) &&
+    post.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const getTimeAgo = (createdAt) => {
@@ -66,6 +49,17 @@ function Recuit() {
     return `${diffDays}일 전`;
   };
 
+  let writeSection;
+  if (loading) {
+    writeSection = <div>로딩 중...</div>;
+  } else if (isLogged) {
+    writeSection = (
+      <Link to="/community/recuit/write" className="write-button">
+        글쓰기
+      </Link>
+    );
+  }
+
   return (
     <>
       <IntroTop
@@ -74,9 +68,7 @@ function Recuit() {
         backgroundImage="/community.jpg"
       />
       <div className="community-wrapper">
-        <Link to="/community/recuit/write" className="write-button">
-          글쓰기
-        </Link>
+        {writeSection}
         <div className="top-bar">
           <div className="category-tabs">
             {categories.map(category => (
@@ -123,19 +115,19 @@ function Recuit() {
                       }}
                     >
                       {post.category}
-                    </span>                    
+                    </span>
                     <span className="title">{post.title}</span>
                   </div>
                   <div className="meta">
                     <span><FaClock style={{ marginRight: '4px' }} />{getTimeAgo(post.createdAt)}</span>
-                    <span><FaUser style={{ marginRight: '4px' }} />{post.writer}</span>
+                    <span><FaUser style={{ marginRight: '4px' }} />{post.writer_name}</span>
                     <span><FaEye style={{ marginRight: '4px' }} />{post.views ?? 0}회</span>
                   </div>
                 </div>
               </Link>
             ))
           ) : (
-            <p>검색 결과가 없습니다.</p>
+            <p>게시글이 없습니다.</p>
           )}
         </div>
       </div>

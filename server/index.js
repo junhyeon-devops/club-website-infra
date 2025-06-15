@@ -15,6 +15,7 @@ const logoutRouter = require("./api/logout");
 const meRouter = require("./api/me");
 const authenticateToken = require("./middleware/auth");
 const scheduleRouter = require("./routes/schedules");
+const postRouter = require("./routes/post");
 
 const app = express();
 const PORT = 5000;
@@ -33,6 +34,7 @@ app.use("/api/logout", logoutRouter);
 app.use("/api/me", meRouter);
 
 app.use("/api/schedules", authenticateToken, scheduleRouter);
+app.use("/api/posts", postRouter);
 
 cron.schedule('* * * * *', async () => {
   try {
@@ -41,7 +43,6 @@ cron.schedule('* * * * *', async () => {
       SET completed = true
       WHERE deadline <= NOW() AND completed = false`
     );
-    console.log('deadline 지난 일정 완료 처리 성공');
   } catch (err) {
     console.error('deadline 지난 일정 자동 완료 처리 실패: ', err);
   }

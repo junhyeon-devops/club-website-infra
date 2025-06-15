@@ -3,7 +3,6 @@ import axios from "axios";
 
 const AuthContext = createContext();
 
-// ✅ Authentication Context에서 useAuth 커스텀 훅도 export 해줍시다.
 export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {

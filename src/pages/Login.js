@@ -124,7 +124,7 @@ const Login = () => {
             {signupSuccessMsg && <p style={{ color: "green" }}>{signupSuccessMsg}</p>}
 
             <button onClick={handleSignup}>가입하기</button>
-            <div className="close-btn" onClick={() => setShowSignup(false)}>×</div>
+            <span className="close-btn" onClick={() => setShowSignup(false)}>×</span>
           </div>
         </div>
       )}

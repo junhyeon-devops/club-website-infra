@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { FaSignInAlt } from 'react-icons/fa';
 import './Header.css';
 
+
 const navItems = [
   {
     label: '소개',
@@ -23,8 +24,10 @@ const navItems = [
   {
     label: '커뮤니티',
     submenu: [
-      { text: '팀원 모집', link: '/community/recuit' },
-      { text: '자유게시판', link: '/community/board' },
+      { text: '대회/공모전', link: '/community/recuit' },
+      { text: '프로젝트', link: '/community/recuit' },
+      { text: '스터디', link: '/community/recuit' },
+      { text: '자유게시판', link: '/community/recuit' },
     ],
   },
   {
@@ -35,6 +38,9 @@ const navItems = [
     ],
   },
 ];
+
+
+
 
 const Header = () => {
   const [isHovering, setIsHovering] = useState(false);
@@ -144,7 +150,8 @@ const Header = () => {
                 {item.submenu.map((subItem, subIndex) => (
                   <Link
                     key={subItem.text}
-                    to={subItem.link}
+                            to={{pathname: subItem.link, 
+                              search: `?category=${encodeURIComponent(subItem.text)}`,}}
                     className={`dropdown-text ${hoveredDropdownIndex === `${index}-${subIndex}` ? 'glow-text-dark' : ''}`}
                     onMouseEnter={() => setHoveredDropdownIndex(`${index}-${subIndex}`)}
                     onMouseLeave={() => setHoveredDropdownIndex(null)}
@@ -195,7 +202,8 @@ const Header = () => {
                         {item.submenu.map((subItem, subIndex) => (
                           <Link
                             key={subItem.text}
-                            to={subItem.link}
+                            to={{pathname: subItem.link, 
+                              search: `?category=${encodeURIComponent(subItem.text)}`,}}
                             className="mobile-submenu-item"
                           >
                             {subItem.text}

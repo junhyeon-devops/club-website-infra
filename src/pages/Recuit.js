@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Recuit.css';
-import { FaHeart, FaComment, FaSearch, FaUser, FaClock, FaEye } from 'react-icons/fa';
-import Intro_top from '../components/Intro_top';
+import { FaSearch, FaUser, FaClock, FaEye } from 'react-icons/fa';
+import IntroTop from '../components/IntroTop';
 import { Link, useSearchParams } from 'react-router-dom';
 
 export const initialPosts = [
@@ -68,7 +68,7 @@ function Recuit() {
 
   return (
     <>
-      <Intro_top
+      <IntroTop
         title="팀원 모집"
         subtitle="프로젝트 및 공모전 팀원을 모집합니다."
         backgroundImage="/community.jpg"

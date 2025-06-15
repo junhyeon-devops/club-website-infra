@@ -1,7 +1,7 @@
 import React from 'react';
-import './Intro_top.css';
+import './IntroTop.css';
 
-const Intro_top = ({ title = "대체 타이틀", subtitle = "대체 서브 타이틀입니다.", backgroundImage }) => {
+const IntroTop = ({ title = "대체 타이틀", subtitle = "대체 서브 타이틀입니다.", backgroundImage }) => {
   return (
     <div
       className="intro-top-wrapper"
@@ -19,4 +19,4 @@ const Intro_top = ({ title = "대체 타이틀", subtitle = "대체 서브 타�
   );
 };
 
-export default Intro_top;
+export default IntroTop;

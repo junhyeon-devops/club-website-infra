@@ -36,9 +36,6 @@ function PrivateRoute({ children }) {
   return isLogged ? children : <Navigate to="/login" state={{ from: loc }} replace />;
 }
 
-
-
-
 function App() {
   return (
     <Router>

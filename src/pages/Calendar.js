@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './Calendar.css';
-import Intro_top from '../components/Intro_top';
+import IntroTop from '../components/IntroTop';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -41,7 +41,7 @@ function Calendar({ isAdmin }) {
 
   return (
     <>
-      <Intro_top
+      <IntroTop
         title="캘린더"
         subtitle="학사 일정과 동아리 일정을 확인할 수 있는 캘린더입니다"
         backgroundImage="/calendar.jpg"

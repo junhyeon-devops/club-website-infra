@@ -13,7 +13,7 @@ const navItems = [
   {
     label: '소개',
     submenu: [
-      { text: '동아리 연혁', link: '/intro/clubintro' },
+      { text: '동아리 소개', link: '/intro/clubintro' },
       { text: '교수님 소개', link: '/intro/professors' },
       { text: '현 임원 소개', link: '/intro/staff' },
     ],

@@ -1,6 +1,6 @@
 // src/pages/ScheduleList.jsx
 import React, { useState } from 'react'; // ✅ useState import 추가
-import PomodoroTimer from '../pages/Pomodoro'; // ✅ Pomodoro 경로 주의
+import Pomodoro from './Pomodoro'; // ✅ Pomodoro 경로 주의
 import './ScheduleList.css';
 
 const pad = num => String(num).padStart(2, '0');
@@ -40,6 +40,7 @@ const getDday = (deadline) => {
 };
 
 const ScheduleList = ({ schedules, onToggleComplete }) => {
+  const [focusTask, setFocusTask] = useState(null); // ✅ 상태 선언
   // ✅ deadline 기준 정렬
   const sortedSchedules = [...schedules]
     .sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
@@ -50,6 +51,7 @@ const ScheduleList = ({ schedules, onToggleComplete }) => {
     });
 
   return (
+    <>
     <table className="schedule-table">
       <thead>
         <tr>
@@ -80,12 +82,22 @@ const ScheduleList = ({ schedules, onToggleComplete }) => {
               </button>
             </td>
             <td>
-              <button className="focus-btn">집중모드</button>
+              <button className="focus-btn" onClick={() => setFocusTask(item)}>
+                집중모드
+              </button>
             </td>
           </tr>
         )})}
       </tbody>
     </table>
+
+    {focusTask && (
+        <Pomodoro
+          taskName={focusTask.name}
+          onClose={() => setFocusTask(null)}
+        />
+      )}
+    </>
   );
 };
 

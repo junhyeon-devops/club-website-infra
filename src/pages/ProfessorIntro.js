@@ -1,11 +1,11 @@
 import React from 'react';
 import './ProfessorIntro.css';
-import Intro_top from '../components/Intro_top';
+import IntroTop from '../components/IntroTop';
 
 function ProfessorIntro() {
   return (
     <>
-      <Intro_top
+      <IntroTop
         title="소개"
         subtitle="동아리 교수님을 소개합니다."
         backgroundImage="/cbnu_img.jpg"
@@ -23,7 +23,7 @@ function ProfessorIntro() {
             color: '#111111',
           }}
         >
-          <h4
+          <h2
             className="mb-4 border-bottom pb-2"
             style={{
               borderBottom: '2px solid #002244',
@@ -32,7 +32,7 @@ function ProfessorIntro() {
             }}
           >
             지도 교수님 소개
-          </h4>
+          </h2>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem' }}>
             <div style={{ flex: '1 1 250px', textAlign: 'center' }}>

@@ -1,10 +1,11 @@
 import React from 'react';
-import Intro_top from '../components/Intro_top';
+import IntroTop from '../components/IntroTop';
+import './ClubIntro.css';
 
 function ClubIntro() {
   return (
     <>
-    <Intro_top
+    <IntroTop
       title="소개"
       subtitle="동아리에 대해 소개합니다."
       backgroundImage="/cbnu_img.jpg"
@@ -17,6 +18,48 @@ function ClubIntro() {
           padding: '60px 0',
         }}
       >
+        <div
+          style={{
+            maxWidth: '1000px',
+            margin: '0 auto',
+            padding: '0 2rem',
+            color: '#111',
+          }}
+        >
+          <h2
+            style={{
+              marginBottom: '1.5rem',
+              borderBottom: '2px solid #002244',
+              paddingBottom: '10px',
+              color: '#002244',
+            }}
+          >
+            동아리 소개
+          </h2>
+        <p className="mainintro-description">
+          PDA는 충북대학교 소프트웨어학부 소속 학술 동아리로, 개발과 디자인, 기획에 관심 있는 학생들이 모여
+          다양한 프로젝트와 스터디를 진행하며 역량을 키워가는 공간입니다.
+        </p>
+        
+
+      <div  className="PDA">
+                <h2 className="mainintro-heading">"Passion, Development, Aspiration"</h2>
+        <div className="pdalist">
+  {[
+    { letter: 'P', word: 'passion', desc: '열정을 가진 구성원들과 함께 성장해 나가는 공동체' },
+    { letter: 'D', word: 'development', desc: '다양한 프로젝트와 활동을 통한 실전 개발 능력 향상' },
+    { letter: 'A', word: 'aspiration', desc: '미래를 향한 꿈과 목표를 함께 실현해 나가는 동아리' },
+  ].map((item, i) => (
+    <div key={i} className="pdaitem">
+      <span className="pda-letter">{item.letter}</span>
+      <span className="pda-word">{item.word}</span>
+      <span className="pda-desc">{item.desc}</span>
+    </div>
+  ))}
+</div>
+
+      </div>
+        </div>
         <div
           style={{
             maxWidth: '1000px',

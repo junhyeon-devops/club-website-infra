@@ -1,7 +1,7 @@
 // src/pages/MySchedule.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Intro_top from '../components/Intro_top';
+import IntroTop from '../components/IntroTop';
 import ScheduleList from './ScheduleList';
 import Scheadd from './Scheadd';
 import './MySchedule.css';
@@ -61,7 +61,7 @@ const MySchedule = () => {
 
   return (
     <>
-      <Intro_top
+      <IntroTop
         title="내 일정"
         subtitle="내 일정을 관리할 수 있는 페이지입니다"
         backgroundImage="/calendar.jpg"

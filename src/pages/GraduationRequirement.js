@@ -1,7 +1,7 @@
 // src/pages/GraduationRequirements.jsx
 import React, { useState } from 'react';
 import './Recuit.css'; // 기존 스타일 재활용
-import Intro_top from '../components/Intro_top';
+import IntroTop from '../components/IntroTop';
 import { FaSearch, FaLink } from 'react-icons/fa';
 
 // 최신 학번이 위로 오도록 배열 정렬 (내림차순)
@@ -26,7 +26,7 @@ function GraduationRequirements() {
 
   return (
     <>
-      <Intro_top
+      <IntroTop
         title="졸업 요건"
         subtitle="학번별 졸업 요건을 확인하세요."
         backgroundImage="/resources.jpg"

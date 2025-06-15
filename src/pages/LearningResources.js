@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Recuit.css'; // 기존 스타일 재사용
 import { FaSearch, FaLink } from 'react-icons/fa';
-import Intro_top from '../components/Intro_top';
+import IntroTop from '../components/IntroTop';
 
 const data = [
   { id: 1, category: '웹', title: 'React 공식 문서', url: 'https://reactjs.org' },
@@ -36,7 +36,7 @@ function LearningResources() {
 
   return (
     <>
-      <Intro_top
+      <IntroTop
         title="학습 자료"
         subtitle="유용한 개발 자료를 모았습니다."
         backgroundImage="/resources.jpg"

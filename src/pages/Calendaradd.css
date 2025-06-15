@@ -1,0 +1,222 @@
+/* ✅ 모달 배경 */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 999;
+}
+
+/* ✅ 모달 본체 */
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  width: 340px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 닫기 버튼 */
+.modal-close {
+  position: absolute;
+  top: 12px; right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #333;
+  cursor: pointer;
+}
+
+/* 제목 input */
+.modal-content input[type="text"] {
+  width: 100%;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* ✅ 날짜 영역 */
+.date-section {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.date-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;               /* ✅ 중요: 전체 너비 사용 */
+}
+
+.date-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  user-select: none;
+}
+
+.datepicker-input {
+  width: 100%;               /* ✅ input도 100% */
+  padding: 10px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  user-select: none;
+  box-sizing: border-box;    /* ✅ padding 포함 너비 계산 */
+}
+
+.date-separator {
+  font-size: 14px;
+  white-space: nowrap;
+  user-select: none;  /* ✅ 텍스트 선택 방지 */
+}
+
+/* ✅ 하루 종일 custom 토글 */
+.allday-section {
+  margin-top: 16px;
+}
+
+.allday-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  background-color: #f8f8f8;
+  border: 1.5px solid #ddd;
+  border-radius: 30px;
+  cursor: pointer;
+  user-select: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+}
+
+.allday-toggle:hover {
+  background-color: #f0f0f0;
+}
+
+.allday-toggle input[type="checkbox"] {
+  display: none;
+}
+
+.allday-indicator {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.allday-toggle input[type="checkbox"]:checked + .allday-indicator {
+  background-color: #fdd835;
+  border-color: #fdd835;
+}
+
+.allday-toggle input[type="checkbox"]:checked + .allday-indicator::after {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+/* ✅ 버튼 그룹 */
+.btn-group {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-group button {
+  background-color: #1a73e8;
+  color: white;
+  padding: 12px 24px;
+  font-size: 15px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-group button:hover {
+  background-color: #0c55c6;
+}
+.date-label-with-icon {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.date-icon {
+  font-size: 16px;
+  color: #444;
+}
+
+.color-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 4px; /* ✅ 줄바꿈 전 여백 */
+  flex-wrap: wrap; /* ✅ 화면 좁아도 자동 줄바꿈 */
+}
+
+.color-select {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid #999;
+}
+
+.color-dropdown {
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 13px;
+}
+
+.title-input {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.start-date-row {
+  margin-bottom: 10px;
+}
+
+.datepicker-inline {
+  min-width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.bottom-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.clock-icon {
+  font-size: 18px;
+  color: #666;
+}

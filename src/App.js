@@ -16,6 +16,8 @@ import PostDetail from './pages/PostDetail';
 import PostWrite from './pages/PostWrite';
 import LearningResources from './pages/LearningResources';
 import GraduationRequirements from './pages/GraduationRequirement';
+import '@fontsource/share-tech-mono'; 
+
 
 function App() {
   // ✅ 여기서 사용자 역할 설정 (로그인 연동 전에는 수동 테스트 가능)

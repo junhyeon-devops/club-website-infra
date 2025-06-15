@@ -2,9 +2,9 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,39 +12,80 @@
 }
 
 .pomodoro-box {
+  position: relative;  /* ✅ 추가 */
   background: white;
-  padding: 30px;
-  border-radius: 16px;
+  padding: 40px 50px;
+  border-radius: 20px;
   text-align: center;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
 }
 
-.pomodoro-box h1 {
-  font-size: 3em;
-  margin: 20px 0;
+.pomodoro-box h1,
+.pomodoro-box h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #111;
+}
+
+.pomodoro-box label {
+  font-size: 1.1em;
+  display: block;
+  margin: 15px 0 5px;
+}
+
+.pomodoro-box input {
+  padding: 8px 12px;
+  font-size: 1.1em;
+  width: 100px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
 .pomodoro-box button {
-  margin: 5px;
-  padding: 10px 20px;
+  margin: 8px;
+  padding: 10px 24px;
+  font-size: 1em;
+  border: none;
+  border-radius: 6px;
+  background-color: #002f6c;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.pomodoro-box button:hover {
+  background-color: #001f4a;
 }
 
 .clock-container {
-  margin: 20px 0;
+  margin: 30px 0;
 }
 
 .controls button,
 .close-btn {
-  margin: 5px;
-  padding: 10px 20px;
+  margin: 8px;
+  padding: 10px 24px;
   font-size: 1em;
   border: none;
   border-radius: 6px;
-  background-color: #002f6c; /* 남색 */
+  background-color: #002f6c;
   color: white;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.close-btn {
-  background-color: crimson;
+/* 닫기 버튼 */
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 22px;
+  color: #888;
+  cursor: pointer;
+  z-index: 10;
+}
+.close-button:hover {
+  color: #222;
 }

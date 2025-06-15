@@ -5,23 +5,33 @@
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-h1 {
-  text-align: center;
-  margin-bottom: 24px;
+/* 탭과 검색창을 감싸는 상위 영역 */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.category-tabs {
+  display: flex;
+  gap: 12px;
 }
 
 .search-bar {
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  align-items: center;
+  width: 250px;
 }
 
 .search-bar input {
-  width: 70%;
+  flex: 1;
   padding: 8px 12px;
   font-size: 16px;
   border: 1px solid #aaa;
   border-radius: 4px 0 0 4px;
+  border-right: none;
 }
 
 .search-bar button {
@@ -54,24 +64,70 @@ h1 {
   transform: scale(1.01);
 }
 
-.category {
-  display: inline-block;
-  background: #fef4d4;
-  color: #9a7b00;
-  padding: 4px 10px;
-  font-size: 12px;
-  border-radius: 4px;
-  margin-bottom: 8px;
-}
-
-.meta {
-  font-size: 14px;
-  color: #777;
+/* ✅ 한 줄 정렬 */
+.post-line {
   display: flex;
   justify-content: space-between;
-  margin-top: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
-.meta .icons svg {
-  margin-left: 8px;
+.post-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.category {
+  background-color: #fef4d4;
+  color: #9a7b00;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #111;
+  white-space: nowrap;
+}
+
+
+.meta {
+  font-size: 13px;
+  color: #777;
+  display: flex;
+  gap: 12px;
+  white-space: nowrap;
+  align-items: center;
+}
+
+.meta span {
+  display: flex;
+  align-items: center;
+}
+
+
+.tab-button {
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #666;
+}
+
+.tab-button.active {
+  border-bottom: 2px solid #0044cc;
+  color: #0044cc;
+  font-weight: bold;
+}
+.post-card {
+  text-decoration: none;  /* 밑줄 제거 */
+  color: inherit;         /* 부모 색상 상속 */
 }

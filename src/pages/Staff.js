@@ -66,8 +66,16 @@ function Member() {
 
       <section style={{ width: '100%', backgroundColor: '#fff', padding: '60px 0' }}>
         <div className="member-container" style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 2rem' }}>
-          <h2>현 임원 소개</h2>
-
+          <h2
+            style={{
+              marginBottom: '1.5rem',
+              borderBottom: '2px solid #002244',
+              paddingBottom: '10px',
+              color: '#002244',
+            }}
+          >
+            현 임원 소개
+          </h2>
           <div className="section">
             <h3>회장단</h3>
             <p>동아리 운영 총괄, 기획 및 각 부서 업무 참여</p>

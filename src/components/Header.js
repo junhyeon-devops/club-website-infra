@@ -150,8 +150,11 @@ const Header = () => {
                 {item.submenu.map((subItem, subIndex) => (
                   <Link
                     key={subItem.text}
-                            to={{pathname: subItem.link, 
-                              search: `?category=${encodeURIComponent(subItem.text)}`,}}
+to={
+      item.label === '커뮤니티'
+        ? { pathname: subItem.link, search: `?category=${encodeURIComponent(subItem.text)}` }
+        : subItem.link
+    }
                     className={`dropdown-text ${hoveredDropdownIndex === `${index}-${subIndex}` ? 'glow-text-dark' : ''}`}
                     onMouseEnter={() => setHoveredDropdownIndex(`${index}-${subIndex}`)}
                     onMouseLeave={() => setHoveredDropdownIndex(null)}
@@ -202,8 +205,11 @@ const Header = () => {
                         {item.submenu.map((subItem, subIndex) => (
                           <Link
                             key={subItem.text}
-                            to={{pathname: subItem.link, 
-                              search: `?category=${encodeURIComponent(subItem.text)}`,}}
+to={
+      item.label === '커뮤니티'
+        ? { pathname: subItem.link, search: `?category=${encodeURIComponent(subItem.text)}` }
+        : subItem.link
+    }
                             className="mobile-submenu-item"
                           >
                             {subItem.text}

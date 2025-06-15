@@ -37,7 +37,7 @@ export const initialPosts = [
   },
 ];
 
-const categories = ['전체', '대회/공모전', '프로젝트', '스터디'];
+const categories = ['전체', '대회/공모전', '프로젝트', '스터디', '자유게시판'];
 
 function Recuit() {
   

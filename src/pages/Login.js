@@ -26,15 +26,18 @@ const Login = () => {
   const [signupErrorMsg, setSignupErrorMsg] = useState("");
   const [signupSuccessMsg, setSignupSuccessMsg] = useState("");
 
-  const handleLogin = async () => {
+  const from = location.state?.from?.pathname || "/";
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
     try {
-      const res = await axios.post(
+      await axios.post(
         "/api/login",
         { username, password },
         { withCredentials: true }
       );
       await login();
-      navigate("/", { replace: true});
+      navigate(from, { replace: true});
     } catch (err) {
       setErrorMsg(err.response?.data?.message || "서버 오류");
     }
@@ -52,7 +55,7 @@ const Login = () => {
     }
 
     try {
-      const res = await axios.post(
+      await axios.post(
         "/api/signup",
         {
           username: form.username,
@@ -79,22 +82,25 @@ const Login = () => {
         <img src="/loginlogo.png" alt="PDA 로고" />
         <p>PDA 공식 로그인 시스템</p>
 
-        <input
+        <form onSubmit={handleLogin}>
+          <input
           type="text"
           placeholder="아이디"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="비밀번호"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
-        <button onClick={handleLogin} disabled={!username || !password}>
-          로그인
-        </button>
+          />
+          <input
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {errorMsg && <p style={{ color: "red" }}>{errorMsg}</p>}
+          <button onClick={handleLogin} disabled={!username || !password}>
+            로그인
+          </button>
+        </form>
+        
 
         <div className="switch-link" onClick={() => setShowSignup(true)}>
           아직 계정이 없으신가요? <b>회원가입</b>

@@ -10,6 +10,8 @@ const loginRouter = require("./api/login");
 const signupRouter = require("./api/signup");
 const logoutRouter = require("./api/logout");
 const meRouter = require("./api/me");
+const authenticateToken = require("./middleware/auth");
+const scheduleRouter = require("./routes/schedules");
 
 const app = express();
 const PORT = 5000;
@@ -26,6 +28,8 @@ app.use("/api/login", loginRouter);
 app.use("/api/signup", signupRouter);
 app.use("/api/logout", logoutRouter);
 app.use("/api/me", meRouter);
+
+app.use("/api/schedules", authenticateToken, scheduleRouter);
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

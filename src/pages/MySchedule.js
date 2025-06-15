@@ -1,5 +1,6 @@
 // src/pages/MySchedule.jsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import Intro_top from '../components/Intro_top';
 import ScheduleList from './ScheduleList';
 import Scheadd from './Scheadd';
@@ -7,38 +8,41 @@ import './MySchedule.css';
 
 const MySchedule = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [schedules, setSchedules] = useState([
-    {
-      id: 1,
-      name: '알고리즘 과제',
-      deadline: '2025-06-17 23:59',
-      timeSpent: '2시간',
-      completed: false,
-      important: true,
-    },
-    {
-      id: 2,
-      name: '운동하기',
-      deadline: '2025-06-15 18:00',
-      timeSpent: '1시간',
-      completed: true,
-      important: false,
-    },
-  ]);
+  const [schedules, setSchedules] = useState([]);
   const [filter, setFilter] = useState('전체');
 
-  const handleToggleComplete = (id) => {
-    setSchedules(prev =>
-      prev.map(schedule =>
-        schedule.id === id ? { ...schedule, completed: !schedule.completed } : schedule
-      )
-    );
+  const fetchSchedules = async () => {
+    try {
+      const res = await axios.get('/api/schedules', { withCredentials: true });
+      setSchedules(res.data);
+    } catch (err) {
+      console.error('일정 로딩 실패:', err);
+    }
   };
 
-  const filteredSchedules = schedules.filter(schedule => {
-    if (filter === '완료') return schedule.completed;
-    if (filter === '진행중') return schedule.important;
-    return true; // 전체 or 할 일
+  useEffect(() => {
+    fetchSchedules();
+  }, []);
+
+  const handleToggleComplete = async (id) => {
+    const target = schedules.find(s => s.id === id);
+    try {
+      await axios.patch(`/api/schedules/${id}`, { completed: !target.completed }, { withCredentials: true });
+      fetchSchedules();
+    } catch (err) {
+      console.error('완료 상태 업데이트 실패:', err);
+    }
+  };
+
+  const handleModalClose = (saved) => {
+    setIsModalOpen(false);
+    if (saved) fetchSchedules();
+  };
+
+  const filteredSchedules = schedules.filter(s => {
+    if (filter === '완료') return s.completed;
+    if (filter === '진행중') return s.important;
+    return true;
   });
 
   return (
@@ -50,12 +54,8 @@ const MySchedule = () => {
       />
 
       <div className="schedule-layout">
-        {/* ✅ 왼쪽 사이드바 */}
         <div className="sidebar">
-          <button
-            className="add-button sidebar-add-button"
-            onClick={() => setIsModalOpen(true)}
-          >
+          <button className="add-button sidebar-add-button" onClick={() => setIsModalOpen(true)}>
             + 일정 추가
           </button>
           <ul className="filter-list">
@@ -71,7 +71,6 @@ const MySchedule = () => {
           </ul>
         </div>
 
-        {/* ✅ 오른쪽 메인 컨텐츠 */}
         <div className="main-content">
           {filteredSchedules.length === 0 ? (
             <div className="empty-state" style={{ minHeight: '60vh' }}>
@@ -83,10 +82,7 @@ const MySchedule = () => {
             </div>
           ) : (
             <>
-              <ScheduleList
-                schedules={filteredSchedules}
-                onToggleComplete={handleToggleComplete}
-              />
+              <ScheduleList schedules={filteredSchedules} onToggleComplete={handleToggleComplete} />
               <div className="button-wrapper">
                 <button className="add-button" onClick={() => setIsModalOpen(true)}>
                   + 일정 추가
@@ -97,8 +93,7 @@ const MySchedule = () => {
         </div>
       </div>
 
-      {/* ✅ 일정 추가 모달 */}
-      {isModalOpen && <Scheadd onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && <Scheadd isOpen onClose={handleModalClose} />}
     </>
   );
 };

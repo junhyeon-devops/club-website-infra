@@ -7,7 +7,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 export const initialPosts = [
   {
     id: 1,
-    title: '배리어프리 앱 개발 콘테스트 (~5/21)',
+    title: '배리어프리 앱 개발 콘테스트',
     category: '대회/공모전',
     writer: 'admin',
     views: 122,
@@ -18,26 +18,34 @@ export const initialPosts = [
   },
   {
     id: 2,
-    title: '캡스톤 발표 일정 안내',
-    category: '공지사항',
-    writer: '교수님',
+    title: 'KISIA 정보보호 개발자 해커톤',
+    category: '대회/공모전',
+    writer: 'ADMIN',
     views: 55,
     likes: 3,
-    body: '2학기 캡스톤 디자인 중간 발표는 6월 초에 진행될 예정입니다.',
+    body: '제3회 KISIA 정보보호 개발자 해커톤이 8월 20일, 8월 21일 양일간 개최됩니다. 대회는 스페이스쉐어 서울중부센터에서 진행되오니, 신청에 참고하시길 바랍니다.',
     image: '/2ndpost.png',
     comments: []
   }
 ];
 
 const categories = ['전체', '대회/공모전', '프로젝트', '스터디', '자유게시판'];
+const categoryColorMap = {
+  '대회/공모전': '#ffe599',
+  '프로젝트': '#cfe2ff',
+  '스터디': '#d9ead3',
+  '자유게시판': '#f4cccc'
+};
+
+
 
 function Recuit() {
-  
- const [searchParams, setSearchParams] = useSearchParams();
- const categoryFromQuery = searchParams.get('category');
- const [searchTerm, setSearchTerm] = useState('');
- const [selectedCategory, setSelectedCategory] = useState(categoryFromQuery || '전체');
-    useEffect(() => {
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categoryFromQuery = searchParams.get('category');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(categoryFromQuery || '전체');
+  useEffect(() => {
     const category = searchParams.get('category') || '전체';
     setSelectedCategory(category);
   }, [searchParams]);
@@ -67,8 +75,8 @@ function Recuit() {
       />
       <div className="community-wrapper">
         <Link to="/community/recuit/write" className="write-button">
-            글쓰기
-          </Link>
+          글쓰기
+        </Link>
         <div className="top-bar">
           <div className="category-tabs">
             {categories.map(category => (
@@ -76,9 +84,9 @@ function Recuit() {
                 key={category}
                 className={`tab-button ${selectedCategory === category ? 'active' : ''}`}
                 onClick={() => {
-  setSelectedCategory(category);
-  setSearchParams({ category });
-}}
+                  setSelectedCategory(category);
+                  setSearchParams({ category });
+                }}
               >
                 {category}
               </button>
@@ -102,7 +110,20 @@ function Recuit() {
               <Link to={`/post/${post.id}`} className="post-card" key={post.id}>
                 <div className="post-line">
                   <div className="post-left">
-                    <span className="category">{post.category}</span>
+                    <span
+                      className="category"
+                      style={{
+                        backgroundColor: categoryColorMap[post.category] || '#eee',
+                        padding: '4px 8px',
+                        borderRadius: '12px',
+                        fontSize: '0.85rem',
+                        fontWeight: 'bold',
+                        color: '#333',
+                        marginRight: '8px'
+                      }}
+                    >
+                      {post.category}
+                    </span>                    
                     <span className="title">{post.title}</span>
                   </div>
                   <div className="meta">

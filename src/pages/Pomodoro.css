@@ -1,0 +1,50 @@
+.pomodoro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.pomodoro-box {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.pomodoro-box h1 {
+  font-size: 3em;
+  margin: 20px 0;
+}
+
+.pomodoro-box button {
+  margin: 5px;
+  padding: 10px 20px;
+}
+
+.clock-container {
+  margin: 20px 0;
+}
+
+.controls button,
+.close-btn {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 6px;
+  background-color: #002f6c; /* 남색 */
+  color: white;
+  cursor: pointer;
+}
+
+.close-btn {
+  background-color: crimson;
+}

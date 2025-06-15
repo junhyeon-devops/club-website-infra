@@ -1,5 +1,6 @@
 // src/pages/ScheduleList.jsx
-import React from 'react';
+import React, { useState } from 'react'; // ✅ useState import 추가
+import PomodoroTimer from '../pages/Pomodoro'; // ✅ Pomodoro 경로 주의
 import './ScheduleList.css';
 
 const getDdayClass = (deadline) => {
@@ -16,7 +17,7 @@ const getDdayClass = (deadline) => {
   if (diffDays > 0) return 'd-day-future';
   return 'd-day-past';
 };
-// ✅ D-Day 계산 함수
+
 const getDday = (deadline) => {
   const today = new Date();
   const target = new Date(deadline);
@@ -33,46 +34,58 @@ const getDday = (deadline) => {
 };
 
 const ScheduleList = ({ schedules, onToggleComplete }) => {
-  // ✅ deadline 기준 정렬
+  const [focusTask, setFocusTask] = useState(null); // ✅ 상태 선언
+
   const sortedSchedules = [...schedules].sort(
     (a, b) => new Date(a.deadline) - new Date(b.deadline)
   );
 
   return (
-    <table className="schedule-table">
-      <thead>
-        <tr>
-          <th>일정 이름</th>
-          <th>기한</th>
-          <th>D-Day</th>
-          <th>누적 시간</th>
-          <th>체크</th>
-          <th>집중</th>
-        </tr>
-      </thead>
-      <tbody>
-        {sortedSchedules.map((item) => (
-          <tr key={item.id}>
-            <td>{item.name}</td>
-            <td>{item.deadline}</td>
-            <td>
-              <span className={getDdayClass(item.deadline)}>
-                {getDday(item.deadline)}
-              </span>
-            </td>
-            <td>{item.timeSpent}</td>
-            <td>
-              <button className="check-btn" onClick={() => onToggleComplete(item.id)}>
-                {item.completed ? '완료' : '진행 중'}
-              </button>
-            </td>
-            <td>
-              <button className="focus-btn">집중모드</button>
-            </td>
+    <>
+      <table className="schedule-table">
+        <thead>
+          <tr>
+            <th>일정 이름</th>
+            <th>기한</th>
+            <th>D-Day</th>
+            <th>누적 시간</th>
+            <th>체크</th>
+            <th>집중</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {sortedSchedules.map((item) => (
+            <tr key={item.id}>
+              <td>{item.name}</td>
+              <td>{item.deadline}</td>
+              <td>
+                <span className={getDdayClass(item.deadline)}>
+                  {getDday(item.deadline)}
+                </span>
+              </td>
+              <td>{item.timeSpent}</td>
+              <td>
+                <button className="check-btn" onClick={() => onToggleComplete(item.id)}>
+                  {item.completed ? '완료' : '진행 중'}
+                </button>
+              </td>
+              <td>
+                <button className="focus-btn" onClick={() => setFocusTask(item)}>
+                  집중모드
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      {focusTask && (
+        <PomodoroTimer
+          taskName={focusTask.name}
+          onClose={() => setFocusTask(null)}
+        />
+      )}
+    </>
   );
 };
 

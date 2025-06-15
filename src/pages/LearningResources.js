@@ -17,6 +17,12 @@ const data = [
 ];
 
 const categories = ['전체', '웹', '알고리즘', '자료구조', '운영체제'];
+const categoryColorMap = {
+  웹: '#ffe599',
+  알고리즘: '#cfe2ff',
+  자료구조: '#d9ead3',
+  운영체제: '#f4cccc'
+};
 
 function LearningResources() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -73,7 +79,20 @@ function LearningResources() {
               >
                 <div className="post-line">
                   <div className="post-left">
-                    <span className="category">{item.category}</span>
+                    <span
+                      className="category"
+                      style={{
+                        backgroundColor: categoryColorMap[item.category] || '#eee',
+                        padding: '4px 8px',
+                        borderRadius: '12px',
+                        fontSize: '0.85rem',
+                        fontWeight: 'bold',
+                        color: '#333',
+                        marginRight: '8px'
+                      }}
+                    >
+                      {item.category}
+                    </span>                    
                     <span className="title">{item.title}</span>
                   </div>
                   <div className="meta">

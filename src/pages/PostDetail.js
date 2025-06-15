@@ -100,7 +100,7 @@ function PostDetail() {
         {/* ✅ 댓글 표시 영역만 따로 */}
         <div className="comment-display-wrapper">
           {comments.length === 0 ? (
-            <div className="no-comments-block">댓글이 없습니다.</div>
+            <div className="no-comments-block">등록된 댓글이 없습니다.</div>
           ) : (
             <ul className="comments-list">
               {comments.map((c, idx) => (

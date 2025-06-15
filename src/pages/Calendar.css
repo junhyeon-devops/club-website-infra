@@ -10,7 +10,11 @@
   margin: 0 auto;
   box-sizing: border-box;
 }
-
+.calendar-page a,
+.fc a {
+  text-decoration: none !important;
+  color: black !important;
+}
 /* ✅ FullCalendar 구조 및 배경 제거 */
 .fc,
 .fc-theme-standard .fc-scrollgrid,

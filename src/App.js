@@ -8,6 +8,8 @@ import {
   useLocation
 } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";

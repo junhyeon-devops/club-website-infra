@@ -1,4 +1,3 @@
-// Header.js
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -7,52 +6,13 @@ import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom';
 
 import './Header.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-const navItems = [
-  {
-    label: '소개',
-    submenu: [
-      { text: '동아리 소개', link: '/intro/clubintro' },
-      { text: '교수님 소개', link: '/intro/professors' },
-      { text: '현 임원 소개', link: '/intro/staff' },
-    ],
-  },
-  {
-    label: '일정',
-    submenu: [
-      { text: '캘린더', link: '/schedule/calendar' },
-      { text: '내 일정', link: '/schedule/schedulelist' },
-    ],
-  },
-  {
-    label: '커뮤니티',
-    submenu: [
-      { text: '대회/공모전', link: '/community/recuit' },
-      { text: '프로젝트', link: '/community/recuit' },
-      { text: '스터디', link: '/community/recuit' },
-      { text: '자유게시판', link: '/community/recuit' },
-    ],
-  },
-  {
-    label: '자료실',
-    submenu: [
-      { text: '학습 자료', link: '/resources/learning' },
-      { text: '졸업요건', link: '/resources/graduation' },
-    ],
-  },
-];
-
-
-
-
-const Header = () => {
-  const [isHovering, setIsHovering] = useState(false);
-  const [hoveredNavIndex, setHoveredNavIndex] = useState(null);
-  const [hoveredDropdownIndex, setHoveredDropdownIndex] = useState(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1024);
-  const [activeDropdownIndex, setActiveDropdownIndex] = useState(null);
+function Header() {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [hoveredTab, setHoveredTab] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1200);
   const location = useLocation();
   const { isLogged, logout } = useAuth();
   const navigate = useNavigate();
@@ -68,20 +28,46 @@ const Header = () => {
     navigate("/login");
   };
 
+  const tabOrder = ['about', 'schedule', 'community', 'resources'];
+
+  const menuItems = {
+    about: ['동아리 소개', '교수님 소개', '현 임원 소개'],
+    schedule: ['캘린더', '내 일정'],
+    community: ['대회/공모전', '프로젝트', '스터디', '자유게시판'],
+    resources: ['학습자료', '졸업요건'],
+  };
+
+  const linkPaths = {
+    '동아리 소개': '/intro/clubintro',
+    '교수님 소개': '/intro/professors',
+    '현 임원 소개': '/intro/staff',
+    '캘린더': '/schedule/calendar',
+    '내 일정': '/schedule/schedulelist',
+    '대회/공모전': '/community/recuit?category=대회/공모전',
+    '프로젝트': '/community/recuit?category=프로젝트',
+    '스터디': '/community/recuit?category=스터디',
+    '자유게시판': '/community/recuit?category=자유게시판',
+    '학습자료': '/resources/learning',
+    '졸업요건': '/resources/graduation',
+  };
+
+  const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 1024);
+    const handleResize = () => {
+      const isNowMobile = window.innerWidth <= 1200;
+      setIsMobile(isNowMobile);
+      if (!isNowMobile) setIsMobileMenuOpen(false);
+    };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   useEffect(() => {
-    setIsHovering(false);
-    setIsMenuOpen(false);
-  }, [location]);
-
-  const handleNavToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+    setShowDropdown(false);
+    setHoveredTab(null);
+  }, [location.pathname]);
 
   let logInOut;
   if (isLogged) {
@@ -109,154 +95,117 @@ const Header = () => {
   }
 
   return (
-    <header className="header-wrapper">
-      <div className="hover-zone">
-        <div className="header">
-          <div className="logo-section">
-            <Link to="/" className="logo-link">
-              <div className="logo-container">
-                <img src="/logo.png" alt="로고" className="logo-image" />
-                <div className="logo-text-group">
-                  <div className="club-name-ko">PDA</div>
-                  <div className="club-name-en">Chungbuk National University SW Dept.</div>
+    <div className="header-wrapper">
+      <nav className="main-nav" onMouseLeave={() => { setShowDropdown(false); setHoveredTab(null); }}>
+        <div className="container-fluid text-white py-2">
+          <div className="row align-items-center text-center">
+            <div className="col-2 d-flex align-items-center justify-content-start ps-3">
+              <Link to="/" className="text-white text-decoration-none" style={{ cursor: 'pointer' }}>
+                <div className="d-flex align-items-center">
+                  <img src="/logo.png" alt="logo" style={{ height: '30px', marginRight: '8px' }} />
+                  <div className="logo-text">
+                    <div className="fw-bold">PDA</div>
+                    <div style={{ fontSize: '0.75rem' }}>Chungbuk National University SW Dept.</div>
+                  </div>
                 </div>
-              </div>
-            </Link>
-          </div>
+              </Link>
+            </div>
 
-          {!isMobile && (
-            <nav className="nav-section">
-              <ul className="nav-list">
-                {navItems.map((item, index) => (
-                  <li
-                    key={item.label}
-                    className="nav-item"
-                    onMouseEnter={() => {
-                      setIsHovering(true);
-                      setHoveredNavIndex(index);
-                    }}
-                    onMouseLeave={() => {
-                      setIsHovering(false);
-                      setHoveredNavIndex(null);
-                    }}
+            <div className="col-2"></div>
+
+            {!isMobile &&
+              tabOrder.map((tab) => (
+                <div
+                  key={tab}
+                  className="col-1 nav-item"
+                  onMouseEnter={() => {
+                    setHoveredTab(tab);
+                    setShowDropdown(true);
+                  }}
+                >
+                  <Link
+                    to={linkPaths[menuItems[tab][0]]}
+                    className="text-white text-decoration-none"
                   >
-                    <div className={`invisible-box ${hoveredNavIndex === index ? 'hover-border' : ''}`}>
-                      <button className={`nav-link ${hoveredNavIndex === index ? 'glow-text' : ''}`}>
-                        {item.label}
-                      </button>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          )}
+                    {tab === 'about'
+                      ? '소개'
+                      : tab === 'schedule'
+                      ? '일정'
+                      : tab === 'community'
+                      ? '커뮤니티'
+                      : '자료실'}
+                  </Link>
+                </div>
+              ))}
 
-    <div>
-      {logInOut}
-    <button
-      className="hamburger"
-      style={{ display: isMobile ? 'block' : 'none' }}
-      onClick={handleNavToggle}
-    >
-              ☰
-            </button>
+            <div className="col-3"></div>
+
+            <div className="col-1 text-end pe-3 login-btn">
+              <Link to="/login" className="text-white text-decoration-none d-inline-flex align-items-center">
+                <FaSignInAlt style={{ marginRight: '6px' }} />
+                로그인
+              </Link>
+            </div>
           </div>
         </div>
 
-        {!isMobile && isHovering && (
-          <div
-            className="dropdown-container"
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => {
-              setIsHovering(false);
-              setHoveredDropdownIndex(null);
-            }}
-          >
-            {navItems.map((item, index) => (
-              <div
-                key={item.label}
-                className="dropdown-column"
-                style={{ borderRight: index === navItems.length - 1 ? 'none' : '1px solid #ccc' }}
-              >
-                {item.submenu.map((subItem, subIndex) => (
-                  <Link
-                    key={subItem.text}
-to={
-      item.label === '커뮤니티'
-        ? { pathname: subItem.link, search: `?category=${encodeURIComponent(subItem.text)}` }
-        : subItem.link
-    }
-                    className={`dropdown-text ${hoveredDropdownIndex === `${index}-${subIndex}` ? 'glow-text-dark' : ''}`}
-                    onMouseEnter={() => setHoveredDropdownIndex(`${index}-${subIndex}`)}
-                    onMouseLeave={() => setHoveredDropdownIndex(null)}
-                  >
-                    {subItem.text}
-                  </Link>
-                ))}
-              </div>
-            ))}
+        {isMobile && (
+          <div className={`hamburger-fixed ${isMobileMenuOpen ? 'active' : ''}`} onClick={toggleMobileMenu}>
+            &#9776;
           </div>
         )}
 
-        {isMobile && (
-          <>
-            {isMenuOpen && <div className="overlay" onClick={handleNavToggle} />}
-
-            <div
-              className="mobile-drawer"
-              style={{ transform: isMenuOpen ? 'translateX(0)' : 'translateX(100%)' }}
-            >
-              <div className="mobile-header">
-                <img src="/loginlogo.png" alt="로고" className="mobile-logo-image" />
-              </div>
-
-              {navItems.map((item, index) => {
-                const isActive = activeDropdownIndex === index;
-                return (
-                  <div key={item.label}>
-                    <div
-                      className="mobile-category"
-                      style={{ color: isActive ? '#002244' : '#000' }}
-                      onClick={() => setActiveDropdownIndex(isActive ? null : index)}
-                    >
-                      {item.label}
-                    </div>
-
-                    <div
-                      style={{
-                        maxHeight: isActive ? '500px' : '0',
-                        opacity: isActive ? 1 : 0,
-                        padding: isActive ? '3px 10px' : '0 10px',
-                        transition: 'all 0.3s ease',
-                        overflow: 'hidden',
-                      }}
-                    >
-                      {isActive && <div className="submenu-border-top" />}
-                      <div className="mobile-submenu-box">
-                        {item.submenu.map((subItem, subIndex) => (
-                          <Link
-                            key={subItem.text}
-to={
-      item.label === '커뮤니티'
-        ? { pathname: subItem.link, search: `?category=${encodeURIComponent(subItem.text)}` }
-        : subItem.link
-    }
-                            className="mobile-submenu-item"
-                          >
-                            {subItem.text}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
+        {showDropdown && !isMobile && (
+          <div className="mega-dropdown">
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-4"></div>
+                {tabOrder.map((key) => (
+                  <div key={key} className="col-1 dropdown-col">
+                    {menuItems[key].map((item, idx) => (
+                      <Link
+                        key={idx}
+                        to={linkPaths[item] || '#'}
+                        className="dropdown-item text-decoration-none"
+                      >
+                        {item}
+                      </Link>
+                    ))}
                   </div>
-                );
-              })}
+                ))}
+                <div className="col-4"></div>
+              </div>
             </div>
-          </>
+          </div>
         )}
-      </div>
-    </header>
+
+        {isMobileMenuOpen && (
+          <div className="mobile-overlay show" onClick={closeMobileMenu}>
+            <div className="mobile-sidebar" onClick={(e) => e.stopPropagation()}>
+              {tabOrder.map((key) => (
+                <div key={key} className="mobile-sidebar-section">
+                  <div className="mobile-menu-category">{key.toUpperCase()}</div>
+                  {menuItems[key].map((item, idx) => (
+                    <Link
+                      key={idx}
+                      to={linkPaths[item] || '#'}
+                      onClick={closeMobileMenu}
+                      className="mobile-menu-item"
+                    >
+                      {item}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+              <Link to="/login" onClick={closeMobileMenu} className="mobile-menu-item">
+                로그인
+              </Link>
+            </div>
+          </div>
+        )}
+      </nav>
+    </div>
   );
-};
+}
 
 export default Header;

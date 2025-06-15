@@ -1,8 +1,11 @@
 const express = require('express');
 const db = require('../db');
 const router = express.Router();
+const authenticateToken = require('../middleware/auth');
 
-router.get('/', async (req, res) => {
+router.get('/', authenticateToken, async (req, res) => {
+    const userId = req.user.id;
+    
     const [rows] = await db.execute('SELECT * FROM schedules WHERE user_id = ?', [req.user.id]);
     res.json(rows);
 });

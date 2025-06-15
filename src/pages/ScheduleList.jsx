@@ -49,6 +49,7 @@ const ScheduleList = ({ schedules, onToggleComplete }) => {
       if(a.completed) return 1;
       return -1;
     });
+  console.log('🔹 schedules data:', JSON.stringify(schedules, null, 2));
 
   return (
     <>

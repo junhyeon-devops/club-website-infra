@@ -36,7 +36,7 @@ app.use("/api/me", meRouter);
 
 app.use("/api/schedules", authenticateToken, scheduleRouter);
 app.use("/api/posts", postRouter);
-app.use("/api", timeTrackingRouter);
+app.use("/api", authenticateToken, timeTrackingRouter);
 
 cron.schedule('* * * * *', async () => {
   try {

@@ -22,8 +22,8 @@ router.get('/', authenticateToken, async (req, res) => {
   const userId = req.user.id;
 
   const [rows] = await db.execute(`
-    SELECT 
-      s.*,
+    SELECT
+      s.id, s.name, s.deadline, s.completed,
       COALESCE(SUM(
         SUBSTRING_INDEX(tt.elapsed_time, ':', 1) * 60 +
         SUBSTRING_INDEX(tt.elapsed_time, ':', -1)
@@ -36,14 +36,10 @@ router.get('/', authenticateToken, async (req, res) => {
     ORDER BY s.deadline ASC
   `, [userId, userId]);
 
-  const formatted = rows.map(r => {
-    const mm = String(Math.floor(r.totalSec / 60)).padStart(2, '0');
-    const ss = String(r.totalSec % 60).padStart(2, '0');
-    return {
-      ...r,
-      timeSpent: `${mm}:${ss}`
-    };
-  });
+  const formatted = rows.map(r => ({
+    ...r,
+    timeSpent: `${String(Math.floor(r.totalSec / 60)).padStart(2, '0')}:${String(r.totalSec % 60).padStart(2, '0')}`
+  }));
 
   res.json(formatted);
 });

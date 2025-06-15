@@ -24,8 +24,13 @@ const MySchedule = () => {
     fetchSchedules();
   }, []);
 
-  const handleToggleComplete = async (id) => {
+  const handleToggleComplete = async (id, deadline, currentCompleted) => {
     const target = schedules.find(s => s.id === id);
+    const isPast = new Date(deadline) <= new Date();
+    if (isPast) {
+      alert("기한이 지난 일정입니다.");
+      return;
+    }
     try {
       await axios.patch(`/api/schedules/${id}`, { completed: !target.completed }, { withCredentials: true });
       fetchSchedules();
@@ -41,9 +46,18 @@ const MySchedule = () => {
 
   const filteredSchedules = schedules.filter(s => {
     if (filter === '완료') return s.completed;
-    if (filter === '진행중') return s.important;
+    if (filter === '진행중') return !s.completed;
     return true;
   });
+
+  const emptyScheduleTab = () => {
+    if (filter === '완료') {
+      return <h3>완료된 일정이 없습니다.</h3>;
+    }
+    if (filter === '진행중') {
+      return <h3>진행중인 일정이 없습니다.</h3>;
+    }
+  };
 
   return (
     <>
@@ -66,7 +80,7 @@ const MySchedule = () => {
               완료 <span className="count">{schedules.filter(s => s.completed).length}</span>
             </li>
             <li onClick={() => setFilter('진행중')} className={filter === '진행중' ? 'active' : ''}>
-              진행중 <span className="count">{schedules.filter(s => s.important).length}</span>
+              진행중 <span className="count">{schedules.filter(s => !s.completed).length}</span>
             </li>
           </ul>
         </div>
@@ -74,11 +88,7 @@ const MySchedule = () => {
         <div className="main-content">
           {filteredSchedules.length === 0 ? (
             <div className="empty-state" style={{ minHeight: '60vh' }}>
-              <h3>할 일이 없습니다.</h3>
-              <p>새로운 할 일을 등록해보세요.</p>
-              <button className="add-button" onClick={() => setIsModalOpen(true)}>
-                + 일정 추가
-              </button>
+              {emptyScheduleTab()}
             </div>
           ) : (
             <>

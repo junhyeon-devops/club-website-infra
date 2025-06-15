@@ -8,7 +8,8 @@ const Scheadd = ({ isOpen, onClose }) => {
   const [deadline, setDeadline] = useState('');
   const [important, setImportant] = useState(false);
 
-  const handleSave = async () => {
+  const handleSave = async (e) => {
+    e.preventDefault();
     try {
       await axios.post('/api/schedules', { name, deadline, important }, { withCredentials: true});
       onClose(true);
@@ -20,20 +21,34 @@ const Scheadd = ({ isOpen, onClose }) => {
 
   if (isOpen) {
     return (
-      <div className="modal-overlay">
-      <div className="modal-content">
-        <h2>일정 추가</h2>
-        <input placeholder="이름" value={name} onChange={e => setName(e.target.value)} />
-        <input type="datetime-local" value={deadline} onChange={e => setDeadline(e.target.value)} />
-        {/* <label>
-          <input type="checkbox" checked={important} onChange={e => setImportant(e.target.checked)} />
-          중요
-        </label>*/}
-        <button onClick={handleSave}>저장</button>
-        <button onClick={() => onClose(false)}>취소</button>
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        
+        {/* 닫기 버튼은 우상단 고정 */}
+        <span className="close-button" onClick={onClose}>×</span>
+
+        {/* 제목은 중앙 정렬 */}
+        <h2 className="modal-title">일정 추가</h2>
+
+        <form onSubmit={handleSave} className="modal-form">
+          <input 
+            type="text" 
+            placeholder="일정 이름" 
+            value={name} 
+            onChange={(e) => setName(e.target.value)} 
+            required
+          />
+          <input 
+            type="datetime-local"
+            value={deadline}
+            onChange={(e) => setDeadline(e.target.value)}
+            required
+          />
+          <button type="submit" className="modal-save-button">추가</button>
+        </form>
       </div>
     </div>
-    );
+  );
   } else {
     return null;
   }

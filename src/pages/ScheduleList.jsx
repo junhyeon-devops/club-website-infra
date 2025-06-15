@@ -2,6 +2,12 @@
 import React from 'react';
 import './ScheduleList.css';
 
+const pad = num => String(num).padStart(2, '0');
+const formatDeadline = iso => {
+  const d = new Date(iso);
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
 const getDdayClass = (deadline) => {
   const today = new Date();
   const target = new Date(deadline);
@@ -34,9 +40,13 @@ const getDday = (deadline) => {
 
 const ScheduleList = ({ schedules, onToggleComplete }) => {
   // ✅ deadline 기준 정렬
-  const sortedSchedules = [...schedules].sort(
-    (a, b) => new Date(a.deadline) - new Date(b.deadline)
-  );
+  const sortedSchedules = [...schedules]
+    .sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
+    .sort(function(a, b) {
+      if(a.completed === b.completed) return 0;
+      if(a.completed) return 1;
+      return -1;
+    });
 
   return (
     <table className="schedule-table">
@@ -51,10 +61,12 @@ const ScheduleList = ({ schedules, onToggleComplete }) => {
         </tr>
       </thead>
       <tbody>
-        {sortedSchedules.map((item) => (
+        {sortedSchedules.map((item) => {
+          const isPast = new Date(item.deadline) <= new Date();
+          return (
           <tr key={item.id}>
             <td>{item.name}</td>
-            <td>{item.deadline}</td>
+            <td>{formatDeadline(item.deadline)}</td>
             <td>
               <span className={getDdayClass(item.deadline)}>
                 {getDday(item.deadline)}
@@ -62,7 +74,7 @@ const ScheduleList = ({ schedules, onToggleComplete }) => {
             </td>
             <td>{item.timeSpent}</td>
             <td>
-              <button className="check-btn" onClick={() => onToggleComplete(item.id)}>
+              <button className="check-btn" onClick={() => onToggleComplete(item.id, item.deadline, item.completed)} disabled={isPast}>
                 {item.completed ? '완료' : '진행 중'}
               </button>
             </td>
@@ -70,7 +82,7 @@ const ScheduleList = ({ schedules, onToggleComplete }) => {
               <button className="focus-btn">집중모드</button>
             </td>
           </tr>
-        ))}
+        )})}
       </tbody>
     </table>
   );

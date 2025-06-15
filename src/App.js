@@ -19,6 +19,11 @@ import ClubIntro from "./pages/ClubIntro";
 import Staff from "./pages/Staff";
 import MySchedule from "./pages/MySchedule";
 import Calendar from "./pages/Calendar";
+import Recuit from './pages/Recuit';
+import PostDetail from './pages/PostDetail';
+import PostWrite from './pages/PostWrite';
+import LearningResources from './pages/LearningResources';
+import GraduationRequirements from './pages/GraduationRequirement';
 
 // ✅ PrivateRoute 정의
 function PrivateRoute({ children }) {
@@ -30,11 +35,7 @@ function PrivateRoute({ children }) {
 }
 
 
-import Recuit from './pages/Recuit';
-import PostDetail from './pages/PostDetail';
-import PostWrite from './pages/PostWrite';
-import LearningResources from './pages/LearningResources';
-import GraduationRequirements from './pages/GraduationRequirement';
+
 
 function App() {
   return (

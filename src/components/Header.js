@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaSignInAlt } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext'
 
 const navItems = [
   {
@@ -112,26 +113,26 @@ const Header = () => {
             </nav>
           )}
 
-          <div style={styles.loginSection}>
-  <Link
-  to="/login"
-  style={{
-    ...styles.loginLink,
-    textDecoration: isLoginHover ? 'underline' : 'none',
-    textUnderlineOffset: '4px',
-  }}
-  onMouseEnter={() => setIsLoginHover(true)}
-  onMouseLeave={() => setIsLoginHover(false)}
->
-  <span style={styles.loginContent}>
-    <FaSignInAlt />
-    &nbsp;로그인
-  </span>
-</Link>
-  <button
-    style={{ ...styles.hamburger, display: isMobile ? 'block' : 'none' }}
-    onClick={handleNavToggle}
-  >
+    <div style={styles.loginSection}>
+      <Link
+      to="/login"
+      style={{
+        ...styles.loginLink,
+        textDecoration: isLoginHover ? 'underline' : 'none',
+        textUnderlineOffset: '4px',
+      }}
+      onMouseEnter={() => setIsLoginHover(true)}
+      onMouseLeave={() => setIsLoginHover(false)}
+    >
+      <span style={styles.loginContent}>
+        <FaSignInAlt />
+        &nbsp;로그인
+      </span>
+    </Link>
+    <button
+      style={{ ...styles.hamburger, display: isMobile ? 'block' : 'none' }}
+      onClick={handleNavToggle}
+    >
               ☰
             </button>
           </div>

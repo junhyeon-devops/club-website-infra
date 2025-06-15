@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.post("/", (req, res) => {
   res.clearCookie("token");
-  res.json({ message: "·Î±×¾Æ¿ô µÇ¾ú½À´Ï´Ù." });
+  res.json({ message: "ë¡œê·¸ì•„ì›ƒ ë˜ì—ˆìŠµë‹ˆë‹¤." });
 });
 
 module.exports = router;

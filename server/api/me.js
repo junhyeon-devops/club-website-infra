@@ -2,19 +2,19 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 
 const router = express.Router();
-const JWT_SECRET = "secretpda_sejujun0401";
+const JWT_SECRET = process.env.JWT_SECRET;
 
 router.get("/", (req, res) => {
   const token = req.cookies.token;
   if (!token) {
-    return res.status(401).json({ message: "·Î±×ÀÎµÇ¾î ÀÖÁö ¾Ê½À´Ï´Ù." });
+    return res.status(401).json({ message: "ë¡œê·¸ì¸ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤." });
   }
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     res.json({ user: decoded });
   } catch (err) {
-    res.status(401).json({ message: "ÅäÅ«ÀÌ À¯È¿ÇÏÁö ¾Ê½À´Ï´Ù." });
+    res.status(401).json({ message: "í† í°ì´ ìœ íš¨í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤." });
   }
 });
 

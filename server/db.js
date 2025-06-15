@@ -1,14 +1,18 @@
 const mysql = require('mysql2/promise');
+const dotenv = require('dotenv');
+
+const env = process.env.NODE_ENV || 'development';
+dotenv.config({ path: `.env.${env}` });
 
 const pool = mysql.createPool({
-  host: 'mysql', // 반드시 docker-compose의 서비스명과 일치해야 함
-  user: 'root',
-  password: 'pda1234',
-  database: 'pda_db',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
   waitForConnections: true,
-  connectionLimit: 10,
+  connectionLimit: process.env.DB_CONN_LIMIT,
   queueLimit: 0,
-  charset: 'utf8mb4',
+  charset: process.env.DB_CHARSET
 });
 
 module.exports = pool;

@@ -4,38 +4,63 @@ const bcrypt = require("bcrypt");
 const db = require("../db");
 
 const router = express.Router();
-const JWT_SECRET = "secretpda_sejujun0401";
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET) {
+  throw new Error("âŒ JWT_SECRETì´ ì„¤ì •ë˜ì–´ ìˆì§€ ì•ŠìŠµë‹ˆë‹¤. .env íŒŒì¼ì„ í™•ì¸í•´ì£¼ì„¸ìš”.");
+}
 
 router.post("/", async (req, res) => {
-  const { username, password, name, studentId, grade, birth, email } = req.body;
+  const { username, password, name, studentId, grade, email } = req.body;
 
   try {
-    const [existing] = await db.execute("SELECT * FROM users WHERE username = ?", [username]);
+    // ì•„ì´ë”” ì¤‘ë³µ í™•ì¸
+    const [existing] = await db.execute(
+      "SELECT * FROM users WHERE username = ?",
+      [username]
+    );
     if (existing.length > 0) {
-      return res.status(400).json({ message: "ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù." });
+      return res.status(400).json({ message: "ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤." });
     }
 
+    // ë¹„ë°€ë²ˆí˜¸ í•´ì‹±
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await db.execute(
-      `INSERT INTO users (username, password, name, student_id, grade, birth, email)
-       VALUES (?, ?, ?, ?, ?, ?, ?)`,
-      [username, hashedPassword, name, studentId, grade, birth, email]
+    // DB ì‚½ì…
+    const [result] = await db.execute(
+      `INSERT INTO users (username, password, name, student_id, grade, email)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [username, hashedPassword, name, studentId, grade, email]
     );
 
-    const token = jwt.sign({ username }, JWT_SECRET, { expiresIn: "1h" });
+    const userId = result.insertId;
 
+    // JWT í† í° ë°œê¸‰
+    const token = jwt.sign(
+      { id: userId, username },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
+    // ì¿ í‚¤ ì„¤ì •
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "Lax",
       maxAge: 1000 * 60 * 60,
     });
 
-    res.status(201).json({ message: "È¸¿ø°¡ÀÔ ¼º°ø!" });
+    res.status(201).json({
+      message: "íšŒì›ê°€ì… ì„±ê³µ!",
+      user: {
+        id: userId,
+        username,
+        name
+      }
+    });
   } catch (err) {
-    console.error("È¸¿ø°¡ÀÔ ¿À·ù:", err);
-    res.status(500).json({ message: "¼­¹ö ¿À·ù" });
+    console.error("íšŒì›ê°€ì… ì˜¤ë¥˜:", err);
+    res.status(500).json({ message: "ì„œë²„ ì˜¤ë¥˜" });
   }
 });
 

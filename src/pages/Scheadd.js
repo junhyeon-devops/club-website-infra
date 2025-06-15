@@ -6,9 +6,13 @@ const Scheadd = ({ onClose }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button type="button" className="close-button" onClick={onClose}>×</button>
+        
+        {/* 닫기 버튼은 우상단 고정 */}
+        <span className="close-button" onClick={onClose}>×</span>
 
-        <h2>일정 추가</h2>
+        {/* 제목은 중앙 정렬 */}
+        <h2 className="modal-title">일정 추가</h2>
+
         <form>
           <input type="text" placeholder="일정 이름" />
           <input type="datetime-local" />

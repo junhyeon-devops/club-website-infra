@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate, useLocation } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -27,7 +33,8 @@ const Login = () => {
         { username, password },
         { withCredentials: true }
       );
-      alert("로그인 성공");
+      await login();
+      navigate("/", { replace: true});
     } catch (err) {
       setErrorMsg(err.response?.data?.message || "서버 오류");
     }

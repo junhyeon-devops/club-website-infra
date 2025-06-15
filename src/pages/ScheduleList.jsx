@@ -1,5 +1,6 @@
 // src/pages/ScheduleList.jsx
-import React from 'react';
+import React, { useState } from 'react'; // ✅ useState import 추가
+import PomodoroTimer from '../pages/Pomodoro'; // ✅ Pomodoro 경로 주의
 import './ScheduleList.css';
 
 const pad = num => String(num).padStart(2, '0');
@@ -22,7 +23,7 @@ const getDdayClass = (deadline) => {
   if (diffDays > 0) return 'd-day-future';
   return 'd-day-past';
 };
-// ✅ D-Day 계산 함수
+
 const getDday = (deadline) => {
   const today = new Date();
   const target = new Date(deadline);

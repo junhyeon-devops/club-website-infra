@@ -24,6 +24,8 @@ import PostDetail from './pages/PostDetail';
 import PostWrite from './pages/PostWrite';
 import LearningResources from './pages/LearningResources';
 import GraduationRequirements from './pages/GraduationRequirement';
+import '@fontsource/share-tech-mono'; 
+
 
 // ✅ PrivateRoute 정의
 function PrivateRoute({ children }) {

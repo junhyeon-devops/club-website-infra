@@ -1,53 +1,40 @@
+/* 전체 레이아웃 */
 .schedule-layout {
   display: flex;
   min-height: 100vh;
 }
 
+/* 왼쪽 사이드바 */
 .sidebar {
-  width: 260px;
+  width: 15vw;
   padding: 20px;
   background-color: #f9f9f9;
   border-right: 1px solid #ddd;
 }
-
 .sidebar-header {
   margin-bottom: 20px;
 }
 
-/* 👉 .add-button 삭제 (sidebar에서는 사용 안 함) */
-/* ✨ 메인 컨텐츠 전용 버튼으로 수정 */
-.main-content {
-  flex: 1;
-  display: flex;
-  justify-content: center; /* 수평 중앙 */
-  align-items: flex-start;
-  padding-top: 10px;     /* 수직 중앙 */
+/* 사이드바 안에 있는 버튼 전용 스타일 */
+.sidebar .add-button.sidebar-add-button {
+  width: 100%;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;    /* 사이드바와 동일 배경 */
+  color: #333;                  /* 어두운 글씨 */
+  border: 1px solid #999;       /* 짙은 회색 테두리 */
+  box-shadow: none;             /* 그림자 제거 */
 }
 
-.add-button {
-  
-  padding: 10px 20px;
-  background-color: #1c63ad;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  font-weight: 500;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  text-align: center;
+.sidebar .add-button.sidebar-add-button:hover {
+  background-color: #e0e0e0;    /* 살짝 진한 회색 호버 */
 }
 
-.add-button:hover {
-  background-color: #093463;
-}
-
+/* 필터 리스트 */
 .filter-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
 .filter-list li {
   padding: 15px;
   cursor: pointer;
@@ -57,139 +44,71 @@
   font-size: 15px;
   color: #333;
 }
-
-/* ✅ 항목 간 구분선 */
 .filter-list li + li {
   border-top: 1px solid #ddd;
 }
-
 .filter-list li.active {
   font-weight: bold;
-  color: #007bff;
-}
-
-.count {
-  font-size: 14px;
-  color: #555;
-}
-
-.schedule-wrapper {
-  background-color: #f7f9fb;
-  min-height: 100vh;
-  padding: 40px 20px;
-  font-family: 'Pretendard', sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* 탭 스타일 */
-.tab-container {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.tab {
-  padding: 8px 16px;
-  background-color: #e9eef2;
-  border: none;
-  border-radius: 8px;
-  font-weight: 500;
-  color: #666;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.tab.active {
-  background-color: #ffffff;
-  color: #111;
-  border: 1px solid #ccc;
-}
-
-/* 테이블 카드 스타일 */
-.schedule-table {
-  width: 95%;
-  max-width: 960px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  overflow: hidden;
-  border-collapse: collapse;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
-}
-
-.schedule-table th,
-.schedule-table td {
-  padding: 14px 18px;
-  text-align: center;
-  font-size: 14px;
-}
-
-.schedule-table th {
-  background-color: #f0f4f8;
-  color: #333;
-  font-weight: 600;
-}
-
-.schedule-table td {
-  color: #444;
-  border-top: 1px solid #eee;
-}
-
-.schedule-table tr:hover {
-  background-color: #f9f9f9;
-}
-
-/* 버튼 묶는 wrapper */
-.button-wrapper {
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-}
-
-/* 완료 버튼 */
-.check-btn {
-  background-color: #e0f0ff;
-  color: #0077cc;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.check-btn:hover {
-  background-color: #cce4ff;
-}
-
-/* 집중 모드 버튼 */
-.focus-btn {
-  background-color: #dfffe2;
-  color: #2c7a4b;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.focus-btn:hover {
-  background-color: #c6f5cb;
+  color: #000000;
 }
 .count {
   font-size: 14px;
   color: #555;
 }
 
+/* 오른쪽 메인 콘텐츠 */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+}
+
+/* 일정이 없는 경우 */
 .empty-state {
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  align-items: center;  /* ✅ 수평 중앙 */
-  height: 60vh;         /* 또는 min-height: 60vh 유지 */
-  text-align: center;   /* 텍스트도 가운데 */
+  height: 60vh;
+  text-align: center;
+  color: #555;
+  font-family: 'Pretendard', sans-serif;
+}
+.empty-state h3 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+.empty-state p {
+  font-size: 14px;
+  color: #888;
+}
+
+/* 일정 추가 버튼 공통 */
+.add-button {
+  padding: 10px 20px;
+  background-color: #f9f9f9;  
+  color: rgb(22, 22, 22);               /* 흰색 글씨 */
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: 500;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+.add-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* 일정 있는 경우 버튼 wrapper */
+.button-wrapper {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }

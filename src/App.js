@@ -29,6 +29,10 @@ function PrivateRoute({ children }) {
   return isLogged ? children : <Navigate to="/login" state={{ from: loc }} replace />;
 }
 
+
+import Recuit from './pages/Recuit';
+import PostDetail from './pages/PostDetail';
+
 function App() {
   return (
     <Router>
@@ -50,6 +54,8 @@ function App() {
           <Route path="/intro/professors" element={<ProfessorIntro />} />
           <Route path="/intro/clubintro" element={<ClubIntro />} />
           <Route path="/intro/staff" element={<Staff />} />
+          <Route path="/community/recuit" element={<Recuit />} />
+          <Route path="/post/:id" element={<PostDetail />} />
 
           {/* 인증 필요 페이지 */}
           <Route
@@ -74,6 +80,7 @@ function App() {
         </Routes>
         <Footer />
       </AuthProvider>
+
     </Router>
   );
 }

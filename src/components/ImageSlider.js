@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { EffectFade, Autoplay } from 'swiper/modules';
-import { Pagination } from 'swiper/modules';
+import { EffectFade, Autoplay, Pagination } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/effect-fade';
@@ -45,7 +44,7 @@ const ImageSlider = () => {
       </Swiper>
 
       <div style={styles.overlay}>
-        <div style={{ fontSize: '60px', fontWeight: 'bold', lineHeight: '1.3', textAlign: 'center' }}>
+        <div style={styles.mainTextContainer}>
           <div
             style={{
               ...styles.fadeText,
@@ -62,7 +61,8 @@ const ImageSlider = () => {
               textShadow: '0 2px 6px rgba(0,0,0,0.8)',
             }}
           >
-            SCHOOL OF COMPUTER SCIENCE<br />ACADEMIC CLUB <span style={styles.pdaText}><span style={styles.yelloDot}>.</span></span>
+            SCHOOL OF COMPUTER SCIENCE<br />
+            ACADEMIC CLUB <span style={styles.pdaText}><span style={styles.yellowDot}>.</span></span>
           </div>
         </div>
         <div
@@ -83,7 +83,8 @@ const styles = {
   wrapper: {
     position: 'relative',
     width: '100%',
-    height: '90vh',
+    height: 'calc(100vh - 70px)', // 헤더 높이만큼 빼기
+    minHeight: '320px', // 모바일 대비 보완
     overflow: 'hidden',
   },
   swiper: {
@@ -112,18 +113,25 @@ const styles = {
     textAlign: 'center',
     pointerEvents: 'none',
     zIndex: 2,
+    padding: '0 10px',
+  },
+  mainTextContainer: {
+    fontSize: 'clamp(2rem, 6vw, 60px)',
+    fontWeight: 'bold',
+    lineHeight: '1.3',
+    textAlign: 'center',
   },
   pdaText: {
     fontWeight: 'bold',
   },
-  yelloDot: {
+  yellowDot: {
     fontFamily: `'Pretendard', 'Noto Sans KR', sans-serif`,
     color: '#F9DC5C',
-    fontSize: '75px',
+    fontSize: 'clamp(2rem, 6vw, 70px)',
   },
   subText: {
     marginTop: '10px',
-    fontSize: '16px',
+    fontSize: 'clamp(0.9rem, 2.2vw, 18px)',
     textShadow: '0 1px 3px rgba(0,0,0,0.7)',
   },
   fadeText: {

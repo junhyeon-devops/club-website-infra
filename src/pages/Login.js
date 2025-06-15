@@ -47,7 +47,6 @@ const Login = () => {
       <input type="password" placeholder="비밀번호" />
       <input type="password" placeholder="비밀번호 확인" />
       <button>회원가입</button>
-
       <div className="close-btn" onClick={() => setShowSignup(false)}>×</div>
     </div>
   </div>

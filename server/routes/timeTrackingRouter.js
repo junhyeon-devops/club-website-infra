@@ -1,0 +1,51 @@
+// routes/timeTrackingRouter.js
+const express = require('express');
+const router = express.Router();
+const db = require('../db'); // mysql2 promise pool
+const authenticateToken = require('../middleware/auth');
+
+router.post('/time-tracking', authenticateToken, async (req, res) => {
+  const userId = req.user.id;
+  const { taskName, elapsed } = req.body; // 예: "12:34"
+
+  await db.execute(`
+    INSERT INTO time_tracking 
+      (user_id, task_name, elapsed_time, recorded_at)
+    VALUES (?, ?, ?, NOW())
+  `, [userId, taskName, elapsed]);
+
+  res.sendStatus(201);
+});
+
+// 사용자 전체 집중시간 누적 조회
+router.get('/', authenticateToken, async (req, res) => {
+  const userId = req.user.id;
+
+  const [rows] = await db.execute(`
+    SELECT 
+      s.*,
+      COALESCE(SUM(
+        SUBSTRING_INDEX(tt.elapsed_time, ':', 1) * 60 +
+        SUBSTRING_INDEX(tt.elapsed_time, ':', -1)
+      ), 0) AS totalSec
+    FROM schedules s
+    LEFT JOIN time_tracking tt
+      ON tt.user_id = ? AND tt.task_name = s.name
+    WHERE s.user_id = ?
+    GROUP BY s.id
+    ORDER BY s.deadline ASC
+  `, [userId, userId]);
+
+  const formatted = rows.map(r => {
+    const mm = String(Math.floor(r.totalSec / 60)).padStart(2, '0');
+    const ss = String(r.totalSec % 60).padStart(2, '0');
+    return {
+      ...r,
+      timeSpent: `${mm}:${ss}`
+    };
+  });
+
+  res.json(formatted);
+});
+
+module.exports = router;

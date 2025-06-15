@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import './Pomodoro.css';
 
 const Pomodoro = ({ onClose, taskName }) => {
   const [step, setStep] = useState(1);
   const [focusMinutes, setFocusMinutes] = useState(25);
-  const [breakMinutes, setBreakMinutes] = useState(5);
   const [timeLeft, setTimeLeft] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const timerRef = useRef(null);
@@ -19,6 +19,18 @@ const Pomodoro = ({ onClose, taskName }) => {
 
   const formatMin = (sec) => String(Math.floor(sec / 60)).padStart(2, '0');
   const formatSec = (sec) => String(sec % 60).padStart(2, '0');
+
+  const getElapsed = () => {
+    const elapsedSec = step === 2 ? totalTime - timeLeft : 0;
+    const mm = formatMin(elapsedSec);
+    const ss = formatSec(elapsedSec);
+    return `${mm}:${ss}`;
+  };
+
+  const sendElapsedToDB = () => {
+    const elapsed = getElapsed();
+    axios.post('/api/time-tracking', { taskName, elapsed }).catch(console.error);
+  };
 
   const getRemainingActiveBlocks = () => {
     if (step !== 2) return activeBlocks;
@@ -36,7 +48,7 @@ const Pomodoro = ({ onClose, taskName }) => {
         if (prev <= 1) {
           clearInterval(timerRef.current);
           setIsRunning(false);
-          alert('⏰ 집중 끝! 휴식하세요.');
+          sendElapsedToDB(); // ⏰ 시간 다 됐을 때 DB 전송
           return 0;
         }
         return prev - 1;
@@ -132,7 +144,15 @@ const Pomodoro = ({ onClose, taskName }) => {
   return (
     <div className="pomodoro-overlay">
       <div className="pomodoro-box">
-        <span className="close-button" onClick={onClose}>×</span>
+        <span
+          className="close-button"
+          onClick={() => {
+            if (step === 2) sendElapsedToDB(); // 🔺 X 누를 때 DB 전송
+            onClose();
+          }}
+        >
+          ×
+        </span>
         {step === 1 ? (
           <>
             <h2>집중 시간 설정</h2>
@@ -142,15 +162,6 @@ const Pomodoro = ({ onClose, taskName }) => {
                 type="number"
                 value={focusMinutes}
                 onChange={(e) => setFocusMinutes(Number(e.target.value))}
-              />
-            </label>
-            <br /><br />
-            <label>
-              휴식 시간 (분):&nbsp;
-              <input
-                type="number"
-                value={breakMinutes}
-                onChange={(e) => setBreakMinutes(Number(e.target.value))}
               />
             </label>
             <br /><br />

@@ -16,6 +16,7 @@ const meRouter = require("./api/me");
 const authenticateToken = require("./middleware/auth");
 const scheduleRouter = require("./routes/schedules");
 const postRouter = require("./routes/post");
+const timeTrackingRouter = require("./routes/timeTrackingRouter");
 
 const app = express();
 const PORT = 5000;
@@ -35,6 +36,7 @@ app.use("/api/me", meRouter);
 
 app.use("/api/schedules", authenticateToken, scheduleRouter);
 app.use("/api/posts", postRouter);
+app.use("/api", timeTrackingRouter);
 
 cron.schedule('* * * * *', async () => {
   try {

@@ -14,6 +14,8 @@ import MySchedule from './pages/MySchedule';
 import Recuit from './pages/Recuit';
 import PostDetail from './pages/PostDetail';
 import PostWrite from './pages/PostWrite';
+import LearningResources from './pages/LearningResources';
+import GraduationRequirements from './pages/GraduationRequirement';
 
 function App() {
   // ✅ 여기서 사용자 역할 설정 (로그인 연동 전에는 수동 테스트 가능)
@@ -35,6 +37,8 @@ function App() {
         <Route path="/community/recuit" element={<Recuit />} />
         <Route path="/post/:id" element={<PostDetail />} />
         <Route path="/community/recuit/write" element={<PostWrite />} />
+        <Route path="/resources/learning" element={<LearningResources />} />
+        <Route path="/resources/graduation" element={<GraduationRequirements />} />
         <Route path="/schedule/calendar" element={<Calendar isAdmin={user.role === 'admin'} />} />
       </Routes>
       <Footer />

@@ -73,8 +73,10 @@ function Recuit() {
         subtitle="프로젝트 및 공모전 팀원을 모집합니다."
         backgroundImage="/community.jpg"
       />
-
       <div className="community-wrapper">
+        <Link to="/community/recuit/write" className="write-button">
+            글쓰기
+          </Link>
         <div className="top-bar">
           <div className="category-tabs">
             {categories.map(category => (

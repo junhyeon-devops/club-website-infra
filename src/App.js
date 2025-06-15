@@ -76,9 +76,7 @@ function App() {
           <Route
             path="/schedule/calendar"
             element={
-              <PrivateRoute>
                 <Calendar />
-              </PrivateRoute>
             }
           />
           <Route 

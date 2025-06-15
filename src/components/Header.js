@@ -1,42 +1,29 @@
+// src/components/Header.js
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
-import { useAuth } from '../context/AuthContext'
-import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../context/AuthContext';
 import './Header.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { none } from '@cloudinary/url-gen/qualifiers/fontHinting';
 
 function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [hoveredTab, setHoveredTab] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1200);
+
   const location = useLocation();
-  const { isLogged, logout } = useAuth();
   const navigate = useNavigate();
-
-  const handleLogout = async (e) => {
-    e.preventDefault();
-    await logout();
-    navigate("/", { replace: true})
-  };
-
-  const handleLoginClick = (e) => {
-    e.preventDefault();
-    navigate("/login");
-  };
+  const { isLogged, logout } = useAuth();
 
   const tabOrder = ['about', 'schedule', 'community', 'resources'];
-
   const menuItems = {
     about: ['동아리 소개', '교수님 소개', '현 임원 소개'],
     schedule: ['캘린더', '내 일정'],
     community: ['대회/공모전', '프로젝트', '스터디', '자유게시판'],
     resources: ['학습자료', '졸업요건'],
   };
-
   const linkPaths = {
     '동아리 소개': '/intro/clubintro',
     '교수님 소개': '/intro/professors',
@@ -51,15 +38,24 @@ function Header() {
     '졸업요건': '/resources/graduation',
   };
 
-  const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
-  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+  const handleResize = () => {
+    const nowMobile = window.innerWidth <= 1200;
+    setIsMobile(nowMobile);
+    if (!nowMobile) setIsMobileMenuOpen(false);
+  };
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await logout();       // AuthContext에서 isLogged = false로 변경
+    navigate('/', { replace: true });
+  };
+
+  const handleLoginClick = (e) => {
+    e.preventDefault();
+    navigate('/login');
+  };
 
   useEffect(() => {
-    const handleResize = () => {
-      const isNowMobile = window.innerWidth <= 1200;
-      setIsMobile(isNowMobile);
-      if (!isNowMobile) setIsMobileMenuOpen(false);
-    };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -68,31 +64,6 @@ function Header() {
     setShowDropdown(false);
     setHoveredTab(null);
   }, [location.pathname]);
-
-  let logInOut;
-  if (isLogged) {
-    logInOut = (
-      <Link
-        to="#"
-        onClick={handleLogout}
-        className="login-link"
-      >
-        <FaSignOutAlt style={{ marginRight: 4 }} />
-        로그아웃
-      </Link>
-    );
-  } else {
-    logInOut = (
-      <Link
-        to="/login"
-        onClick={handleLoginClick}
-        className="login-link"
-      >
-        <FaSignInAlt style={{ marginRight: 4 }} />
-        로그인
-      </Link>
-    );
-  }
 
   return (
     <div className="header-wrapper">
@@ -130,10 +101,10 @@ function Header() {
                     {tab === 'about'
                       ? '소개'
                       : tab === 'schedule'
-                      ? '일정'
-                      : tab === 'community'
-                      ? '커뮤니티'
-                      : '자료실'}
+                        ? '일정'
+                        : tab === 'community'
+                          ? '커뮤니티'
+                          : '자료실'}
                   </Link>
                 </div>
               ))}
@@ -141,16 +112,23 @@ function Header() {
             <div className="col-3"></div>
 
             <div className="col-1 text-end pe-3 login-btn">
-              <Link to="/login" className="text-white text-decoration-none d-inline-flex align-items-center">
-                <FaSignInAlt style={{ marginRight: '6px' }} />
-                로그인
-              </Link>
+              {isLogged ? (
+                <Link to="#" onClick={handleLogout} className="text-white text-decoration-none">
+                  <FaSignOutAlt style={{ marginRight: 4, textDecoration: 'none' }} />
+                  로그아웃
+                </Link>
+              ) : (
+                <Link to="/login" onClick={handleLoginClick} className="text-white text-decoration-none">
+                  <FaSignInAlt />
+                  로그인
+                </Link>
+              )}
             </div>
           </div>
         </div>
 
         {isMobile && (
-          <div className={`hamburger-fixed ${isMobileMenuOpen ? 'active' : ''}`} onClick={toggleMobileMenu}>
+          <div className={`hamburger-fixed ${isMobileMenuOpen ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(p => !p)}>
             &#9776;
           </div>
         )}
@@ -167,6 +145,7 @@ function Header() {
                         key={idx}
                         to={linkPaths[item] || '#'}
                         className="dropdown-item text-decoration-none"
+                        onClick={() => setShowDropdown(false)}
                       >
                         {item}
                       </Link>
@@ -180,7 +159,7 @@ function Header() {
         )}
 
         {isMobileMenuOpen && (
-          <div className="mobile-overlay show" onClick={closeMobileMenu}>
+          <div className="mobile-overlay show" onClick={() => setIsMobileMenuOpen(false)}>
             <div className="mobile-sidebar" onClick={(e) => e.stopPropagation()}>
               {tabOrder.map((key) => (
                 <div key={key} className="mobile-sidebar-section">
@@ -189,7 +168,7 @@ function Header() {
                     <Link
                       key={idx}
                       to={linkPaths[item] || '#'}
-                      onClick={closeMobileMenu}
+                      onClick={() => setIsMobileMenuOpen(false)}
                       className="mobile-menu-item"
                     >
                       {item}
@@ -197,9 +176,15 @@ function Header() {
                   ))}
                 </div>
               ))}
-              <Link to="/login" onClick={closeMobileMenu} className="mobile-menu-item">
-                로그인
-              </Link>
+              {isLogged ? (
+                <Link to="#" onClick={handleLogout} className="mobile-menu-item">
+                  로그아웃
+                </Link>
+              ) : (
+                <Link to="/login" onClick={() => { setIsMobileMenuOpen(false); handleLoginClick(); }} className="mobile-menu-item">
+                  로그인
+                </Link>
+              )}
             </div>
           </div>
         )}

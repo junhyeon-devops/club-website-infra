@@ -59,7 +59,6 @@ const ScheduleList = ({ schedules, onToggleComplete }) => {
           <th>일정 이름</th>
           <th>기한</th>
           <th>D-Day</th>
-          <th>누적 시간</th>
           <th>체크</th>
           <th>집중</th>
         </tr>
@@ -76,7 +75,6 @@ const ScheduleList = ({ schedules, onToggleComplete }) => {
                 {getDday(item.deadline)}
               </span>
             </td>
-            <td>{item.timeSpent}</td>
             <td>
               <button className="check-btn" onClick={() => onToggleComplete(item.id, item.deadline, item.completed)} disabled={isPast}>
                 {item.completed ? '완료' : '진행 중'}

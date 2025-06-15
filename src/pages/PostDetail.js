@@ -99,7 +99,7 @@ function PostDetail() {
         </div>
       </div>
 
-      <div style={{ margin: '24px 0' }}>
+      <div style={{ margin: '10px 0' }}>
         <button className="back-button" onClick={() => navigate(-1)}>목록</button>
       </div>
 

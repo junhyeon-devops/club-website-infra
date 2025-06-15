@@ -1,6 +1,8 @@
 .post-detail {
   max-width: 800px;
-  margin: 40px auto;
+  margin: 0px auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
   font-family: 'Noto Sans KR', sans-serif;
 }
 
@@ -10,7 +12,8 @@
   padding: 16px;
   border-radius: 8px;
   background-color: #ffffff;
-  margin-bottom: 24px;
+  margin-bottom: 0;
+  width: 800px;
 }
 
 /* 🔹 content-box 안쪽: 제목 + 작성자/조회수/좋아요 */
@@ -95,6 +98,7 @@
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
+    margin-top: 0px;
     margin-bottom: 20px;
     transition: background-color 0.2s, color 0.2s;
 }

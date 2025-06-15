@@ -2,6 +2,7 @@
   padding: 40px;
   max-width: 800px;
   margin: 0 auto;
+  height: 50% !important;
   font-family: 'Noto Sans KR', sans-serif;
 }
 

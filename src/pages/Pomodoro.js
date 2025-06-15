@@ -2,14 +2,17 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Pomodoro.css';
 
 const PomodoroTimer = ({ onClose, taskName }) => {
-  const totalTime = 35 * 60 + 14; // 예시값
-  const [timeLeft, setTimeLeft] = useState(totalTime);
+  const [step, setStep] = useState(1); // 1: 설정, 2: 타이머
+  const [focusMinutes, setFocusMinutes] = useState(25);
+  const [breakMinutes, setBreakMinutes] = useState(5);
+  const [timeLeft, setTimeLeft] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const timerRef = useRef(null);
 
-  const center = 150;
-  const blockRadius = 110; // 사각형 원형 경로 반지름
-  const blockSize = 8; // 사각형 한변
+  const totalTime = focusMinutes * 60;
+  const center = 200;
+  const blockRadius = 160;
+  const blockSize = 10;
   const filledBlocks = Math.floor(((totalTime - timeLeft) / totalTime) * 60);
 
   const formatMin = (sec) => String(Math.floor(sec / 60)).padStart(2, '0');
@@ -60,7 +63,7 @@ const PomodoroTimer = ({ onClose, taskName }) => {
           y={y - blockSize / 2}
           width={blockSize}
           height={blockSize}
-          fill={i < filledBlocks ? '#f18700' : '#ccc'}
+          fill={i < filledBlocks ? '#f18700' : '#ddd'}
           transform={`rotate(${rotate} ${x} ${y})`}
         />
       );
@@ -72,7 +75,7 @@ const PomodoroTimer = ({ onClose, taskName }) => {
     const labels = [];
     for (let i = 0; i < 12; i++) {
       const angle = (i * 30 - 90) * (Math.PI / 180);
-      const r = 135;
+      const r = blockRadius + 25;
       const x = center + r * Math.cos(angle);
       const y = center + r * Math.sin(angle);
       labels.push(
@@ -82,7 +85,7 @@ const PomodoroTimer = ({ onClose, taskName }) => {
           y={y}
           textAnchor="middle"
           dominantBaseline="middle"
-          fontSize="12"
+          fontSize="14"
           fill="#000"
         >
           {i * 5}°
@@ -92,49 +95,85 @@ const PomodoroTimer = ({ onClose, taskName }) => {
     return labels;
   };
 
+  const handleSetupSubmit = () => {
+    const sec = focusMinutes * 60;
+    setTimeLeft(sec);
+    setStep(2);
+  };
+
   return (
     <div className="pomodoro-overlay">
       <div className="pomodoro-box">
-        <h2>{taskName} 집중 모드</h2>
-        <div className="clock-container">
-          <svg width="300" height="300">
-            <circle
-              cx={center}
-              cy={center}
-              r={blockRadius}
-              fill="black"
-              stroke="white"
-              strokeWidth="2"
-            />
-            {renderBlocks()}
-            {renderAngleLabels()}
-            {/* 중앙 디지털 시계 */}
-            <text
-              x={center}
-              y={center - 10}
-              textAnchor="middle"
-              fontSize="36"
-              fill="#000"
-            >
-              {formatMin(timeLeft)}<tspan fontSize="14"> M</tspan>
-            </text>
-            <text
-              x={center}
-              y={center + 24}
-              textAnchor="middle"
-              fontSize="28"
-              fill="#000"
-            >
-              {formatSec(timeLeft)}<tspan fontSize="14"> S</tspan>
-            </text>
-          </svg>
-        </div>
-        <div className="controls">
-          <button onClick={startTimer}>시작</button>
-          <button onClick={pauseTimer}>일시정지</button>
-          <button onClick={resetTimer}>초기화</button>
-        </div>
-        <button className="close-btn" onClick={onClose}>닫기</button>
+
+        {step === 1 && (
+          <>
+            <h2>집중 시간 설정</h2>
+            <label>
+              집중 시간 (분):&nbsp;
+              <input
+                type="number"
+                value={focusMinutes}
+                onChange={(e) => setFocusMinutes(Number(e.target.value))}
+              />
+            </label>
+            <br /><br />
+            <label>
+              휴식 시간 (분):&nbsp;
+              <input
+                type="number"
+                value={breakMinutes}
+                onChange={(e) => setBreakMinutes(Number(e.target.value))}
+              />
+            </label>
+            <br /><br />
+            <button onClick={handleSetupSubmit}>타이머 시작</button>
+            <button className="close-btn" onClick={onClose}>취소</button>
+          </>
+        )}
+
+        {step === 2 && (
+          <>
+            <h2>{taskName} 집중 모드</h2>
+            <div className="clock-container">
+              <svg width="400" height="400">
+                <circle
+                  cx={center}
+                  cy={center}
+                  r={blockRadius}
+                  fill="black"
+                  stroke="white"
+                  strokeWidth="2"
+                />
+                {renderBlocks()}
+                {renderAngleLabels()}
+                <text
+                  x={center}
+                  y={center - 15}
+                  textAnchor="middle"
+                  fontSize="48"
+                  fill="#fff"
+                >
+                  {formatMin(timeLeft)}<tspan fontSize="18"> M</tspan>
+                </text>
+                <text
+                  x={center}
+                  y={center + 35}
+                  textAnchor="middle"
+                  fontSize="36"
+                  fill="#fff"
+                >
+                  {formatSec(timeLeft)}<tspan fontSize="18"> S</tspan>
+                </text>
+              </svg>
+            </div>
+            <div className="controls">
+              <button onClick={startTimer}>시작</button>
+              <button onClick={pauseTimer}>일시정지</button>
+              <button onClick={resetTimer}>초기화</button>
+            </div>
+            <button className="close-btn" onClick={onClose}>닫기</button>
+          </>
+        )}
       </div>
     </div>
   );

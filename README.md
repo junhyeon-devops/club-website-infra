@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+# 💡 PDA 동아리 홈페이지
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 충북대학교 소프트웨어학과 학술 동아리 **PDA**의 공식 웹사이트
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📌 프로젝트 소개
 
-### `npm start`
+**PDA 동아리 홈페이지**는 동아리 활동을 소개하고, 일정 관리 및 커뮤니티 기능을 통해  
+회원들의 소통과 정보 공유를 지원하는 통합 웹 플랫폼입니다.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+동아리 소개, 교수님/임원 소개, 커뮤니티 게시판, 일정 관리 및 Pomodoro 타이머 기능 등을 제공합니다.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠️ 사용 기술
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Frontend
+- React
+- React Router
+- FullCalendar
+- CSS Modules / Bootstrap
 
-### `npm run build`
+### Backend
+- Node.js (Express)
+- JWT
+- Bcrypt
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Database 
+- MySQL
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Release
+- Docker
+- Docker Compose
+- Amazon EC2
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🧩 주요 기능
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- 🔐 회원가입 / 로그인
+- 🗓️ 동아리 행사 및 개인 일정 등록 (캘린더 기반 UI)
+- ⏲️ Pomodoro 타이머 (집중력 향상 도구)
+- 🗣️ 커뮤니티 게시판 + 댓글 기능
+- 🖼️ 동아리/교수님/임원 소개 페이지
+- ☁️ AWS EC2를 통한 실서비스 배포
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🗓️ 개발 일정 (CodeDiary)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+| 기간 | 작업 내용 |
+|------|-----------|
+| 5/1 ~ 5/7 | 요구사항 분석, UI 설계 |
+| 5/8 ~ 5/14 | 메인 화면 및 공통 레이아웃 구현 |
+| 5/15 ~ 5/21 | 소개 페이지, 로그인/회원가입 기능 구현 |
+| 5/22 ~ 5/28 | 커뮤니티 UI 및 댓글 기능 구현 및 중간 발표 |
+| 5/29 ~ 6/5 | 캘린더 및 일정 페이지 구성 |
+| 6/6 ~ 6/10 | 일정 c, Pomodoro 구현 |
+| 6/11 ~ 6/15 | API 연동 및 AWS 배포 |
+| 6/16 | 최종 제출 |
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 👥 팀 구성
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| 이름 | 역할 | 담당 업무 |
+|------|------|-----------|
+| 박세민 | 프론트엔드 | UI 설계, 메인/소개/일정 UI, Pomodoro |
+| 김주훈 | 프론트엔드 | 커뮤니티, 로그인/회원가입, 디자인 |
+| 윤준현 | 백엔드 | API 구현, Server 연동, EC2 배포 |
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 🖥️ 실행 방법
 
-### Analyzing the Bundle Size
+```bash
+# 프론트엔드 실행
+cd ./Web_SoftWare
+npm install
+npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# 백엔드 실행
+cd server
+npm install
+npm run dev

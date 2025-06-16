@@ -4,8 +4,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaHeart, FaEye } from 'react-icons/fa';
 import './PostDetail.css';
+import { useAuth } from '../context/AuthContext';
+
+
 
 function PostDetail() {
+  const { user } = useAuth();
+  const currentUserId = user?.id;
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -35,6 +40,19 @@ function PostDetail() {
       .finally(() => setLoading(false));
   }, [id]);
 
+  const handleDelete = async () => {
+    if (!window.confirm('정말 삭제하시겠습니까?')) return;
+
+    try {
+      await axios.delete(`/api/posts/${id}`, { withCredentials: true });
+      alert('삭제되었습니다.');
+      navigate('/community/recuit'); // 목록 페이지 등으로 이동
+    } catch (err) {
+      console.error(err);
+      alert('삭제 중 오류 발생');
+    }
+  };
+
   const handleLike = () => {
     axios.post(`/api/posts/${id}/like`, {}, { withCredentials: true })
       .then(res => {
@@ -45,20 +63,20 @@ function PostDetail() {
   };
 
   const handleAddComment = () => {
-  const body = commentText.trim();
-  if (!body) return;
+    const body = commentText.trim();
+    if (!body) return;
 
-  console.log('보내는 댓글:', body, 'post id:', id);
+    console.log('보내는 댓글:', body, 'post id:', id);
 
-  axios.post(`/api/posts/${id}/comments`, { text: body }, { withCredentials: true })
-    .then(res => {
-      console.log('백에서 온 댓글:', res.data);
-      setComments(prev => [...prev, res.data]);
-      setCommentText('');
-      setInputActive(false);
-    })
-    .catch(err => console.error('댓글 등록 에러:', err));
-};
+    axios.post(`/api/posts/${id}/comments`, { text: body }, { withCredentials: true })
+      .then(res => {
+        console.log('백에서 온 댓글:', res.data);
+        setComments(prev => [...prev, res.data]);
+        setCommentText('');
+        setInputActive(false);
+      })
+      .catch(err => console.error('댓글 등록 에러:', err));
+  };
 
   if (loading) return <p>로딩 중...</p>;
   if (error) return <p>게시글을 불러오는 중 오류가 발생했습니다.</p>;
@@ -77,7 +95,7 @@ function PostDetail() {
             <span><FaEye /> {views}</span>
             <span
               style={{ cursor: 'pointer', color: liked ? 'red' : undefined }}
-              onClick={ handleLike }
+              onClick={handleLike}
             >
               <FaHeart /> {likes}
             </span>
@@ -101,6 +119,10 @@ function PostDetail() {
 
       <div style={{ margin: '10px 0' }}>
         <button className="back-button" onClick={() => navigate(-1)}>목록</button>
+        <button className="back-button" onClick={handleDelete}>삭제</button>
+        {post.user_id === currentUserId && (
+          <button className="back-button" onClick={() => navigate(`/posts/${id}/edit`)}>수정</button>
+        )}
       </div>
 
       <div className="comments-wrapper">

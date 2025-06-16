@@ -95,8 +95,12 @@ function Header() {
                   }}
                 >
                   <Link
-                    to={linkPaths[menuItems[tab][0]]}
-                    className="text-white text-decoration-none"
+                    to={
+                      tab === 'community'
+                        ? '/community/recuit?category=전체'
+                        : linkPaths[menuItems[tab][0]]
+                    }
+                    className="text-white text-decoration-none text-center"
                   >
                     {tab === 'about'
                       ? '소개'

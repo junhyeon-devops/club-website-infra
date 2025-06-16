@@ -5,22 +5,22 @@ import IntroTop from '../components/IntroTop';
 const executives = {
   회장단: [
     { name: '박승준', role: '회장', major: '소프트웨어학과 21', image: '/img/staff1.jpg' },
-    { name: '우태현', role: '부회장', major: '소프트웨어학과 21', image: '/img/staff2.jpg' },
+    { name: '우태현', role: '부회장', major: '소프트웨어학과 21', image: '/img/staff2.png' },
   ],
   학술부: {
     desc: '세션 / 스터디 / 세미나 운영 및 SNS 관리',
-    head: { name: '신종환', major: '소프트웨어학과 21', image: '/img/staff3.jpg' },
-    staff: [{ name: '박조현', major: '소프트웨어학과 21', image: '/img/staff4.jpg' }],
+    head: { name: '신종환', major: '소프트웨어학과 21', image: '/img/staff3.png' },
+    staff: [{ name: '박조현', major: '소프트웨어학과 21', image: '/img/staff4.png' }],
   },
   총무부: {
     desc: '동아리 행사 기획 및 운영',
-    head: { name: '변해정', major: '소프트웨어학과 22', image: '/img/staff5.jpg' },
-    staff: [{ name: '윤준식', major: '소프트웨어학과 20', image: '/img/staff6.jpg' }],
+    head: { name: '변해정', major: '소프트웨어학과 22', image: '/img/staff5.png' },
+    staff: [{ name: '윤준식', major: '소프트웨어학과 20', image: '/img/staff6.png' }],
   },
   홍보부: {
     desc: '세션 / 스터디 / 세미나 운영 및 SNS 관리',
-    head: { name: '박성범', major: '소프트웨어학과 21', image: '/img/staff7.jpg' },
-    staff: [{ name: '변진호', major: '소프트웨어학과 22', image: '/img/staff8.jpg' }],
+    head: { name: '박성범', major: '소프트웨어학과 21', image: '/img/staff7.png' },
+    staff: [{ name: '변진호', major: '소프트웨어학과 22', image: '/img/staff8.png' }],
   },
 };
 

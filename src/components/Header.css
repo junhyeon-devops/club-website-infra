@@ -42,22 +42,22 @@ body {
 }
 
 /* 🔹 기본 상태에서는 강조선 없음 */
-.nav-item::after {
+/* .nav-item::after {
   content: '';
   position: absolute;
-  bottom: -19px;
+  bottom: -12px;
   left: 0;
   width: 100%;
   height: 3px;
   background-color: white;
   opacity: 0;
   transition: opacity 0.2s ease;
-}
+} */
 
 /* 🔹 hover 시 강조선 표시 */
-.nav-item:hover::after {
+/* .nav-item:hover::after {
   opacity: 1;
-}
+} */
 
 /* ✅ PC 드롭다운 */
 .mega-dropdown {
@@ -77,7 +77,6 @@ body {
   padding: 0 15px;
   color: #aaa;
   border-right: 1px solid #333;
-  min-width: 140px;
 }
 
 .dropdown-col:last-child {
@@ -91,6 +90,8 @@ body {
   font-size: 0.95rem;
   transition: background-color 0.2s ease, color 0.2s ease;
   text-decoration: none;
+  width: 100%;
+   text-align: center;;
 }
 
 .dropdown-item:hover {

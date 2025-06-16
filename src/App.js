@@ -24,9 +24,10 @@ import Calendar from "./pages/Calendar";
 import Recuit from './pages/Recuit';
 import PostDetail from './pages/PostDetail';
 import PostWrite from './pages/PostWrite';
+import PostEdit from "./pages/PostEdit";
 import LearningResources from './pages/LearningResources';
 import GraduationRequirements from './pages/GraduationRequirement';
-import '@fontsource/share-tech-mono'; 
+import '@fontsource/share-tech-mono';
 
 
 // ✅ PrivateRoute 정의
@@ -43,55 +44,69 @@ function App() {
     <Router>
       <AuthProvider>
         <Header />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <ImageSlider />
-                <MainIntro />
-              </>
-            }
-          />
-          <Route path="/login" element={<Login />} />
+        <div className="page-wrapper">
+          <main className="page-content">
 
-          {/* 인증이 필요하지 않은 소개 페이지 */}
-          <Route path="/intro/professors" element={<ProfessorIntro />} />
-          <Route path="/intro/clubintro" element={<ClubIntro />} />
-          <Route path="/intro/staff" element={<Staff />} />
-          <Route path="/community/recuit" element={<Recuit />} />
-          <Route path="/post/:id" element={<PostDetail />} />
-          <Route path="/resources/learning" element={<LearningResources />} />
-          <Route path="/resources/graduation" element={<GraduationRequirements />} />
 
-          {/* 인증 필요 페이지 */}
-          <Route
-            path="/schedule/schedulelist"
-            element={
-              <PrivateRoute>
-                <MySchedule />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/schedule/calendar"
-            element={
-                <Calendar />
-            }
-          />
-          <Route 
-            path="/community/recuit/write" 
-            element={
-              <PrivateRoute>
-                <PostWrite />
-              </PrivateRoute>
-            }
-          />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <>
+                    <ImageSlider />
+                    <MainIntro />
+                  </>
+                }
+              />
+              <Route path="/login" element={<Login />} />
 
-          {/* 그 외 모든 경로는 홈으로 */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-        <Footer />
+              {/* 인증이 필요하지 않은 소개 페이지 */}
+              <Route path="/intro/professors" element={<ProfessorIntro />} />
+              <Route path="/intro/clubintro" element={<ClubIntro />} />
+              <Route path="/intro/staff" element={<Staff />} />
+              <Route path="/community/recuit" element={<Recuit />} />
+              <Route path="/post/:id" element={<PostDetail />} />
+              <Route path="/resources/learning" element={<LearningResources />} />
+              <Route path="/resources/graduation" element={<GraduationRequirements />} />
+
+              {/* 인증 필요 페이지 */}
+              <Route
+                path="/schedule/schedulelist"
+                element={
+                  <PrivateRoute>
+                    <MySchedule />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/schedule/calendar"
+                element={
+                  <Calendar />
+                }
+              />
+              <Route
+                path="/community/recuit/write"
+                element={
+                  <PrivateRoute>
+                    <PostWrite />
+                  </PrivateRoute>
+                }
+              />
+              <Route path="/posts/:id/edit"
+                element={
+                  <PrivateRoute>
+                    <PostEdit />
+                  </PrivateRoute>
+                }
+              />
+
+              {/* 그 외 모든 경로는 홈으로 */}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+
       </AuthProvider>
 
 

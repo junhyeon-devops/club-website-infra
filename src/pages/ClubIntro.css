@@ -4,11 +4,12 @@ ul {
   font-size: 0.95rem;
 }
 .pdalist {
-  max-width: 800px;
-  margin: 2rem auto;
-  padding: 0 1rem;
+  max-width: 600px;    /* 너비 최대 600px 제한 */
+  width: 100%;
+  margin-left: 8vw;
+  padding: 0;
+  text-align: left;     /* 내부 항목은 왼쪽 정렬 유지 */
 }
-
 .pdaitem {
   display: flex;
   align-items: baseline;
@@ -45,7 +46,8 @@ ul {
 }
 
 .mainintro-heading {
-  margin-bottom: 1rem; /* 제목 간 간격 조정 */
+  margin-top: 2rem;
+  margin-bottom: 1.5rem; /* 제목 간 간격 조정 */
 }
 
 /* PDA 리스트 요소 최대 너비 지정 */

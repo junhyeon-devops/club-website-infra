@@ -70,7 +70,12 @@ function PostWrite() {
     setSubmitting(true);
     try {
       // 이미지 업로드
-      const imageUrls = await Promise.all(files.map(uploadToCloudinary));
+      const imageUrls = await Promise.all(
+        files.map(async (file) => {
+          const url = await uploadToCloudinary(file);
+          return url.replace('/upload/', '/upload/w_400,h_300,c_fit/'); // ✅ 여기!
+        })
+      );
 
       // 서버 API 호출
       await axios.post(

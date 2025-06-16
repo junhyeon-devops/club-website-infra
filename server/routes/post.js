@@ -6,6 +6,7 @@ const router = express.Router();
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
+const authenticateToken = require('../middleware/auth');
 
 function authOrSession(req, res, next) {
     if (req.user) return next();
@@ -91,6 +92,48 @@ router.get('/:id', authOrSession, async (req, res) => {
     });
 });
 
+router.delete('/:id', authenticateToken, async (req, res) => {
+  const postId = req.params.id;
+  const userId = req.user.id;
+
+  try {
+    // 작성자 확인
+    const [rows] = await db.execute('SELECT * FROM posts WHERE id = ?', [postId]);
+    if (rows.length === 0) return res.status(404).json({ message: '게시글 없음' });
+    if (rows[0].user_id !== userId) return res.status(403).json({ message: '권한 없음' });
+
+    // DB에서 삭제
+    await db.execute('DELETE FROM posts WHERE id = ?', [postId]);
+
+    res.json({ message: '삭제 완료' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: '삭제 중 오류 발생' });
+  }
+});
+
+router.put('/:id', authenticateToken, async (req, res) => {
+  const postId = req.params.id;
+  const userId = req.user.id;
+  const { title, body, category } = req.body;
+
+  try {
+    const [rows] = await db.execute('SELECT * FROM posts WHERE id = ?', [postId]);
+    if (rows.length === 0) return res.status(404).json({ message: '게시글 없음' });
+    if (rows[0].user_id !== userId) return res.status(403).json({ message: '수정 권한 없음' });
+
+    await db.execute(
+      `UPDATE posts SET title = ?, body = ?, category = ?, updated_at = NOW() WHERE id = ?`,
+      [title, body, category, postId]
+    );
+
+    res.json({ message: '수정 완료' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: '수정 중 오류 발생' });
+  }
+});
+
 
 router.patch('/:id', async (req, res) => {
     const { title, body, category } = req.body;
@@ -103,7 +146,7 @@ router.patch('/:id', async (req, res) => {
     res.sendStatus(204);
 });
 
-router.post('/', upload.array('images'), async (req, res) => {
+router.post('/', authenticateToken, upload.array('images'), async (req, res) => {
     console.log('업로드 요청 파일들:', req.files);
     let images = [];
     if (req.files && req.files.length) {
@@ -159,11 +202,11 @@ router.post('/', upload.array('images'), async (req, res) => {
 // POST /api/posts/:id/comments
 
 const auth = require('../middleware/auth');
-const authenticateToken = require('../middleware/auth');
 
 // router.use(auth);
 
-router.post('/:id/comments', async (req, res) => {
+router.post('/:id/comments', authenticateToken, async (req, res) => {
+    const userId = req.user?.id;
     const { text } = req.body;
     if (!text) return res.status(400).json({ message: '댓글이 비어있습니다.' });
 

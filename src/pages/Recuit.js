@@ -23,6 +23,11 @@ function Recuit() {
   const [selectedCategory, setSelectedCategory] = useState(categoryFromQuery || '전체');
 
   useEffect(() => {
+    const categoryFromQuery = searchParams.get('category') || '전체';
+    setSelectedCategory(categoryFromQuery);
+  }, [searchParams]);
+
+  useEffect(() => {
     async function loadPosts() {
       try {
         const res = await axios.get('/api/posts', { withCredentials: true });

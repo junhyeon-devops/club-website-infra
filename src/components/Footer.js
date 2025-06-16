@@ -47,6 +47,7 @@ const styles = {
     color: '#fff',
     padding: '20px 10px',
     fontSize: '14px',
+    marginTop: 'auto'
   },
   container: {
     maxWidth: '1400px',

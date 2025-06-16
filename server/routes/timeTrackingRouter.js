@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); 
+const db = require('../db');
 const authenticateToken = require('../middleware/auth');
 
 router.post('/time-tracking', authenticateToken, async (req, res) => {
   const userId = req.user.id;
-  const { taskName, elapsed } = req.body; 
+  const { taskName, elapsed } = req.body;
 
   await db.execute(`
     INSERT INTO time_tracking 

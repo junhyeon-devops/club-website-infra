@@ -3,13 +3,15 @@ ul {
   line-height: 1.6;
   font-size: 0.95rem;
 }
+
 .pdalist {
-  max-width: 600px;    /* 너비 최대 600px 제한 */
+  max-width: 600px;
   width: 100%;
   margin-left: 8vw;
   padding: 0;
-  text-align: left;     /* 내부 항목은 왼쪽 정렬 유지 */
+  text-align: left;
 }
+
 .pdaitem {
   display: flex;
   align-items: baseline;
@@ -36,21 +38,21 @@ ul {
   line-height: 1.4;
 }
 
-/* 기존 ul, pdalist, pdaitem 등 유지 */
+
 
 .PDA {
-  text-align: center; /* 기존 */
+  text-align: center;
   display: flex;
   flex-direction: column;
-  align-items: center; /* 중앙 정렬 */
+  align-items: center;
 }
 
 .mainintro-heading {
   margin-top: 2rem;
-  margin-bottom: 1.5rem; /* 제목 간 간격 조정 */
+  margin-bottom: 1.5rem;
 }
 
-/* PDA 리스트 요소 최대 너비 지정 */
+
 .pdalist {
   max-width: 600px;
   width: 100%;

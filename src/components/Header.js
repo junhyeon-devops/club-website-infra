@@ -1,4 +1,3 @@
-// src/components/Header.js
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
@@ -46,7 +45,7 @@ function Header() {
 
   const handleLogout = async (e) => {
     e.preventDefault();
-    await logout();       // AuthContext에서 isLogged = false로 변경
+    await logout();
     navigate('/', { replace: true });
   };
 

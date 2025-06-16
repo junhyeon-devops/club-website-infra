@@ -6,7 +6,7 @@ import './Calendaradd.css';
 
 registerLocale('ko', ko);
 
-// ✅ 버튼처럼 보이는 날짜 선택용 커스텀 컴포넌트
+
 const DateButton = React.forwardRef(({ value, onClick }, ref) => (
   <div className="datepicker-button" onClick={onClick} ref={ref}>
     {value || '날짜 선택'}

@@ -1,4 +1,4 @@
-/* 배경 오버레이 */
+ 
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -12,7 +12,7 @@
   z-index: 1000;
 }
 
-/* 모달 박스 */
+ 
 .modal-content {
   background-color: #fff;
   padding: 32px 24px;
@@ -24,7 +24,7 @@
   box-sizing: border-box;
 }
 
-/* 닫기 버튼 */
+ 
 .close-button {
   position: absolute;
   top: 16px;
@@ -38,7 +38,7 @@
   color: #222;
 }
 
-/* 제목 중앙 정렬 */
+ 
 .modal-title {
   text-align: center;
   font-size: 20px;
@@ -46,14 +46,14 @@
   margin: 0 0 24px 0;
 }
 
-/* 폼 */
+ 
 .modal-content form {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-/* 입력창 */
+ 
 .modal-content input {
   width: 100%;
   box-sizing: border-box;
@@ -69,7 +69,7 @@
   box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
 }
 
-/* 추가 버튼 */
+ 
 .modal-content button[type="submit"] {
   width: 100%;
   box-sizing: border-box;

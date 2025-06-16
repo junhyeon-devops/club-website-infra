@@ -44,25 +44,25 @@ function useFadeInOnScroll() {
 }
 
 function Member() {
-  // ✅ 훅 직접 선언 (map 안 X)
+
   const fadeRef0 = useFadeInOnScroll();
   const fadeRef1 = useFadeInOnScroll();
 
-  const headRef0 = useFadeInOnScroll(); // 학술부
+  const headRef0 = useFadeInOnScroll();
   const staffRef00 = useFadeInOnScroll();
 
-  const headRef1 = useFadeInOnScroll(); // 총무부
+  const headRef1 = useFadeInOnScroll();
   const staffRef10 = useFadeInOnScroll();
 
-  const headRef2 = useFadeInOnScroll(); // 홍보부
+  const headRef2 = useFadeInOnScroll();
   const staffRef20 = useFadeInOnScroll();
 
   return (
     <>
-      <IntroTop title="소개" 
-      subtitle="동아리 현 임원들을 소개합니다." 
-      backgroundImage="/cbnu_img.jpg"
-    />
+      <IntroTop title="소개"
+        subtitle="동아리 현 임원들을 소개합니다."
+        backgroundImage="/cbnu_img.jpg"
+      />
 
       <section style={{ width: '100%', backgroundColor: '#fff', padding: '60px 0' }}>
         <div className="member-container" style={{ maxWidth: '1000px', margin: '0 auto', padding: '0 2rem' }}>
@@ -94,7 +94,7 @@ function Member() {
             </div>
           </div>
 
-          {/* 학술부 */}
+
           <div className="section">
             <h3>학술부</h3>
             <p>{executives.학술부.desc}</p>
@@ -125,7 +125,7 @@ function Member() {
             </div>
           </div>
 
-          {/* 총무부 */}
+
           <div className="section">
             <h3>총무부</h3>
             <p>{executives.총무부.desc}</p>
@@ -156,7 +156,7 @@ function Member() {
             </div>
           </div>
 
-          {/* 홍보부 */}
+
           <div className="section">
             <h3>홍보부</h3>
             <p>{executives.홍보부.desc}</p>

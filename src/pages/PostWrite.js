@@ -1,4 +1,4 @@
-// src/pages/PostWrite.jsx
+
 import React, { useState, useMemo, useRef, useCallback } from 'react';
 import axios from 'axios';
 import ReactQuill from 'react-quill-new';
@@ -10,7 +10,7 @@ import ImageUploader from 'quill2-image-uploader';
 import { useNavigate } from 'react-router-dom';
 import './PostWrite.css';
 
-// 🧩 Quill 전역 등록
+
 Quill.register({ 'formats/image': ImageFormat });
 Quill.register('modules/imageUploader', ImageUploader);
 
@@ -27,7 +27,7 @@ function PostWrite() {
   const [dragOver, setDragOver] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  // 📌 드래그앤드롭 핸들러들
+
   const onDrop = useCallback(e => {
     e.preventDefault();
     const dropped = Array.from(e.dataTransfer.files);
@@ -44,20 +44,20 @@ function PostWrite() {
     setDragOver(false);
   }, []);
 
-  // 🧰 Cloudinary REST 업로드 함수
+
   async function uploadToCloudinary(file) {
     const form = new FormData();
     form.append('file', file);
-    form.append('upload_preset', 'post_app_unsigned'); // ← 수정
+    form.append('upload_preset', 'post_app_unsigned');
     const resp = await fetch(
-      'https://api.cloudinary.com/v1_1/dpal8wysp/upload', // ← 수정
+      'https://api.cloudinary.com/v1_1/dpal8wysp/upload',
       { method: 'POST', body: form }
     );
     const data = await resp.json();
     return data.secure_url;
   }
 
-  // 📤 제출 시 업로드 + API 호출
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -69,18 +69,18 @@ function PostWrite() {
 
     setSubmitting(true);
     try {
-      // 이미지 업로드
+
       const imageUrls = await Promise.all(
         files.map(async (file) => {
           const url = await uploadToCloudinary(file);
-          return url.replace('/upload/', '/upload/w_400,h_300,c_fit/'); // ✅ 여기!
+          return url.replace('/upload/', '/upload/w_400,h_300,c_fit/');
         })
       );
 
-      // 서버 API 호출
+
       await axios.post(
         '/api/posts',
-        { title, category, body: content, images: imageUrls }, // 변경된 필드명
+        { title, category, body: content, images: imageUrls },
         { withCredentials: true }
       );
 
@@ -94,10 +94,10 @@ function PostWrite() {
     }
   };
 
-  // 🪶 Quill 에디터 이미지 업로더 설정 (선택적)
+
   const modules = useMemo(() => ({
     toolbar: [['bold', 'italic'], ['image']],
-    imageUploader: { upload: uploadToCloudinary } // 에디터 내 이미지 업로드도 가능
+    imageUploader: { upload: uploadToCloudinary }
   }), []);
 
   const formats = ['bold', 'italic', 'image', 'imageBlot'];
@@ -106,13 +106,13 @@ function PostWrite() {
     <div className="post-write" style={{ minHeight: '100vh' }}>
       <h1>글 작성</h1>
       <form onSubmit={handleSubmit}>
-        {/* 카테고리 */}
+
         <label>카테고리</label>
         <select disabled={submitting} value={category} onChange={e => setCategory(e.target.value)}>
           {CATEGORIES.map(c => <option key={c}>{c}</option>)}
         </select>
 
-        {/* 제목 */}
+
         <label>제목</label>
         <input
           disabled={submitting}
@@ -123,7 +123,7 @@ function PostWrite() {
           onChange={e => setTitle(e.target.value)}
         />
 
-        {/* 본문 */}
+
         <label>본문</label>
         <ReactQuill
           readOnly={submitting}
@@ -135,7 +135,7 @@ function PostWrite() {
           formats={formats}
         />
 
-        {/* 파일 업로드 UI */}
+
         <label>이미지 업로드</label>
         <div
           className={`file-upload-box ${dragOver ? 'drag-over' : ''}`}
@@ -155,7 +155,7 @@ function PostWrite() {
           <label className="file-btn" htmlFor="file-upload">파일 탐색</label>
         </div>
 
-        {/* 업로드 선택된 파일 목록 */}
+
         {files.length > 0 && (
           <ul className="file-list">
             {files.map((file, idx) => (
@@ -171,7 +171,7 @@ function PostWrite() {
           </ul>
         )}
 
-        {/* 제출 */}
+
         <button disabled={submitting} className="submit-btn" type="submit">
           {submitting ? '등록 중...' : '게시하기'}
         </button>

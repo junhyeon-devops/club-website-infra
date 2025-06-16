@@ -46,7 +46,7 @@
   color: #666;
 }
 
-/* ✅ Fade-in animation when scrolled into view */
+ 
 .fade-text {
   opacity: 0;
   transform: translateY(100px);

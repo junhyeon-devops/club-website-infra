@@ -10,11 +10,11 @@ import Calendaradd from './Calendaradd';
 function Calendar({ isAdmin }) {
   const [events, setEvents] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date()); // ✅ 초기값 안전하게
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const calendarRef = useRef(null);
   const [currentTitle, setCurrentTitle] = useState('');
 
-  // 초기 타이틀 설정
+
   useEffect(() => {
     const calendarApi = calendarRef.current?.getApi();
     if (calendarApi) {
@@ -22,19 +22,18 @@ function Calendar({ isAdmin }) {
     }
   }, []);
 
-  // 날짜 클릭 시
   const handleDateClick = (arg) => {
-    setSelectedDate(arg.date); // ✅ Date 객체 직접 전달
+    setSelectedDate(arg.date);
     setModalOpen(true);
   };
 
-  // 일정 저장 시
+
   const handleAddEvent = (newEvent) => {
     setEvents([...events,
     {
       ...newEvent,
       allDay: newEvent.allDay,
-      backgroundColor: newEvent.color, // ✅ FullCalendar에서 색상 표시용
+      backgroundColor: newEvent.color,
       borderColor: newEvent.color
     }]);
   };
@@ -77,13 +76,12 @@ function Calendar({ isAdmin }) {
           events={events}
           headerToolbar={false}
           dateClick={handleDateClick}
-          dayMaxEvents={3} // ✅ 이거 추가
+          dayMaxEvents={3}
           dayCellContent={(arg) => (
             <div className="fc-daygrid-day-number">{arg.date.getDate()}</div>
           )}
         />
 
-        {/* 일정 추가 모달 */}
         <Calendaradd
           isOpen={modalOpen}
           onClose={() => setModalOpen(false)}

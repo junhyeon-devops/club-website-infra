@@ -1,10 +1,9 @@
-// src/pages/GraduationRequirements.jsx
 import React, { useState } from 'react';
-import './Recuit.css'; // 기존 스타일 재활용
+import './Recuit.css';
 import IntroTop from '../components/IntroTop';
 import { FaSearch, FaLink } from 'react-icons/fa';
 
-// 최신 학번이 위로 오도록 배열 정렬 (내림차순)
+
 const requirements = [
   { id: 25, label: '2025학번', url: 'https://software.cbnu.ac.kr/sub0501/671048' },
   { id: 24, label: '2024학번', url: 'https://software.cbnu.ac.kr/sub0501/16401' },

@@ -1,62 +1,63 @@
-/* 일정 테이블 */
-.schedule-table {
-  width: 70vw;
-  border-collapse: collapse;
-  background-color: #ffffff;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  font-family: 'Pretendard', sans-serif;
-}
+ .schedule-table {
+   width: 70vw;
+   border-collapse: collapse;
+   background-color: #ffffff;
+   border-radius: 12px;
+   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+   overflow: hidden;
+   font-family: 'Pretendard', sans-serif;
+ }
 
-.schedule-table th,
-.schedule-table td {
-  padding: 14px 18px;
-  text-align: center;
-  font-size: 14px;
-}
+ .schedule-table th,
+ .schedule-table td {
+   padding: 14px 18px;
+   text-align: center;
+   font-size: 14px;
+ }
 
-.schedule-table th {
-  background-color: #f0f4f8;
-  color: #333;
-  font-weight: 600;
-}
+ .schedule-table th {
+   background-color: #f0f4f8;
+   color: #333;
+   font-weight: 600;
+ }
 
-.schedule-table td {
-  color: #444;
-  border-top: 1px solid #eee;
-}
+ .schedule-table td {
+   color: #444;
+   border-top: 1px solid #eee;
+ }
 
-.schedule-table tr:hover {
-  background-color: #f9f9f9;
-}
+ .schedule-table tr:hover {
+   background-color: #f9f9f9;
+ }
 
-/* 체크 버튼 */
-.check-btn {
-  background-color: #e0f0ff;
-  color: #0077cc;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.check-btn:hover {
-  background-color: #cce4ff;
-}
 
-/* 집중 모드 버튼 */
-.focus-btn {
-  background-color: #dfffe2;
-  color: #2c7a4b;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.focus-btn:hover {
-  background-color: #c6f5cb;
-}
+ .check-btn {
+   background-color: #e0f0ff;
+   color: #0077cc;
+   border: none;
+   padding: 6px 12px;
+   border-radius: 6px;
+   font-weight: 500;
+   cursor: pointer;
+   transition: 0.2s;
+ }
+
+ .check-btn:hover {
+   background-color: #cce4ff;
+ }
+
+
+ .focus-btn {
+   background-color: #dfffe2;
+   color: #2c7a4b;
+   border: none;
+   padding: 6px 12px;
+   border-radius: 6px;
+   font-weight: 500;
+   cursor: pointer;
+   transition: 0.2s;
+ }
+
+ .focus-btn:hover {
+   background-color: #c6f5cb;
+ }

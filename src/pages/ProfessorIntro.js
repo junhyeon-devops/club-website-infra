@@ -11,9 +11,9 @@ function ProfessorIntro() {
         backgroundImage="/cbnu_img.jpg"
       />
 
-      {/* 전체 section은 꽉 차게 */}
+ 
       <section style={{ width: '100%', backgroundColor: '#fff', padding: '60px 0' }}>
-        {/* 본문만 maxWidth 제한 */}
+ 
         <div
           className="container"
           style={{

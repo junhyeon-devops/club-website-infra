@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Recuit.css'; // 기존 스타일 재사용
+import './Recuit.css';
 import { FaSearch, FaLink } from 'react-icons/fa';
 import IntroTop from '../components/IntroTop';
 

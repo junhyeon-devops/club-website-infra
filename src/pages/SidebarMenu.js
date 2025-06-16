@@ -1,6 +1,5 @@
-// src/pages/SidebarMenu.jsx
-import React from 'react';
-import './SidebarMenu.css';
+ import React from 'react';
+
 
 const SidebarMenu = ({ setFilter, filter }) => {
   return (

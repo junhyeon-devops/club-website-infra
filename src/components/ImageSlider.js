@@ -83,8 +83,8 @@ const styles = {
   wrapper: {
     position: 'relative',
     width: '100%',
-    height: 'calc(100vh - 70px)', // 헤더 높이만큼 빼기
-    minHeight: '320px', // 모바일 대비 보완
+    height: 'calc(100vh - 70px)',
+    minHeight: '320px',
     overflow: 'hidden',
   },
   swiper: {

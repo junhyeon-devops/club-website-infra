@@ -93,7 +93,6 @@
   line-height: 1.6;
 }
 
-/* Fade-in effect */
 .fade-text {
   opacity: 0;
   transform: translateY(100px);

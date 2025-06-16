@@ -1,4 +1,3 @@
-/* ✅ 전체 캘린더 배경과 글자 설정 */
 .calendar-wrapper {
   background-color: #ffffff;
   color: #000000;
@@ -10,12 +9,13 @@
   margin: 0 auto;
   box-sizing: border-box;
 }
+
 .calendar-page a,
 .fc a {
   text-decoration: none !important;
   color: black !important;
 }
-/* ✅ FullCalendar 구조 및 배경 제거 */
+
 .fc,
 .fc-theme-standard .fc-scrollgrid,
 .fc-theme-standard table,
@@ -31,13 +31,13 @@
   background: transparent !important;
 }
 
-/* 요일 셀 스타일 */
+
 .fc-col-header-cell {
   vertical-align: top;
   padding: 4px 0;
 }
 
-/* 요일 텍스트 스타일 */
+
 .fc-col-header-cell-cushion {
   display: block;
   text-align: center;
@@ -48,7 +48,7 @@
   margin: 0;
 }
 
-/* 날짜 셀 구조 */
+
 .fc-daygrid-day-frame {
   display: flex;
   flex-direction: column;
@@ -57,7 +57,7 @@
   padding-top: 2px;
 }
 
-/* 날짜 숫자 스타일 */
+
 .fc-daygrid-day-number {
   display: block;
   font-size: 15px;
@@ -68,12 +68,12 @@
   margin: 0;
 }
 
-/* 다음/이전 달 날짜 흐리게 */
+
 .fc-day-other .fc-daygrid-day-number {
   color: #555555;
 }
 
-/* ✅ 커스텀 헤더 (‹ 제목 › 구조) */
+
 .custom-toolbar {
   display: flex;
   justify-content: center;

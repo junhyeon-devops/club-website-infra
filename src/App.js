@@ -1,4 +1,4 @@
-// src/App.js
+
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -30,7 +30,7 @@ import GraduationRequirements from './pages/GraduationRequirement';
 import '@fontsource/share-tech-mono';
 
 
-// ✅ PrivateRoute 정의
+
 function PrivateRoute({ children }) {
   const { isLogged, loading } = useAuth();
   const loc = useLocation();
@@ -60,7 +60,7 @@ function App() {
               />
               <Route path="/login" element={<Login />} />
 
-              {/* 인증이 필요하지 않은 소개 페이지 */}
+
               <Route path="/intro/professors" element={<ProfessorIntro />} />
               <Route path="/intro/clubintro" element={<ClubIntro />} />
               <Route path="/intro/staff" element={<Staff />} />
@@ -69,7 +69,7 @@ function App() {
               <Route path="/resources/learning" element={<LearningResources />} />
               <Route path="/resources/graduation" element={<GraduationRequirements />} />
 
-              {/* 인증 필요 페이지 */}
+
               <Route
                 path="/schedule/schedulelist"
                 element={
@@ -100,7 +100,7 @@ function App() {
                 }
               />
 
-              {/* 그 외 모든 경로는 홈으로 */}
+
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>

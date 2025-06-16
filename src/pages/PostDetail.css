@@ -6,7 +6,7 @@
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-/* 🔹 게시글 박스 */
+
 .content-box {
   border: 1px solid #ddd;
   padding: 16px;
@@ -16,7 +16,7 @@
   width: 800px;
 }
 
-/* 🔹 content-box 안쪽: 제목 + 작성자/조회수/좋아요 */
+
 .post-header-inside {
   display: flex;
   justify-content: space-between;
@@ -24,7 +24,7 @@
   margin-bottom: 12px;
 }
 
-/* 🔹 왼쪽: 카테고리 + 제목 */
+
 .post-title-left {
   display: flex;
   align-items: center;
@@ -33,11 +33,11 @@
 
 .post-title-left h2 {
   margin: 0;
-  font-size: 1.2rem; /* ✅ 본문 박스 내부이므로 조금 작게 */
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
-/* 🔹 카테고리 배지 */
+
 .post-detail .category,
 .category {
   background: #fef4d4;
@@ -48,7 +48,7 @@
   white-space: nowrap;
 }
 
-/* 🔹 오른쪽: 작성자 + 메타 정보 */
+
 .post-meta-right {
   display: flex;
   align-items: center;
@@ -57,7 +57,7 @@
   color: #555;
 }
 
-/* 🔹 아이콘 스타일 */
+
 .eye-icon,
 .heart-icon {
   color: #777;
@@ -69,52 +69,51 @@
   color: #e74c3c;
 }
 
-/* 🔹 구분선 */
+
 .post-divider {
   border: none;
   border-top: 1px solid #ccc;
   margin: 12px 0;
 }
 
-/* 🔹 본문 내용 */
+
 .content-box .content {
   line-height: 1.6;
   font-size: 15px;
   color: #333;
 }
+
 .post-image {
   margin-top: 12px;
   max-width: 100%;
   border-radius: 8px;
 }
 
-/* 🔹 목록 버튼 */
+
 .back-button {
-    background-color: #ffffff;
-    color: #333;
-    border: 1px solid #ccc;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    margin-top: 0px;
-    margin-bottom: 20px;
-    margin-right: 5px;
-    transition: background-color 0.2s, color 0.2s;
+  background-color: #ffffff;
+  color: #333;
+  border: 1px solid #ccc;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  margin-right: 5px;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .back-button:hover {
-    background-color: #dce3ff;
-    color: #1c3d8c;
+  background-color: #dce3ff;
+  color: #1c3d8c;
 }
 
-/* 🔹 댓글 wrapper (입력 + 리스트 포함) */
 .comments-wrapper {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
-/* ✅ 댓글 입력 박스 */
 .comment-input-wrapper {
   padding: 12px;
   border: 1px solid #ccc;
@@ -129,15 +128,15 @@
   background-color: #fafafa;
   padding: 12px;
 }
-/* 🔹 댓글 입력 영역 */
+
 .comments-section {
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 
-/* 입력창은 100% */
+
 .comment-input {
   width: 100%;
   min-height: 40px;
@@ -148,7 +147,7 @@
   resize: none;
   box-sizing: border-box;
 }
-/* 등록 버튼 */
+
 .add-comment {
   background-color: #3066ec;
   color: white;
@@ -158,19 +157,19 @@
   font-size: 14px;
   cursor: pointer;
 }
-/* 🔹 클릭 시 확장 */
+
 .comment-input.active {
-    position: relative;
-    min-height: 90px;
-    border-color: #3066ec;
+  position: relative;
+  min-height: 90px;
+  border-color: #3066ec;
 }
 
 .comment-input::placeholder {
-    padding: 7px;
-    color: #888;
-    font-size: 12px;
-    font-style: normal;
-    line-height: 1.5;
+  padding: 7px;
+  color: #888;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1.5;
 }
 
 .comment-footer {
@@ -189,43 +188,42 @@
 
 
 
-/* 🔹 댓글 목록 */
+
 .comment-list-section {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .comments-list {
-    list-style: none;
-    padding: 0;
-    margin-top: 16px;
+  list-style: none;
+  padding: 0;
+  margin-top: 16px;
 }
 
 .comment {
-    margin-bottom: 16px;
-    padding: 10px 14px;
-    border: 1px solid #eee;
-    border-radius: 6px;
-    background-color: #f9f9f9;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  background-color: #f9f9f9;
 }
 
 .comment-header {
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 4px;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 4px;
 }
 
 .comment-text {
-    margin: 0;
-    font-size: 1rem;
+  margin: 0;
+  font-size: 1rem;
 }
 
-/* 🔹 댓글 없음 안내 */
 .no-comments-block {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 120px;
-    text-align: center;
-    font-size: 15px;
-    color: #777;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  text-align: center;
+  font-size: 15px;
+  color: #777;
 }

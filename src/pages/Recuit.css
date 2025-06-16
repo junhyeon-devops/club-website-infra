@@ -6,7 +6,7 @@
   font-family: 'Noto Sans KR', sans-serif;
 }
 
-/* 탭과 검색창을 감싸는 상위 영역 */
+ 
 .top-bar {
   display: flex;
   align-items: center;
@@ -66,7 +66,7 @@
   transform: scale(1.01);
 }
 
-/* ✅ 한 줄 정렬 */
+ 
 .post-line {
   display: flex;
   justify-content: space-between;
@@ -130,10 +130,10 @@
   font-weight: bold;
 }
 .post-card {
-  text-decoration: none;  /* 밑줄 제거 */
-  color: inherit;         /* 부모 색상 상속 */
+  text-decoration: none;   
+  color: inherit;        
 }
-/* 글쓰기 버튼 스타일 */
+ 
 .write-button {
   display: inline-block;
   margin-bottom: 12px;

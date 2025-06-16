@@ -1,4 +1,4 @@
-// src/pages/PostDetail.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -34,7 +34,7 @@ function PostDetail() {
         setLiked(p.liked);
         setViews(p.views);
         setComments(Array.isArray(p.comments) ? p.comments : []);
-        // setLiked(p.liked || false); // backend에서 제공하는 flag
+
       })
       .catch(err => setError(err))
       .finally(() => setLoading(false));
@@ -46,7 +46,7 @@ function PostDetail() {
     try {
       await axios.delete(`/api/posts/${id}`, { withCredentials: true });
       alert('삭제되었습니다.');
-      navigate('/community/recuit'); // 목록 페이지 등으로 이동
+      navigate('/community/recuit');
     } catch (err) {
       console.error(err);
       alert('삭제 중 오류 발생');

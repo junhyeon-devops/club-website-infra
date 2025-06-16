@@ -1,114 +1,118 @@
-/* 전체 레이아웃 */
-.schedule-layout {
-  display: flex;
-  min-height: 100vh;
-}
+ .schedule-layout {
+   display: flex;
+   min-height: 100vh;
+ }
 
-/* 왼쪽 사이드바 */
-.sidebar {
-  width: 15vw;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-right: 1px solid #ddd;
-}
-.sidebar-header {
-  margin-bottom: 20px;
-}
 
-/* 사이드바 안에 있는 버튼 전용 스타일 */
-.sidebar .add-button.sidebar-add-button {
-  width: 100%;
-  margin-bottom: 20px;
-  background-color: #f9f9f9;    /* 사이드바와 동일 배경 */
-  color: #333;                  /* 어두운 글씨 */
-  border: 1px solid #999;       /* 짙은 회색 테두리 */
-  box-shadow: none;             /* 그림자 제거 */
-}
+ .sidebar {
+   width: 15vw;
+   padding: 20px;
+   background-color: #f9f9f9;
+   border-right: 1px solid #ddd;
+ }
 
-.sidebar .add-button.sidebar-add-button:hover {
-  background-color: #e0e0e0;    /* 살짝 진한 회색 호버 */
-}
+ .sidebar-header {
+   margin-bottom: 20px;
+ }
 
-/* 필터 리스트 */
-.filter-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.filter-list li {
-  padding: 15px;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 15px;
-  color: #333;
-}
-.filter-list li + li {
-  border-top: 1px solid #ddd;
-}
-.filter-list li.active {
-  font-weight: bold;
-  color: #000000;
-}
-.count {
-  font-size: 14px;
-  color: #555;
-}
 
-/* 오른쪽 메인 콘텐츠 */
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 10px;
-}
+ .sidebar .add-button.sidebar-add-button {
+   width: 100%;
+   margin-bottom: 20px;
+   background-color: #f9f9f9;
+   color: #333;
+   border: 1px solid #999;
+   box-shadow: none;
+ }
 
-/* 일정이 없는 경우 */
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 60vh;
-  text-align: center;
-  color: #555;
-  font-family: 'Pretendard', sans-serif;
-}
-.empty-state h3 {
-  font-size: 20px;
-  margin-bottom: 8px;
-  font-weight: bold;
-}
-.empty-state p {
-  font-size: 14px;
-  color: #888;
-}
+ .sidebar .add-button.sidebar-add-button:hover {
+   background-color: #e0e0e0;
+ }
 
-/* 일정 추가 버튼 공통 */
-.add-button {
-  padding: 10px 20px;
-  background-color: #f9f9f9;  
-  color: rgb(22, 22, 22);               /* 흰색 글씨 */
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  font-weight: 500;
-  text-align: center;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.2s ease;
-}
 
-.add-button:hover {
-  background-color: #e0e0e0;
-}
+ .filter-list {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+ }
 
-/* 일정 있는 경우 버튼 wrapper */
-.button-wrapper {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
+ .filter-list li {
+   padding: 15px;
+   cursor: pointer;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   font-size: 15px;
+   color: #333;
+ }
+
+ .filter-list li+li {
+   border-top: 1px solid #ddd;
+ }
+
+ .filter-list li.active {
+   font-weight: bold;
+   color: #000000;
+ }
+
+ .count {
+   font-size: 14px;
+   color: #555;
+ }
+
+ .main-content {
+   flex: 1;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   padding-top: 10px;
+ }
+
+ .empty-state {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   height: 60vh;
+   text-align: center;
+   color: #555;
+   font-family: 'Pretendard', sans-serif;
+ }
+
+ .empty-state h3 {
+   font-size: 20px;
+   margin-bottom: 8px;
+   font-weight: bold;
+ }
+
+ .empty-state p {
+   font-size: 14px;
+   color: #888;
+ }
+
+
+ .add-button {
+   padding: 10px 20px;
+   background-color: #f9f9f9;
+   color: rgb(22, 22, 22);
+   border: none;
+   border-radius: 6px;
+   font-size: 14px;
+   cursor: pointer;
+   font-weight: 500;
+   text-align: center;
+   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+   transition: background-color 0.2s ease;
+ }
+
+ .add-button:hover {
+   background-color: #e0e0e0;
+ }
+
+
+ .button-wrapper {
+   margin-top: 30px;
+   display: flex;
+   justify-content: center;
+   width: 100%;
+ }

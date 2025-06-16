@@ -32,7 +32,6 @@ body {
   height: 50px !important;
 }
 
-/* 🔹 메뉴 아이템 스타일 */
 .nav-item {
   position: relative;
   cursor: pointer;
@@ -41,25 +40,7 @@ body {
   color: white;
 }
 
-/* 🔹 기본 상태에서는 강조선 없음 */
-/* .nav-item::after {
-  content: '';
-  position: absolute;
-  bottom: -12px;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background-color: white;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-} */
 
-/* 🔹 hover 시 강조선 표시 */
-/* .nav-item:hover::after {
-  opacity: 1;
-} */
-
-/* ✅ PC 드롭다운 */
 .mega-dropdown {
   position: absolute;
   top: 70px;
@@ -171,7 +152,6 @@ body {
   background-color: #e6e6e6;
 }
 
-/* 반응형 */
 @media screen and (max-width: 1200px) {
   .nav-item,
   .mega-dropdown {

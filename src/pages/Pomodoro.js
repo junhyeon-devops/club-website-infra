@@ -48,7 +48,7 @@ const Pomodoro = ({ onClose, taskName }) => {
         if (prev <= 1) {
           clearInterval(timerRef.current);
           setIsRunning(false);
-          sendElapsedToDB(); // ⏰ 시간 다 됐을 때 DB 전송
+          sendElapsedToDB(); 
           return 0;
         }
         return prev - 1;
@@ -147,7 +147,7 @@ const Pomodoro = ({ onClose, taskName }) => {
         <span
           className="close-button"
           onClick={() => {
-            if (step === 2) sendElapsedToDB(); // 🔺 X 누를 때 DB 전송
+            if (step === 2) sendElapsedToDB();  
             onClose();
           }}
         >

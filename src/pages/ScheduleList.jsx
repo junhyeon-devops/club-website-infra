@@ -1,6 +1,5 @@
-// src/pages/ScheduleList.jsx
-import React, { useState } from 'react'; // ✅ useState import 추가
-import Pomodoro from './Pomodoro'; // ✅ Pomodoro 경로 주의
+import React, { useState } from 'react';
+import Pomodoro from './Pomodoro';
 import './ScheduleList.css';
 
 const pad = num => String(num).padStart(2, '0');
@@ -40,57 +39,58 @@ const getDday = (deadline) => {
 };
 
 const ScheduleList = ({ schedules, onToggleComplete }) => {
-  const [focusTask, setFocusTask] = useState(null); // ✅ 상태 선언
-  // ✅ deadline 기준 정렬
+  const [focusTask, setFocusTask] = useState(null);
+
   const sortedSchedules = [...schedules]
     .sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
-    .sort(function(a, b) {
-      if(a.completed === b.completed) return 0;
-      if(a.completed) return 1;
+    .sort(function (a, b) {
+      if (a.completed === b.completed) return 0;
+      if (a.completed) return 1;
       return -1;
     });
   console.log('🔹 schedules data:', JSON.stringify(schedules, null, 2));
 
   return (
     <>
-    <table className="schedule-table">
-      <thead>
-        <tr>
-          <th>일정 이름</th>
-          <th>기한</th>
-          <th>D-Day</th>
-          <th>체크</th>
-          <th>집중</th>
-        </tr>
-      </thead>
-      <tbody>
-        {sortedSchedules.map((item) => {
-          const isPast = new Date(item.deadline) <= new Date();
-          return (
-          <tr key={item.id}>
-            <td>{item.name}</td>
-            <td>{formatDeadline(item.deadline)}</td>
-            <td>
-              <span className={getDdayClass(item.deadline)}>
-                {getDday(item.deadline)}
-              </span>
-            </td>
-            <td>
-              <button className="check-btn" onClick={() => onToggleComplete(item.id, item.deadline, item.completed)} disabled={isPast}>
-                {item.completed ? '완료' : '진행 중'}
-              </button>
-            </td>
-            <td>
-              <button className="focus-btn" onClick={() => setFocusTask(item)}>
-                집중모드
-              </button>
-            </td>
+      <table className="schedule-table">
+        <thead>
+          <tr>
+            <th>일정 이름</th>
+            <th>기한</th>
+            <th>D-Day</th>
+            <th>체크</th>
+            <th>집중</th>
           </tr>
-        )})}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {sortedSchedules.map((item) => {
+            const isPast = new Date(item.deadline) <= new Date();
+            return (
+              <tr key={item.id}>
+                <td>{item.name}</td>
+                <td>{formatDeadline(item.deadline)}</td>
+                <td>
+                  <span className={getDdayClass(item.deadline)}>
+                    {getDday(item.deadline)}
+                  </span>
+                </td>
+                <td>
+                  <button className="check-btn" onClick={() => onToggleComplete(item.id, item.deadline, item.completed)} disabled={isPast}>
+                    {item.completed ? '완료' : '진행 중'}
+                  </button>
+                </td>
+                <td>
+                  <button className="focus-btn" onClick={() => setFocusTask(item)}>
+                    집중모드
+                  </button>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
 
-    {focusTask && (
+      {focusTask && (
         <Pomodoro
           taskName={focusTask.name}
           onClose={() => setFocusTask(null)}

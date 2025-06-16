@@ -1,4 +1,4 @@
-// src/pages/PostEdit.jsx
+
 import React, { useEffect, useState, useMemo } from 'react';
 import Quill from 'quill';
 import ImageUploader from 'quill2-image-uploader';
@@ -9,7 +9,7 @@ import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
 import './PostWrite.css';
 
-// 🔧 Quill에 이미지 업로더 등록
+
 Quill.register('modules/imageUploader', ImageUploader);
 Quill.register({ 'formats/image': ImageFormat });
 
@@ -25,7 +25,7 @@ function PostEdit() {
   const [files, setFiles] = useState([]);
   const [submitting, setSubmitting] = useState(false);
 
-  // 🧰 Cloudinary 업로드 함수
+
   async function uploadToCloudinary(file) {
     const form = new FormData();
     form.append('file', file);
@@ -38,7 +38,6 @@ function PostEdit() {
     return data.secure_url.replace('/upload/', '/upload/w_800,h_600,c_fit/');
   }
 
-  // 📥 기존 게시글 불러오기
   useEffect(() => {
     axios.get(`/api/posts/${id}`, { withCredentials: true }).then((res) => {
       setTitle(res.data.title);
@@ -47,7 +46,7 @@ function PostEdit() {
     });
   }, [id]);
 
-  // 📤 게시글 수정 제출
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -78,7 +77,7 @@ function PostEdit() {
     }
   };
 
-  // 🧩 Quill 툴바 및 이미지 업로더 모듈
+
   const modules = useMemo(
     () => ({
       toolbar: [['bold', 'italic'], ['image']],
@@ -93,7 +92,7 @@ function PostEdit() {
     <div className="post-write">
       <h1>게시글 수정</h1>
       <form onSubmit={handleSubmit}>
-        {/* 카테고리 */}
+
         <label>카테고리</label>
         <select value={category} onChange={(e) => setCategory(e.target.value)} disabled={submitting}>
           {CATEGORIES.map((c) => (
@@ -101,7 +100,7 @@ function PostEdit() {
           ))}
         </select>
 
-        {/* 제목 */}
+
         <label>제목</label>
         <input
           value={title}
@@ -111,7 +110,7 @@ function PostEdit() {
           placeholder="제목 (최대 40자)"
         />
 
-        {/* 본문 */}
+
         <label>본문</label>
         <ReactQuill
           theme="snow"
@@ -121,7 +120,7 @@ function PostEdit() {
           readOnly={submitting}
         />
 
-        {/* 이미지 업로드 */}
+
         <label>이미지 업로드</label>
         <input
           type="file"
@@ -146,7 +145,7 @@ function PostEdit() {
           </ul>
         )}
 
-        {/* 제출 */}
+
         <button type="submit" disabled={submitting}>
           {submitting ? '수정 중...' : '수정하기'}
         </button>

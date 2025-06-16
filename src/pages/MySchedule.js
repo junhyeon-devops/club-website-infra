@@ -1,4 +1,3 @@
-// src/pages/MySchedule.jsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import IntroTop from '../components/IntroTop';

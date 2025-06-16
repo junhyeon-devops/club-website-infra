@@ -12,7 +12,7 @@
 }
 
 .pomodoro-box {
-  position: relative;  /* ✅ 추가 */
+  position: relative;  
   background: white;
   padding: 40px 50px;
   border-radius: 20px;
@@ -76,7 +76,7 @@
   transition: background-color 0.2s;
 }
 
-/* 닫기 버튼 */
+ 
 .close-button {
   position: absolute;
   top: 16px;

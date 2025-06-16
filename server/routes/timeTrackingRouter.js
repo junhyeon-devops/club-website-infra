@@ -1,12 +1,11 @@
-// routes/timeTrackingRouter.js
 const express = require('express');
 const router = express.Router();
-const db = require('../db'); // mysql2 promise pool
+const db = require('../db'); 
 const authenticateToken = require('../middleware/auth');
 
 router.post('/time-tracking', authenticateToken, async (req, res) => {
   const userId = req.user.id;
-  const { taskName, elapsed } = req.body; // 예: "12:34"
+  const { taskName, elapsed } = req.body; 
 
   await db.execute(`
     INSERT INTO time_tracking 
@@ -17,7 +16,6 @@ router.post('/time-tracking', authenticateToken, async (req, res) => {
   res.sendStatus(201);
 });
 
-// 사용자 전체 집중시간 누적 조회
 router.get('/', authenticateToken, async (req, res) => {
   const userId = req.user.id;
 

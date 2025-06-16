@@ -7,14 +7,13 @@ const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 if (!JWT_SECRET) {
-  throw new Error("❌ JWT_SECRET이 설정되어 있지 않습니다. .env 파일을 확인해주세요.");
+  throw new Error("JWT_SECRET이 설정되어 있지 않습니다. .env 파일을 확인해주세요.");
 }
 
 router.post("/", async (req, res) => {
   const { username, password, name, studentId, grade, email } = req.body;
 
   try {
-    // 아이디 중복 확인
     const [existing] = await db.execute(
       "SELECT * FROM users WHERE username = ?",
       [username]
@@ -23,10 +22,8 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ message: "이미 존재하는 아이디입니다." });
     }
 
-    // 비밀번호 해싱
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // DB 삽입
     const [result] = await db.execute(
       `INSERT INTO users (username, password, name, student_id, grade, email)
        VALUES (?, ?, ?, ?, ?, ?)`,
@@ -35,14 +32,12 @@ router.post("/", async (req, res) => {
 
     const userId = result.insertId;
 
-    // JWT 토큰 발급
     const token = jwt.sign(
       { id: userId, username },
       JWT_SECRET,
       { expiresIn: "1h" }
     );
 
-    // 쿠키 설정
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",

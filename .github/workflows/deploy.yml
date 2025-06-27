@@ -25,8 +25,16 @@ jobs:
           script: |
             cd ~/club-website-infra
             git pull origin main
+            
+            echo "기존 build 폴더 제거"
+            rm -rf build
+
+            echo "압축 해제"
             tar -xzf build.tar.gz
+
+            echo "압축 파일 제거"
             rm -f build.tar.gz
+
             docker compose pull
             docker compose up -d
 

@@ -31,4 +31,10 @@ jobs:
           file: ./Dockerfile.frontend
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/club-frontend:latest
+      - name: Build React App
+        run: |
+          npm install
+          npm run build
 
+      - name: Archive build folder
+        run: tar -czf build.tar.gz build

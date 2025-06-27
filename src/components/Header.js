@@ -4,11 +4,9 @@ import { FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
 import './Header.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { none } from '@cloudinary/url-gen/qualifiers/fontHinting';
 
 function Header() {
   const [showDropdown, setShowDropdown] = useState(false);
-  const [hoveredTab, setHoveredTab] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 1200);
 
@@ -61,12 +59,11 @@ function Header() {
 
   useEffect(() => {
     setShowDropdown(false);
-    setHoveredTab(null);
   }, [location.pathname]);
 
   return (
     <div className="header-wrapper">
-      <nav className="main-nav" onMouseLeave={() => { setShowDropdown(false); setHoveredTab(null); }}>
+      <nav className="main-nav" onMouseLeave={() => { setShowDropdown(false);}}>
         <div className="container-fluid text-white py-2">
           <div className="row align-items-center text-center">
             <div className="col-2 d-flex align-items-center justify-content-start ps-3">
@@ -89,7 +86,6 @@ function Header() {
                   key={tab}
                   className="col-1 nav-item"
                   onMouseEnter={() => {
-                    setHoveredTab(tab);
                     setShowDropdown(true);
                   }}
                 >

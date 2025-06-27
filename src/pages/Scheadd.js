@@ -6,7 +6,7 @@ import './Scheadd.css';
 const Scheadd = ({ isOpen, onClose }) => {
   const [name, setName] = useState('');
   const [deadline, setDeadline] = useState('');
-
+  const [important] = useState(false);
   const handleSave = async (e) => {
     e.preventDefault();
     try {

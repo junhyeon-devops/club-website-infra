@@ -1,8 +1,10 @@
 name: Deploy to EC2
 
 on:
-  workflow_dispatch:
-    types: [deploy-now]
+  workflow_run:
+    workflows: ["Build Docker Images"]
+    types:
+      - completed
 
 jobs:
   deploy:

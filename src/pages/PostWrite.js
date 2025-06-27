@@ -5,7 +5,6 @@ import ReactQuill from 'react-quill-new';
 import Quill from 'quill';
 import 'quill/dist/quill.snow.css';
 import ImageFormat from 'quill/formats/image';
-import ImageBlot from 'quill/formats/image';
 import ImageUploader from 'quill2-image-uploader';
 import { useNavigate } from 'react-router-dom';
 import './PostWrite.css';

@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
+    image: jhhyeony/club-frontend  # ✅ GitHub Actions에서 만든 이미지
     container_name: react-frontend
     ports:
       - "3000:80"

@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: react-frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - express-server
+
+  nginx:
+    image: nginx:alpine
+    container_name: react-static
+    ports:
+      - "80:80"
+    volumes:
+      - ./build:/usr/share/nginx/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - express-server
+
+  express-server:
+    image: jhhyeony/club-backend  # ✅ GitHub Actions에서 만든 이미지
+    container_name: express-server
+    env_file:
+      - .env.production
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    env_file:
+      - .env.production
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    command:
+      --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:

@@ -28,6 +28,7 @@ import PostEdit from "./pages/PostEdit";
 import LearningResources from './pages/LearningResources';
 import GraduationRequirements from './pages/GraduationRequirement';
 import '@fontsource/share-tech-mono';
+import ScrollToTop from "./components/ScrollToTop";
 
 
 
@@ -43,11 +44,10 @@ function App() {
   return (
     <Router>
       <AuthProvider>
+        <ScrollToTop />
         <Header />
         <div className="page-wrapper">
           <main className="page-content">
-
-
             <Routes>
               <Route
                 path="/"
@@ -59,8 +59,6 @@ function App() {
                 }
               />
               <Route path="/login" element={<Login />} />
-
-
               <Route path="/intro/professors" element={<ProfessorIntro />} />
               <Route path="/intro/clubintro" element={<ClubIntro />} />
               <Route path="/intro/staff" element={<Staff />} />
@@ -68,7 +66,6 @@ function App() {
               <Route path="/post/:id" element={<PostDetail />} />
               <Route path="/resources/learning" element={<LearningResources />} />
               <Route path="/resources/graduation" element={<GraduationRequirements />} />
-
 
               <Route
                 path="/schedule/schedulelist"
@@ -99,9 +96,8 @@ function App() {
                   </PrivateRoute>
                 }
               />
-
-
               <Route path="*" element={<Navigate to="/" replace />} />
+
             </Routes>
           </main>
           <Footer />

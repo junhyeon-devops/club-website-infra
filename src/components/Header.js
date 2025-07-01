@@ -112,13 +112,13 @@ function Header() {
 
             <div className="col-1 text-end pe-3 login-btn">
               {isLogged ? (
-                <Link to="#" onClick={handleLogout} className="text-white text-decoration-none">
-                  <FaSignOutAlt style={{ marginRight: 4, textDecoration: 'none' }} />
+                <Link to="#" style={{marginRight: 8}} onClick={handleLogout} className="text-white text-decoration-none">
+                  <FaSignOutAlt style={{ marginRight: 5, marginBottom: 3.5, textDecoration: 'none' }} />
                   로그아웃
                 </Link>
               ) : (
-                <Link to="/login" onClick={handleLoginClick} className="text-white text-decoration-none">
-                  <FaSignInAlt />
+                <Link to="/login" style={{marginRight: 8}} onClick={handleLoginClick} className="text-white text-decoration-none">
+                  <FaSignInAlt style={{ marginRight: 5, marginBottom: 3.5, textDecoration: 'none' }} />
                   로그인
                 </Link>
               )}

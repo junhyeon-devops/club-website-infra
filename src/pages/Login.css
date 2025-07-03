@@ -4,6 +4,11 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
+h2 {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
 .login-container {
     display: flex;
     justify-content: center;

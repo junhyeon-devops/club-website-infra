@@ -63,8 +63,7 @@
   margin: 30px 0;
 }
 
-.controls button,
-.close-btn {
+.controls button {
   margin: 8px;
   padding: 10px 24px;
   font-size: 1em;

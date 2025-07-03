@@ -110,7 +110,7 @@ const Login = () => {
       {showSignup && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <h2>회원가입</h2>
+            <h2>PDA 회원가입</h2>
 
             <input name="username" placeholder="아이디" value={form.username} onChange={handleSignupChange} />
             <input name="password" type="password" placeholder="비밀번호" value={form.password} onChange={handleSignupChange} />

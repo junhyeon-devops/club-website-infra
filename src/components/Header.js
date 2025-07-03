@@ -63,7 +63,7 @@ function Header() {
 
   return (
     <div className="header-wrapper">
-      <nav className="main-nav" onMouseLeave={() => { setShowDropdown(false);}}>
+      <nav className="main-nav" onMouseLeave={() => { setShowDropdown(false); }}>
         <div className="container-fluid text-white py-2">
           <div className="row align-items-center text-center">
             <div className="col-2 d-flex align-items-center justify-content-start ps-3">
@@ -112,12 +112,12 @@ function Header() {
 
             <div className="col-1 text-end pe-3 login-btn">
               {isLogged ? (
-                <Link to="#" style={{marginRight: 8}} onClick={handleLogout} className="text-white text-decoration-none">
+                <Link to="#" style={{ marginRight: 8 }} onClick={handleLogout} className="text-white text-decoration-none">
                   <FaSignOutAlt style={{ marginRight: 5, marginBottom: 3.5, textDecoration: 'none' }} />
                   로그아웃
                 </Link>
               ) : (
-                <Link to="/login" style={{marginRight: 8}} onClick={handleLoginClick} className="text-white text-decoration-none">
+                <Link to="/login" style={{ marginRight: 8 }} onClick={handleLoginClick} className="text-white text-decoration-none">
                   <FaSignInAlt style={{ marginRight: 5, marginBottom: 3.5, textDecoration: 'none' }} />
                   로그인
                 </Link>

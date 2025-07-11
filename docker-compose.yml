@@ -22,6 +22,8 @@ services:
     restart: always
     depends_on:
       - mysql
+    networks:
+      - reverse-net
 
   mysql:
     image: mysql:8.0
@@ -39,6 +41,8 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASS}
     volumes:
       - mysql-data:/var/lib/mysql
+    networks:
+      - reverse-net
 
 volumes:
   mysql-data:

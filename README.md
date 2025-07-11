@@ -136,8 +136,6 @@ docker-compose up -d --build
 
 <br/>
 
-https://pda.cbnu.ac.kr
-
 ## 🪪 라이선스
 
 MIT License

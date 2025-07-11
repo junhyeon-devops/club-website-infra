@@ -9,6 +9,8 @@ services:
     restart: always
     depends_on:
       - express-server
+    networks:
+      - reverse-net
 
   express-server:
     image: jhhyeony/club-backend  # ✅ Express 서버 이미지
@@ -42,4 +44,8 @@ volumes:
   mysql-data:
     external: true
     name: pda_website_mysql-data
+
+networks:
+  reverse-net:
+    external: true
 

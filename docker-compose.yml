@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   frontend:
-    image: jhhyeony/club-frontend  # ✅ React 정적 파일 포함된 nginx 이미지
+    image: jhhyeony/club-frontend
     container_name: club-frontend
     ports:
       - "3000:80"
@@ -13,34 +13,13 @@ services:
       - reverse-net
 
   express-server:
-    image: jhhyeony/club-backend  # ✅ Express 서버 이미지
+    image: jhhyeony/club-backend
     container_name: express-server
     env_file:
       - .env.production
     ports:
       - "5050:5000"
     restart: always
-    depends_on:
-      - mysql
-    networks:
-      - reverse-net
-
-  mysql:
-    image: mysql:8.0
-    env_file:
-      - .env.production
-    restart: unless-stopped
-    ports:
-      - "3306:3306"
-    command:
-      --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
-    environment:
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASS}
-      MYSQL_ROOT_PASSWORD: ${DB_PASS}
-    volumes:
-      - mysql-data:/var/lib/mysql
     networks:
       - reverse-net
 
